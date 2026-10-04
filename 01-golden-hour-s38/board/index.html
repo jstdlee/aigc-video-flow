@@ -1,0 +1,623 @@
+<title>Golden Hour Scene 38</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --ground:#e9ecee; --paper:#f7f8f8; --ink:#15181b; --ink2:#4a5157; --line:#cfd5d9;
+  --amber:#c9781a; --amber-soft:#f2dfc4; --teal:#2c6366; --red:#b8302a;
+  --display:"Big Shoulders Display","Arial Narrow",Impact,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --ground:#101315; --paper:#181c1f; --ink:#e7e4de; --ink2:#a3a9ae; --line:#2d3337;
+  --amber:#e39a3b; --amber-soft:#3a2a15; --teal:#5fa3a6; --red:#e0574f; color-scheme:dark; } }
+:root[data-theme="dark"]{
+  --ground:#101315; --paper:#181c1f; --ink:#e7e4de; --ink2:#a3a9ae; --line:#2d3337;
+  --amber:#e39a3b; --amber-soft:#3a2a15; --teal:#5fa3a6; --red:#e0574f; color-scheme:dark; }
+*{box-sizing:border-box}
+body{background:var(--ground);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.55;padding-inline:16px;padding-block:24px 64px}
+.wrap{max-width:1180px;margin:0 auto;display:grid;gap:40px}
+h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:.01em;text-wrap:balance;margin:0;line-height:1.02;text-transform:uppercase}
+h2{font-size:clamp(28px,4vw,40px)}
+h3{font-size:26px}
+p{margin:0;max-width:68ch}
+.mono,.lbl,dt,figcaption,summary{font-family:var(--mono)}
+.lbl{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink2)}
+a{color:inherit}
+
+/* slate header */
+.slate-head{background:var(--ink);color:var(--paper);border-radius:6px;overflow:hidden}
+.slate-stripes{height:22px;background:repeating-linear-gradient(-45deg,var(--paper) 0 22px,var(--ink) 22px 44px);opacity:.9}
+.slate-body{padding:22px 24px;display:grid;gap:18px}
+.slate-body h1{font-size:clamp(44px,8vw,92px);color:var(--paper)}
+.slate-body h1 span{color:var(--amber)}
+.slate-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:color-mix(in srgb,var(--paper) 25%,transparent);border:1px solid color-mix(in srgb,var(--paper) 25%,transparent)}
+.slate-grid div{background:var(--ink);padding:10px 12px}
+.slate-grid dt{font-size:10px;letter-spacing:.14em;text-transform:uppercase;opacity:.65}
+.slate-grid dd{margin:2px 0 0;font-family:var(--display);font-size:22px;font-weight:600;text-transform:uppercase}
+.logline{font-size:17px;max-width:78ch;color:color-mix(in srgb,var(--paper) 88%,transparent)}
+
+/* timeline */
+.timeline{display:flex;gap:3px;min-width:640px}
+.tl-scroll{overflow-x:auto;padding-bottom:4px}
+.seg{display:grid;gap:2px;text-decoration:none;background:var(--paper);border-top:4px solid var(--amber);padding:8px;min-width:0}
+.seg.slow{border-top-color:var(--teal)}
+.seg b{font-family:var(--display);font-size:22px}
+.seg span{font-size:12px;color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.seg:hover,.seg:focus-visible{background:var(--amber-soft);outline:none}
+.tl-axis{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;color:var(--ink2);min-width:640px;margin-top:4px}
+
+/* sections */
+.block{display:grid;gap:18px}
+.block>header{display:grid;gap:6px}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:18px;display:grid;gap:10px;align-content:start}
+.panel h4{margin:0;font-size:15px;font-weight:600}
+.panel ul{margin:0;padding-left:18px;display:grid;gap:6px}
+.verdict{font-family:var(--display);font-size:30px;font-weight:800;text-transform:uppercase;color:var(--amber);line-height:1}
+.swatches{display:flex;height:34px;border-radius:4px;overflow:hidden;border:1px solid var(--line)}
+.swatches span{display:flex;align-items:flex-end;padding:3px 6px;font-family:var(--mono);font-size:10px;color:#fff}
+.global{background:var(--paper);border-left:4px solid var(--amber);padding:14px 16px;font-family:var(--mono);font-size:13px;line-height:1.6}
+
+/* diagram */
+.diagram{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:12px;overflow-x:auto}
+.diagram svg{display:block;min-width:820px;width:100%;height:auto}
+.diagram text{font-family:var(--body);fill:var(--ink)}
+.diagram .t-mono{font-family:var(--mono);fill:var(--ink2)}
+
+/* shots */
+.shot{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:18px;display:grid;gap:16px;scroll-margin-top:16px}
+.shot-head{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start}
+.slate{display:grid;place-items:center;width:72px;height:72px;background:var(--ink);color:var(--paper);border-radius:4px}
+.slate-k{font-family:var(--mono);font-size:10px;letter-spacing:.16em;opacity:.7;margin-top:8px}
+.slate-v{font-family:var(--display);font-size:40px;font-weight:800;line-height:1;margin-top:-10px}
+.shot-title{display:grid;gap:6px}
+.beat{color:var(--ink2)}
+.specs{grid-column:1/-1;margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.specs div{background:var(--paper);padding:7px 10px}
+.specs .wide{grid-column:span 2}
+.specs dt{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink2)}
+.specs dd{margin:1px 0 0;font-size:14px;font-variant-numeric:tabular-nums}
+.boards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+figure{margin:0;display:grid;gap:6px}
+figure img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:3px;background:var(--line);display:block}
+figcaption{font-size:11px;color:var(--ink2)}
+.keyframe img{aspect-ratio:1920/1088;outline:3px solid var(--teal);outline-offset:-3px}
+.bgp img{outline:2px solid var(--amber);outline-offset:-2px}
+.refrow{display:grid;gap:8px}
+.refs{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.prompt{border-top:1px solid var(--line);padding-top:10px}
+.prompt summary{cursor:pointer;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--teal)}
+.prompt summary:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+.prompt p{margin-top:8px;font-size:14px}
+.library{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+.tools td,.tools th{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+.tools th{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2)}
+.tools{border-collapse:collapse;width:100%;min-width:620px}
+.tbl{overflow-x:auto;background:var(--paper);border:1px solid var(--line);border-radius:6px}
+@media (max-width:720px){ .boards{grid-template-columns:1fr} .specs .wide{grid-column:span 1} .shot-head{grid-template-columns:1fr} }
+@media (prefers-reduced-motion:reduce){ *{scroll-behavior:auto} }
+html{scroll-behavior:smooth}
+</style>
+
+<div class="wrap">
+
+<header class="slate-head">
+  <div class="slate-stripes" aria-hidden="true"></div>
+  <div class="slate-body">
+    <div class="lbl" style="color:inherit;opacity:.7">Scene design board · production slate</div>
+    <h1>Golden Hour <span>· Sc. 38</span></h1>
+    <p class="logline">1997. A stolen Soviet suitcase nuke is armed, and its anti-tamper clock reads 41 minutes. Ex-rally driver <b>Eli Navarro</b> must run it across the valley to the only team that can disarm it. The buyers send their wheelman, <b>Kaz</b>, to take it back. Scene 38: the hunter catches him on the interstate.</p>
+    <dl class="slate-grid">
+      <div><dt>Scene</dt><dd>38 · The Squeeze</dd></div>
+      <div><dt>Length</dt><dd>13.0 s · 312 fr</dd></div>
+      <div><dt>Shots</dt><dd>16</dd></div>
+      <div><dt>Look</dt><dd>1997 · 35mm · 2.39:1</dd></div>
+      <div><dt>Light</dt><dd>Golden hour · sun ahead</dd></div>
+      <div><dt>Pipeline</dt><dd>Clay → keyframe → I2V</dd></div>
+    </dl>
+  </div>
+</header>
+
+<section class="block" aria-labelledby="h-tl">
+  <header><span class="lbl">Scene sections</span><h2 id="h-tl">Sixteen shots, one clock</h2></header>
+  <div class="tl-scroll"><div class="timeline"><a class="seg" href="#shot1" style="flex:1.25"><b>1</b><span>The lid opens</span></a><a class="seg" href="#shot2" style="flex:1.25"><b>2</b><span>Something is coming</span></a><a class="seg" href="#shot3" style="flex:0.75"><b>3</b><span>The hunter in the mirror</span></a><a class="seg" href="#shot4" style="flex:1.0"><b>4</b><span>Boxed in</span></a><a class="seg slow" href="#shot5" style="flex:0.75"><b>5</b><span>The stare</span></a><a class="seg slow" href="#shot6" style="flex:1.0"><b>6</b><span>“Stop or die!”</span></a><a class="seg" href="#shot7" style="flex:0.75"><b>7</b><span>The ram</span></a><a class="seg" href="#shot8" style="flex:0.5"><b>8</b><span>Metal on metal</span></a><a class="seg" href="#shot9" style="flex:0.75"><b>9</b><span>Inches</span></a><a class="seg" href="#shot10" style="flex:0.5"><b>10</b><span>Catch it</span></a><a class="seg" href="#shot11" style="flex:0.5"><b>11</b><span>Kaz grins</span></a><a class="seg" href="#shot12" style="flex:0.5"><b>12</b><span>Eli&#x27;s answer, in his eyes</span></a><a class="seg" href="#shot13" style="flex:0.5"><b>13</b><span>The clock</span></a><a class="seg" href="#shot14" style="flex:0.5"><b>14</b><span>The shifter</span></a><a class="seg" href="#shot15" style="flex:1.5"><b>15</b><span>The squeeze</span></a><a class="seg" href="#shot16" style="flex:1.0"><b>16</b><span>Under the bridge</span></a></div>
+  <div class="tl-axis"><span>00:00</span><span>03:06</span><span>06:12</span><span>09:18</span><span>13:00</span></div></div>
+  <p>Rhythm: the stakes (the lid opens) → threat seen → threat arrives → <b style="color:var(--teal)">the stare + “Stop or die!” (slow motion)</b> → <b style="color:var(--red)">the ram, sparks, inches from a crash</b> → he catches it → Kaz grins → fury in his eyes → <b style="color:var(--red)">the clock jumps to 9:59</b> → the clock → explosion → release. Widths are true to each shot's length.</p>
+</section>
+
+<section class="block" aria-labelledby="h-style">
+  <header><span class="lbl">Film styling</span><h2 id="h-style">1997, shot on 35mm</h2></header>
+  <div class="cols">
+    <div class="panel">
+      <span class="verdict">Late-90s spy thriller</span>
+      <p>The story is set in 1997, the end of the Cold War hangover. Eli's 1970s muscle car is old-school grit; Kaz's brand-new 1990s JDM coupe is street-racer swagger. Traffic, trucks and sedans are 1990s models.</p>
+      <ul>
+        <li>35mm Kodak film stock: fine visible grain, gentle halation, softer contrast, creamy highlights.</li>
+        <li>Anamorphic lenses, oval flare, 2.39:1 framing; practical, real-speed camera-car feel.</li>
+        <li>Motion: real-time 24 fps, 180° shutter. Slow motion only in shots 5–6 (the stare and the shout).</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h4>Light: one key for the whole scene</h4>
+      <ul>
+        <li>Low golden-hour sun <b>ahead</b> of the cars, 3200 K warm key.</li>
+        <li>6500 K sky fill; warm rim light on every car and face.</li>
+        <li>Haze in the hills; long shadows fall back toward camera.</li>
+      </ul>
+      <h4>Colour ratio 60 : 30 : 10</h4>
+      <div class="swatches" aria-label="Colour ratio 60 30 10">
+        <span style="flex:60;background:#9a6a35">60 asphalt + ochre</span>
+        <span style="flex:30;background:#3d4f3c">30 olive-teal + pine</span>
+        <span style="flex:10;background:#b8302a">10 red</span>
+      </div>
+    </div>
+    <div class="panel">
+      <h4>Reference cues</h4>
+      <ul>
+        <li><b>Mood:</b> late-90s practical car-chase cinema: real cars at real speed, smoky dusk, grain you can feel.</li>
+        <li><b>Cutting:</b> hard cuts on action; inserts (the lid, the clock, the shifter) carry the stakes; close-ups carry the faces.</li>
+        <li><b>Avoid:</b> VHS damage, fake scratches, modern digital sharpness, shaky-cam chaos.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="global"><span class="lbl">Global style block · opens every prompt</span><br>1997. Late-90s action thriller shot on 35mm Kodak film stock, anamorphic 2.39:1 lenses with oval flare, fine visible grain, gentle halation, slightly softer contrast, 24 fps real time, 180° shutter. Low golden-hour sun ahead of the cars, 3200 K warm key, warm rim light, smoky haze. Colour ratio 60 % warm asphalt and dry-grass ochre, 30 % olive-teal shadows and pine, 10 % red accent: Kaz&#x27;s coupe and the countdown LED. Right-hand traffic: concrete median on the drivers&#x27; left, guardrail on their right; every vehicle drives forward in its own lane; 1990s traffic.</div>
+</section>
+
+<section class="block" aria-labelledby="h-cons">
+  <header><span class="lbl">Consistency system</span><h2 id="h-cons">How people and places stay the same</h2>
+  <p>Blender owns layout and camera; the asset library owns identity and look. Every keyframe takes both, and passes a written check before it becomes video.</p></header>
+  <div class="diagram">
+    <svg viewBox="0 0 980 300" role="img" aria-label="Consistency pipeline diagram">
+      <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink2)"/></marker></defs>
+      <g stroke="var(--line)" stroke-width="1.5">
+        <rect x="10" y="20" width="210" height="110" rx="6" fill="var(--paper)"/>
+        <rect x="10" y="165" width="210" height="115" rx="6" fill="var(--paper)"/>
+        <rect x="290" y="95" width="200" height="110" rx="6" fill="var(--amber-soft)"/>
+        <rect x="560" y="95" width="180" height="110" rx="6" fill="var(--paper)"/>
+        <rect x="800" y="95" width="170" height="110" rx="6" fill="var(--paper)"/>
+      </g>
+      <text x="24" y="46" font-weight="600" font-size="15">Blender clay previs</text>
+      <text class="t-mono" x="24" y="68" font-size="12">layout · camera · lens</text>
+      <text class="t-mono" x="24" y="86" font-size="12">lanes · facing · seating</text>
+      <text class="t-mono" x="24" y="104" font-size="12">timing (frame count)</text>
+      <text x="24" y="191" font-weight="600" font-size="15">Asset library</text>
+      <text class="t-mono" x="24" y="213" font-size="12">people: body · faces · seated</text>
+      <text class="t-mono" x="24" y="231" font-size="12">objects: cars · props · interiors</text>
+      <text class="t-mono" x="24" y="249" font-size="12">world: map · plates · grade key</text>
+      <text class="t-mono" x="24" y="267" font-size="12">one light key on every sheet</text>
+      <text x="304" y="122" font-weight="600" font-size="15">Keyframe</text>
+      <text class="t-mono" x="304" y="144" font-size="12">GPT Image 2.5 edit</text>
+      <text class="t-mono" x="304" y="162" font-size="12">clay frame + 3–5 sheets</text>
+      <text class="t-mono" x="304" y="180" font-size="12">10-point QA gate</text>
+      <text x="574" y="122" font-weight="600" font-size="15">Shot video</text>
+      <text class="t-mono" x="574" y="144" font-size="12">image-to-video</text>
+      <text class="t-mono" x="574" y="162" font-size="12">H3 local · Kling backup</text>
+      <text class="t-mono" x="574" y="180" font-size="12">start + end frame</text>
+      <text x="814" y="122" font-weight="600" font-size="15">Edit</text>
+      <text class="t-mono" x="814" y="144" font-size="12">conform to clay</text>
+      <text class="t-mono" x="814" y="162" font-size="12">timing (±0 fr)</text>
+      <text class="t-mono" x="814" y="180" font-size="12">grade to key still</text>
+      <g stroke="var(--ink2)" stroke-width="1.6" fill="none" marker-end="url(#ar)">
+        <path d="M220,75 C255,75 255,130 288,135"/>
+        <path d="M220,222 C255,222 255,170 288,165"/>
+        <path d="M490,150 L558,150"/>
+        <path d="M740,150 L798,150"/>
+        <path d="M115,20 C115,4 880,4 885,93" stroke-dasharray="4 4"/>
+      </g>
+      <text class="t-mono" x="430" y="14" font-size="11">clay frame count sets every cut</text>
+      <path d="M390,205 C390,255 330,262 300,262" stroke="var(--red)" stroke-width="1.6" fill="none" marker-end="url(#ar)"/>
+      <text class="t-mono" x="400" y="252" font-size="11" style="fill:var(--red)">fail twice → fix the input, not the seed</text>
+    </svg>
+  </div>
+  <div class="cols">
+    <div class="panel">
+      <h4>People stay consistent because…</h4>
+      <ul>
+        <li>Each actor has 5 sheets: full body, faces, <b>seated in his car</b>, faces under the scene light, and a <b>performance close-up sheet</b> (Kaz’s rage, Eli’s reaction).</li>
+        <li>Seated poses come from the clay rig, so pose and scale match the shots.</li>
+        <li>Every keyframe names its actor and cites his sheets; the video model gets the same sheets.</li>
+        <li>Rules: Eli always drives car A (left-hand drive); Kaz sits on the far side of car B; nobody leaves a car.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h4>The environment stays consistent because…</h4>
+      <ul>
+        <li>The Blender lane map is the single truth for lanes, median side and landmark order.</li>
+        <li>Background plates are made from clay frames, so road geometry cannot drift.</li>
+        <li>One grade key still and one light key for all shots; the sun stays ahead.</li>
+        <li>The same 1990s truck and sedan, and one <b>device sheet</b> (countdown, keypad, rust) in every shot that shows them.</li>
+        <li>After the ram (shot 7), every shot of a car uses its <b>damage sheet</b>: car A caved in at the left rear door, car B crushed at the front-right corner.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="block" aria-labelledby="h-shots">
+  <header><span class="lbl">Sections in detail</span><h2 id="h-shots">Shot by shot</h2>
+  <p>Storyboard = the clay start and end frames. Background = the plate the shot sits in (amber frame). Prompts below each shot are the drafts that go to the models.</p></header>
+  
+<section class="shot" id="shot1">
+  <header class="shot-head">
+    <div class="slate"><span class="slate-k">SHOT</span><span class="slate-v">1</span></div>
+    <div class="shot-title"><h3>The lid opens</h3><p class="beat">Eli flips open the rusted lid. The red countdown reads 00:41:12. This is what both men want.</p></div>
+    <dl class="specs">
+      <div><dt>TC</dt><dd>00:00:00:00</dd></div><div><dt>Frames</dt><dd>1–30</dd></div>
+      <div><dt>Length</dt><dd>1.25 s</dd></div><div><dt>Lens</dt><dd>35 mm macro</dd></div>
+      <div class="wide"><dt>Camera</dt><dd>Inside car A, over the passenger seat</dd></div><div class="wide"><dt>Move</dt><dd>Slow push-in onto the display</dd></div>
+      <div class="wide"><dt>Performance</dt><dd>Eli&#x27;s hand lifts the lid, then returns to the shifter.</dd></div>
+    </dl>
+  </header>
+  <figure class="keyframe"><img src="img/key01.jpg" alt="Approved keyframe, shot 1" loading="lazy"><figcaption>Approved keyframe · GPT Image 2.5 · 1920×1088 · passed QA</figcaption></figure>
+  <div class="boards">
+    <figure class="sb"><img src="img/clay_0001.jpg" alt="Storyboard: start (clay 0001)" loading="lazy"><figcaption>Storyboard: start (clay 0001)</figcaption></figure>
+    <figure class="sb"><img src="img/device90.jpg" alt="Storyboard: end (device90)" loading="lazy"><figcaption>Storyboard: end (device90)</figcaption></figure>
+    <figure class="bgp"><img src="img/interior_a90.jpg" alt="Background: Car A interior + device" loading="lazy"><figcaption>Background: Car A interior + device</figcaption></figure>
+  </div>
+  <div class="refrow"><span class="lbl">Reference images</span><div class="refs"><figure class="ref"><img src="img/device90.jpg" alt="Nuclear device" loading="lazy"><figcaption>Nuclear device</figcaption></figure><figure class="ref"><img src="img/interior_a90.jpg" alt="Car A interior + device" loading="lazy"><figcaption>Car A interior + device</figcaption></figure><figure class="ref"><img src="img/eli_hands90.jpg" alt="Eli&#x27;s hands" loading="lazy"><figcaption>Eli&#x27;s hands</figcaption></figure></div></div>
+  <details class="prompt" open><summary>Keyframe prompt · GPT Image 2.5</summary><p>Insert inside car A (left-hand drive, interior exactly as the interior sheet). The rusted Soviet-era nuclear device case from the device sheet is belted into the passenger seat. Eli&#x27;s hand in a worn brown leather sleeve lifts the dented lid; the control panel is revealed: red seven-segment countdown reading 00:41:12, steel keypad, key slots, toggle switches under red flip covers, needle gauges, green armed lamp. Sun strobes through the window. 35mm film look.</p></details>
+  <details class="prompt"><summary>Video prompt · image-to-video</summary><p>Slow push-in toward the display. 0–0.6 s: Eli&#x27;s hand lifts the heavy lid on creaking hinges, dust in the sun. 0.6–1.25 s: the red digits tick 00:41:12 → 00:41:11; the green lamp pulses. 24 fps real time. The device stays belted to the seat.</p></details>
+</section>
+<section class="shot" id="shot2">
+  <header class="shot-head">
+    <div class="slate"><span class="slate-k">SHOT</span><span class="slate-v">2</span></div>
+    <div class="shot-title"><h3>Something is coming</h3><p class="beat">Eli drives calm. His eyes flick to his left mirror. His brow tightens.</p></div>
+    <dl class="specs">
+      <div><dt>TC</dt><dd>00:00:01:06</dd></div><div><dt>Frames</dt><dd>31–60</dd></div>
+      <div><dt>Length</dt><dd>1.25 s</dd></div><div><dt>Lens</dt><dd>44→52 mm</dd></div>
+      <div class="wide"><dt>Camera</dt><dd>Camera car in front of car A, 1.4 m, looking back</dd></div><div class="wide"><dt>Move</dt><dd>Slow push-in (dolly, not a zoom)</dd></div>
+      <div class="wide"><dt>Performance</dt><dd>Calm, then wary.</dd></div>
+    </dl>
+  </header>
+  <figure class="keyframe"><img src="img/key02.jpg" alt="Approved keyframe, shot 2" loading="lazy"><figcaption>Approved keyframe · GPT Image 2.5 · 1920×1088 · passed QA</figcaption></figure>
+  <div class="boards">
+    <figure class="sb"><img src="img/clay_0031.jpg" alt="Storyboard: start (clay 0031)" loading="lazy"><figcaption>Storyboard: start (clay 0031)</figcaption></figure>
+    <figure class="sb"><img src="img/clay_0066.jpg" alt="Storyboard: end (clay 0066)" loading="lazy"><figcaption>Storyboard: end (clay 0066)</figcaption></figure>
+    <figure class="bgp"><img src="img/plate_back90.jpg" alt="Background: Back plate" loading="lazy"><figcaption>Background: Back plate</figcaption></figure>
+  </div>
+  <div class="refrow"><span class="lbl">Reference images</span><div class="refs"><figure class="ref"><img src="img/eli_seated90.jpg" alt="Eli seated" loading="lazy"><figcaption>Eli seated</figcaption></figure><figure class="ref"><img src="img/eli_reaction90.jpg" alt="Eli reaction sheet" loading="lazy"><figcaption>Eli reaction sheet</figcaption></figure><figure class="ref"><img src="img/interior_a90.jpg" alt="Car A interior + device" loading="lazy"><figcaption>Car A interior + device</figcaption></figure></div></div>
+  <details class="prompt" open><summary>Keyframe prompt · GPT Image 2.5</summary><p>Medium close-up through the open windshield of car A, the gloss-black 1970s muscle car, from its hood. Eli at the wood-rim wheel on the left of the car (frame-right), calm. The rusted device on the passenger seat (frame-left), red digits glowing. Behind him the highway recedes; a tiny red car far back in the fast lane.</p></details>
+  <details class="prompt"><summary>Video prompt · image-to-video</summary><p>Camera car in front of car A, slow forward push of 30 cm, constant speed, field of view constant. 0–0.6 s: Eli drives calm. 0.6–1.25 s: his eyes flick to his left mirror; his brow tightens. 24 fps real time.</p></details>
+</section>
+<section class="shot" id="shot3">
+  <header class="shot-head">
+    <div class="slate"><span class="slate-k">SHOT</span><span class="slate-v">3</span></div>
+    <div class="shot-title"><h3>The hunter in the mirror</h3><p class="beat">Kaz&#x27;s red coupe weaves out of traffic behind and closes fast, head-on in the glass.</p></div>
+    <dl class="specs">
+      <div><dt>TC</dt><dd>00:00:02:12</dd></div><div><dt>Frames</dt><dd>61–78</dd></div>
+      <div><dt>Length</dt><dd>0.75 s</dd></div><div><dt>Lens</dt><dd>78→86 mm</dd></div>
+      <div class="wide"><dt>Camera</dt><dd>Eli&#x27;s eye-line into his left door mirror</dd></div><div class="wide"><dt>Move</dt><dd>Locked to the door, mirror vibrates</dd></div>
+      <div class="wide"><dt>Performance</dt><dd>—</dd></div>
+    </dl>
+  </header>
+  <figure class="keyframe"><img src="img/key03.jpg" alt="Approved keyframe, shot 3" loading="lazy"><figcaption>Approved keyframe · GPT Image 2.5 · 1920×1088 · passed QA</figcaption></figure>
+  <div class="boards">
+    <figure class="sb"><img src="img/clay_0067.jpg" alt="Storyboard: start (clay 0067)" loading="lazy"><figcaption>Storyboard: start (clay 0067)</figcaption></figure>
+    <figure class="sb"><img src="img/clay_0084.jpg" alt="Storyboard: end (clay 0084)" loading="lazy"><figcaption>Storyboard: end (clay 0084)</figcaption></figure>
+    <figure class="bgp"><img src="img/plate_back90.jpg" alt="Background: Back plate" loading="lazy"><figcaption>Background: Back plate</figcaption></figure>
+  </div>
+  <div class="refrow"><span class="lbl">Reference images</span><div class="refs"><figure class="ref"><img src="img/cars.jpg" alt="Car A + car B" loading="lazy"><figcaption>Car A + car B</figcaption></figure><figure class="ref"><img src="img/grade_key90.jpg" alt="Grade key" loading="lazy"><figcaption>Grade key</figcaption></figure></div></div>
+  <details class="prompt" open><summary>Keyframe prompt · GPT Image 2.5</summary><p>Point of view from car A&#x27;s driver seat into its chrome left door mirror. The mirror shows the road behind: car B, the candy-red 1990s coupe with the tall rear wing, head-on, headlights on, in the lane to our left, closing in. Beyond the window: the concrete median and the fast lane blur past.</p></details>
+  <details class="prompt"><summary>Video prompt · image-to-video</summary><p>Camera locked to the door; the mirror vibrates at speed. In the glass, car B weaves out of 1990s traffic and grows fast, headlights toward us. 24 fps real time.</p></details>
+</section>
+<section class="shot" id="shot4">
+  <header class="shot-head">
+    <div class="slate"><span class="slate-k">SHOT</span><span class="slate-v">4</span></div>
+    <div class="shot-title"><h3>Boxed in</h3><p class="beat">Eli is boxed in behind the truck. Kaz surges up the fast lane and pulls level on his left, under the gantry.</p></div>
+    <dl class="specs">
+      <div><dt>TC</dt><dd>00:00:03:06</dd></div><div><dt>Frames</dt><dd>79–102</dd></div>
+      <div><dt>Length</dt><dd>1 s</dd></div><div><dt>Lens</dt><dd>30 mm drone</dd></div>
+      <div class="wide"><dt>Camera</dt><dd>Drone 3.6–4.8 m high, 11–17 m behind</dd></div><div class="wide"><dt>Move</dt><dd>Descending track at traffic speed</dd></div>
+      <div class="wide"><dt>Performance</dt><dd>—</dd></div>
+    </dl>
+  </header>
+  <figure class="keyframe"><img src="img/key04.jpg" alt="Approved keyframe, shot 4" loading="lazy"><figcaption>Approved keyframe · GPT Image 2.5 · 1920×1088 · passed QA</figcaption></figure>
+  <div class="boards">
+    <figure class="sb"><img src="img/clay_0085.jpg" alt="Storyboard: start (clay 0085)" loading="lazy"><figcaption>Storyboard: start (clay 0085)</figcaption></figure>
+    <figure class="sb"><img src="img/clay_0114.jpg" alt="Storyboard: end (clay 0114)" loading="lazy"><figcaption>Storyboard: end (clay 0114)</figcaption></figure>
+    <figure class="bgp"><img src="img/plate_forward90.jpg" alt="Background: Forward plate" loading="lazy"><figcaption>Background: Forward plate</figcaption></figure>
+  </div>
+  <div class="refrow"><span class="lbl">Reference images</span><div class="refs"><figure class="ref"><img src="img/cars.jpg" alt="Car A + car B" loading="lazy"><figcaption>Car A + car B</figcaption></figure><figure class="ref"><img src="img/props90.jpg" alt="1990s truck + sedan" loading="lazy"><figcaption>1990s truck + sedan</figcaption></figure><figure class="ref"><img src="img/grade_key90.jpg" alt="Grade key" loading="lazy"><figcaption>Grade key</figcaption></figure><figure class="ref"><img src="img/map_detail.jpg" alt="Lane map" loading="lazy"><figcaption>Lane map</figcaption></figure></div></div>
+  <details class="prompt" open><summary>Keyframe prompt · GPT Image 2.5</summary><p>High drone shot from behind and above; every car drives away from camera with red taillights. Car A in the middle lane boxed in behind the mid-1990s white box truck; the 1990s silver sedan in the right lane; the green sign gantry ahead; car B&#x27;s red nose enters bottom-left in the empty fast lane.</p></details>
+  <details class="prompt"><summary>Video prompt · image-to-video</summary><p>Drone tracks at traffic speed, descending. Car B surges up the fast lane, nose dips as it brakes, and settles level with car A on its left as both pass under the gantry. 24 fps real time.</p></details>
+</section>
+<section class="shot" id="shot5">
+  <header class="shot-head">
+    <div class="slate"><span class="slate-k">SHOT</span><span class="slate-v">5</span></div>
+    <div class="shot-title"><h3>The stare</h3><p class="beat">Side by side. Kaz turns. The two men look at each other.</p></div>
+    <dl class="specs">
+      <div><dt>TC</dt><dd>00:00:04:06</dd></div><div><dt>Frames</dt><dd>103–120</dd></div>
+      <div><dt>Length</dt><dd>0.75 s</dd></div><div><dt>Lens</dt><dd>32→38 mm</dd></div>
+      <div class="wide"><dt>Camera</dt><dd>Inside car A behind Eli&#x27;s right shoulder, looking left</dd></div><div class="wide"><dt>Move</dt><dd>Handheld drift, slow motion begins</dd></div>
+      <div class="wide"><dt>Performance</dt><dd>Kaz turns, jaw tight; Eli still.</dd></div>
+    </dl>
+  </header>
+  <figure class="keyframe"><img src="img/key05.jpg" alt="Approved keyframe, shot 5" loading="lazy"><figcaption>Approved keyframe · GPT Image 2.5 · 1920×1088 · passed QA</figcaption></figure>
+  <div class="boards">
+    <figure class="sb"><img src="img/clay_0115.jpg" alt="Storyboard: start (clay 0115)" loading="lazy"><figcaption>Storyboard: start (clay 0115)</figcaption></figure>
+    <figure class="sb"><img src="img/clay_0144.jpg" alt="Storyboard: end (clay 0144)" loading="lazy"><figcaption>Storyboard: end (clay 0144)</figcaption></figure>
+    <figure class="bgp"><img src="img/kaz_interior.jpg" alt="Background: Car B interior" loading="lazy"><figcaption>Background: Car B interior</figcaption></figure>
+  </div>
+  <div class="refrow"><span class="lbl">Reference images</span><div class="refs"><figure class="ref"><img src="img/eli_seated90.jpg" alt="Eli seated" loading="lazy"><figcaption>Eli seated</figcaption></figure><figure class="ref"><img src="img/kaz_seated.jpg" alt="Kaz seated" loading="lazy"><figcaption>Kaz seated</figcaption></figure><figure class="ref"><img src="img/kaz_interior.jpg" alt="Car B interior" loading="lazy"><figcaption>Car B interior</figcaption></figure><figure class="ref"><img src="img/cars.jpg" alt="Car A + car B" loading="lazy"><figcaption>Car A + car B</figcaption></figure></div></div>
+  <details class="prompt" open><summary>Keyframe prompt · GPT Image 2.5</summary><p>Over Eli&#x27;s right shoulder inside car A, looking out of his open window. The back of Eli&#x27;s head soft in the right foreground. Car B alongside, side-on, nose toward frame-right. Kaz (black cap, black bomber) at car B&#x27;s wheel on the far side, turning toward Eli.</p></details>
+  <details class="prompt"><summary>Video prompt · image-to-video</summary><p>Slow motion begins (0.5×), gentle handheld drift. Kaz turns his head toward Eli, eyes hard. Wind ripples jackets. Both cars hold their lanes.</p></details>
+</section>
+<section class="shot" id="shot6">
+  <header class="shot-head">
+    <div class="slate"><span class="slate-k">SHOT</span><span class="slate-v">6</span></div>
+    <div class="shot-title"><h3>“Stop or die!”</h3><p class="beat">Kaz explodes: he points at Eli and shouts “STOP OR DIE!”.</p></div>
+    <dl class="specs">
+      <div><dt>TC</dt><dd>00:00:05:00</dd></div><div><dt>Frames</dt><dd>121–144</dd></div>
+      <div><dt>Length</dt><dd>1 s</dd></div><div><dt>Lens</dt><dd>50→75 mm</dd></div>
+      <div class="wide"><dt>Camera</dt><dd>From car A across the gap into Kaz&#x27;s window</dd></div><div class="wide"><dt>Move</dt><dd>Push-in to a close-up, slow motion</dd></div>
+      <div class="wide"><dt>Performance</dt><dd>Fury: mouth wide on “STOP”, finger jabbing on “DIE”, neck tendons straining.</dd></div>
+    </dl>
+  </header>
+  <figure class="keyframe"><img src="img/key06.jpg" alt="Approved keyframe, shot 6" loading="lazy"><figcaption>Approved keyframe · GPT Image 2.5 · 1920×1088 · passed QA</figcaption></figure>
+  <div class="boards">
+    <figure class="sb"><img src="img/clay_kaz_across.jpg" alt="Storyboard: start (clay kaz_across)" loading="lazy"><figcaption>Storyboard: start (clay kaz_across)</figcaption></figure>
+    <figure class="sb"><img src="img/clay_0144.jpg" alt="Storyboard: end (clay 0144)" loading="lazy"><figcaption>Storyboard: end (clay 0144)</figcaption></figure>
+    <figure class="bgp"><img src="img/kaz_interior.jpg" alt="Background: Car B interior" loading="lazy"><figcaption>Background: Car B interior</figcaption></figure>
+  </div>
+  <div class="refrow"><span class="lbl">Reference images</span><div class="refs"><figure class="ref"><img src="img/kaz_rage90.jpg" alt="Kaz rage sheet" loading="lazy"><figcaption>Kaz rage sheet</figcaption></figure><figure class="ref"><img src="img/kaz_seated.jpg" alt="Kaz seated" loading="lazy"><figcaption>Kaz seated</figcaption></figure><figure class="ref"><img src="img/kaz_interior.jpg" alt="Car B interior" loading="lazy"><figcaption>Car B interior</figcaption></figure></div></div>
+  <details class="prompt" open><summary>Keyframe prompt · GPT Image 2.5</summary><p>Close-up of Kaz at the wheel of the red coupe, seen through his open passenger window from car A beside him. He is furious, mid-shout, mouth wide, pointing hard toward camera; face exactly as the rage sheet; red paint reflections on his face; golden-hour rim light; 35mm film look.</p></details>
+  <details class="prompt"><summary>Video prompt · image-to-video</summary><p>Push-in from 50 to 75 mm. Slow motion 0.5×. Kaz leans toward his passenger window and shouts “STOP OR DIE!” with fury: mouth wide on “STOP”, finger jabbing toward camera on “DIE”, spit in the light. Lip movement matches the line. He stays seated in car B.</p></details>
+</section>
+<section class="shot" id="shot7">
+  <header class="shot-head">
+    <div class="slate"><span class="slate-k">SHOT</span><span class="slate-v">7</span></div>
+    <div class="shot-title"><h3>The ram</h3><p class="beat">Kaz yanks his wheel right. His coupe slams into car A&#x27;s left rear door. Car A&#x27;s tail kicks out.</p></div>
+    <dl class="specs">
+      <div><dt>TC</dt><dd>00:00:06:00</dd></div><div><dt>Frames</dt><dd>145–162</dd></div>
+      <div><dt>Length</dt><dd>0.75 s</dd></div><div><dt>Lens</dt><dd>30 mm drone</dd></div>
+      <div class="wide"><dt>Camera</dt><dd>Drone 7.5 m high, 16 m behind-left</dd></div><div class="wide"><dt>Move</dt><dd>Track at speed, shudders on impact</dd></div>
+      <div class="wide"><dt>Performance</dt><dd>Kaz&#x27;s answer to no answer.</dd></div>
+    </dl>
+  </header>
+  <figure class="keyframe"><img src="img/key07.jpg" alt="Approved keyframe, shot 7" loading="lazy"><figcaption>Approved keyframe · GPT Image 2.5 · 1920×1088 · passed QA</figcaption></figure>
+  <div class="boards">
+    <figure class="sb"><img src="img/clay_0144.jpg" alt="Storyboard: start (clay 0144)" loading="lazy"><figcaption>Storyboard: start (clay 0144)</figcaption></figure>
+    <figure class="sb"><img src="img/clay_hit_a.jpg" alt="Storyboard: end (clay hit_a)" loading="lazy"><figcaption>Storyboard: end (clay hit_a)</figcaption></figure>
+    <figure class="bgp"><img src="img/plate_forward90.jpg" alt="Background: Forward plate" loading="lazy"><figcaption>Background: Forward plate</figcaption></figure>
+  </div>
+  <div class="refrow"><span class="lbl">Reference images</span><div class="refs"><figure class="ref"><img src="img/cars.jpg" alt="Car A + car B" loading="lazy"><figcaption>Car A + car B</figcaption></figure><figure class="ref"><img src="img/props90.jpg" alt="1990s truck + sedan" loading="lazy"><figcaption>1990s truck + sedan</figcaption></figure><figure class="ref"><img src="img/grade_key90.jpg" alt="Grade key" loading="lazy"><figcaption>Grade key</figcaption></figure><figure class="ref"><img src="img/map_detail.jpg" alt="Lane map" loading="lazy"><figcaption>Lane map</figcaption></figure></div></div>
+  <details class="prompt" open><summary>Keyframe prompt · GPT Image 2.5</summary><p>High drone shot from behind and to the left; every car drives away from camera with red taillights. Car B, the candy-red 1990s coupe, has swerved right out of the fast lane; its front-right corner slams into the left rear door of car A, the gloss-black 1970s muscle car, in the middle lane. Car A&#x27;s rear kicks out, its nose turning right. The silver 1990s sedan just behind in the right lane; the white box truck ahead; tyre smoke; 35mm film look.</p></details>
+  <details class="prompt"><summary>Video prompt · image-to-video</summary><p>Drone tracks at traffic speed. 0–0.3 s: car B jerks right across the lane line. 0.3 s: impact. Its nose crunches into car A&#x27;s left rear door; sparks and paint flakes burst; both bodies rock on their suspension. 0.3–0.75 s: car A is shoved right, its rear stepping out, tyres smoking. The camera shudders on the hit. 24 fps real time.</p></details>
+</section>
+<section class="shot" id="shot8">
+  <header class="shot-head">
+    <div class="slate"><span class="slate-k">SHOT</span><span class="slate-v">8</span></div>
+    <div class="shot-title"><h3>Metal on metal</h3><p class="beat">Close on the contact: the coupe&#x27;s fender grinds along car A&#x27;s door in a shower of sparks.</p></div>
+    <dl class="specs">
+      <div><dt>TC</dt><dd>00:00:06:18</dd></div><div><dt>Frames</dt><dd>163–174</dd></div>
+      <div><dt>Length</dt><dd>0.5 s</dd></div><div><dt>Lens</dt><dd>24 mm</dd></div>
+      <div class="wide"><dt>Camera</dt><dd>Low between the two cars, 0.45 m, at the contact</dd></div><div class="wide"><dt>Move</dt><dd>Rig shakes hard</dd></div>
+      <div class="wide"><dt>Performance</dt><dd>—</dd></div>
+    </dl>
+  </header>
+  <figure class="keyframe"><img src="img/key08.jpg" alt="Approved keyframe, shot 8" loading="lazy"><figcaption>Approved keyframe · GPT Image 2.5 · 1920×1088 · passed QA</figcaption></figure>
+  <div class="boards">
+    <figure class="sb"><img src="img/clay_hit_b.jpg" alt="Storyboard: start (clay hit_b)" loading="lazy"><figcaption>Storyboard: start (clay hit_b)</figcaption></figure>
+    <figure class="sb"><img src="img/clay_hit_b.jpg" alt="Storyboard: end (clay hit_b)" loading="lazy"><figcaption>Storyboard: end (clay hit_b)</figcaption></figure>
+    <figure class="bgp"><img src="img/plate_forward90.jpg" alt="Background: Forward plate" loading="lazy"><figcaption>Background: Forward plate</figcaption></figure>
+  </div>
+  <div class="refrow"><span class="lbl">Reference images</span><div class="refs"><figure class="ref"><img src="img/cars.jpg" alt="Car A + car B" loading="lazy"><figcaption>Car A + car B</figcaption></figure><figure class="ref"><img src="img/grade_key90.jpg" alt="Grade key" loading="lazy"><figcaption>Grade key</figcaption></figure><figure class="ref"><img src="img/car_a_dmg.jpg" alt="Car A damaged" loading="lazy"><figcaption>Car A damaged</figcaption></figure><figure class="ref"><img src="img/car_b_dmg.jpg" alt="Car B damaged" loading="lazy"><figcaption>Car B damaged</figcaption></figure></div></div>
+  <details class="prompt" open><summary>Keyframe prompt · GPT Image 2.5</summary><p>Low extreme close shot between two cars at speed: the red coupe&#x27;s front fender grinds along the black muscle car&#x27;s dented left door. A bright fan of orange sparks sprays back toward camera, paint chips fly, chrome trim bends, the road is a streaked blur below; golden-hour backlight; 35mm film look.</p></details>
+  <details class="prompt"><summary>Video prompt · image-to-video</summary><p>The camera shakes hard at speed. The fender grinds along the door for the whole shot; sparks spray back past the lens; the door panel crumples; a strip of chrome trim tears loose and flies. 24 fps real time.</p></details>
+</section>
+<section class="shot" id="shot9">
+  <header class="shot-head">
+    <div class="slate"><span class="slate-k">SHOT</span><span class="slate-v">9</span></div>
+    <div class="shot-title"><h3>Inches</h3><p class="beat">Car A is shoved into the right lane, nose first at the silver sedan. The sedan swerves onto the shoulder, horn blaring. Inches.</p></div>
+    <dl class="specs">
+      <div><dt>TC</dt><dd>00:00:07:06</dd></div><div><dt>Frames</dt><dd>175–192</dd></div>
+      <div><dt>Length</dt><dd>0.75 s</dd></div><div><dt>Lens</dt><dd>35 mm</dd></div>
+      <div class="wide"><dt>Camera</dt><dd>Camera car ahead in the right lane, 1.1 m, looking back</dd></div><div class="wide"><dt>Move</dt><dd>Car A slides at camera</dd></div>
+      <div class="wide"><dt>Performance</dt><dd>—</dd></div>
+    </dl>
+  </header>
+  <figure class="keyframe"><img src="img/key09.jpg" alt="Approved keyframe, shot 9" loading="lazy"><figcaption>Approved keyframe · GPT Image 2.5 · 1920×1088 · passed QA</figcaption></figure>
+  <div class="boards">
+    <figure class="sb"><img src="img/clay_hit_c.jpg" alt="Storyboard: start (clay hit_c)" loading="lazy"><figcaption>Storyboard: start (clay hit_c)</figcaption></figure>
+    <figure class="sb"><img src="img/clay_hit_c.jpg" alt="Storyboard: end (clay hit_c)" loading="lazy"><figcaption>Storyboard: end (clay hit_c)</figcaption></figure>
+    <figure class="bgp"><img src="img/plate_back90.jpg" alt="Background: Back plate" loading="lazy"><figcaption>Background: Back plate</figcaption></figure>
+  </div>
+  <div class="refrow"><span class="lbl">Reference images</span><div class="refs"><figure class="ref"><img src="img/cars.jpg" alt="Car A + car B" loading="lazy"><figcaption>Car A + car B</figcaption></figure><figure class="ref"><img src="img/props90.jpg" alt="1990s truck + sedan" loading="lazy"><figcaption>1990s truck + sedan</figcaption></figure><figure class="ref"><img src="img/plate_back90.jpg" alt="Back plate" loading="lazy"><figcaption>Back plate</figcaption></figure><figure class="ref"><img src="img/grade_key90.jpg" alt="Grade key" loading="lazy"><figcaption>Grade key</figcaption></figure><figure class="ref"><img src="img/map_detail.jpg" alt="Lane map" loading="lazy"><figcaption>Lane map</figcaption></figure><figure class="ref"><img src="img/car_a_dmg.jpg" alt="Car A damaged" loading="lazy"><figcaption>Car A damaged</figcaption></figure></div></div>
+  <details class="prompt" open><summary>Keyframe prompt · GPT Image 2.5</summary><p>From a camera car ahead looking back down our side of the highway: car A, the black muscle car with a fresh dent and scrape on its left side, slides diagonally into the right lane, nose angled right, headlights toward us. The silver 1990s sedan beside it swerves onto the shoulder; the gap between them is less than a hand. Car B drops back in the fast lane; the white truck behind; smoke from car A&#x27;s tyres; 35mm film look.</p></details>
+  <details class="prompt"><summary>Video prompt · image-to-video</summary><p>Car A slides toward the camera and the sedan, its body rolling hard. The sedan swerves right onto the shoulder, horn blaring, gravel spraying. The gap closes to inches, then car A snaps back left into the middle lane. Every car keeps moving forward. 24 fps real time.</p></details>
+</section>
+<section class="shot" id="shot10">
+  <header class="shot-head">
+    <div class="slate"><span class="slate-k">SHOT</span><span class="slate-v">10</span></div>
+    <div class="shot-title"><h3>Catch it</h3><p class="beat">Eli whips the wheel back hand over hand and catches the slide. The cabin shudders. The device jolts against its belt.</p></div>
+    <dl class="specs">
+      <div><dt>TC</dt><dd>00:00:08:00</dd></div><div><dt>Frames</dt><dd>193–204</dd></div>
+      <div><dt>Length</dt><dd>0.5 s</dd></div><div><dt>Lens</dt><dd>50 mm</dd></div>
+      <div class="wide"><dt>Camera</dt><dd>Inside car A, passenger side, on the wheel</dd></div><div class="wide"><dt>Move</dt><dd>Fast push-in to the hands, cabin shakes</dd></div>
+      <div class="wide"><dt>Performance</dt><dd>Teeth clenched, white knuckles.</dd></div>
+    </dl>
+  </header>
+  <figure class="keyframe"><img src="img/key10.jpg" alt="Approved keyframe, shot 10" loading="lazy"><figcaption>Approved keyframe · GPT Image 2.5 · 1920×1088 · passed QA</figcaption></figure>
+  <div class="boards">
+    <figure class="sb"><img src="img/clay_0145.jpg" alt="Storyboard: start (clay 0145)" loading="lazy"><figcaption>Storyboard: start (clay 0145)</figcaption></figure>
+    <figure class="sb"><img src="img/interior_a90.jpg" alt="Storyboard: end (interior_a90)" loading="lazy"><figcaption>Storyboard: end (interior_a90)</figcaption></figure>
+    <figure class="bgp"><img src="img/interior_a90.jpg" alt="Background: Car A interior + device" loading="lazy"><figcaption>Background: Car A interior + device</figcaption></figure>
+  </div>
+  <div class="refrow"><span class="lbl">Reference images</span><div class="refs"><figure class="ref"><img src="img/eli_hands90.jpg" alt="Eli&#x27;s hands" loading="lazy"><figcaption>Eli&#x27;s hands</figcaption></figure><figure class="ref"><img src="img/interior_a90.jpg" alt="Car A interior + device" loading="lazy"><figcaption>Car A interior + device</figcaption></figure><figure class="ref"><img src="img/device90.jpg" alt="Nuclear device" loading="lazy"><figcaption>Nuclear device</figcaption></figure><figure class="ref"><img src="img/eli_reaction90.jpg" alt="Eli reaction sheet" loading="lazy"><figcaption>Eli reaction sheet</figcaption></figure></div></div>
+  <details class="prompt" open><summary>Keyframe prompt · GPT Image 2.5</summary><p>Close-up inside car A: Eli&#x27;s hands in worn brown leather jacket sleeves wrench the thin wood-rim steering wheel hard left, white knuckles, the wheel rim motion-blurred. Dashboard gauges shake. The rusted device on the passenger seat is jolted against its seat belt, red digits glowing. Sunlight strobes; 35mm film look.</p></details>
+  <details class="prompt"><summary>Video prompt · image-to-video</summary><p>Fast push-in onto the wheel. Eli spins the wheel hand over hand to the left, then counter-steers once to catch the slide. The whole cabin shakes hard; the device bounces against the belt; dust floats in the sunlight. 24 fps real time.</p></details>
+</section>
+<section class="shot" id="shot11">
+  <header class="shot-head">
+    <div class="slate"><span class="slate-k">SHOT</span><span class="slate-v">11</span></div>
+    <div class="shot-title"><h3>Kaz grins</h3><p class="beat">Kaz regrips the wheel. His crushed fender rattles. A cold, satisfied grin: the next hit ends it.</p></div>
+    <dl class="specs">
+      <div><dt>TC</dt><dd>00:00:08:12</dd></div><div><dt>Frames</dt><dd>205–216</dd></div>
+      <div><dt>Length</dt><dd>0.5 s</dd></div><div><dt>Lens</dt><dd>85 mm</dd></div>
+      <div class="wide"><dt>Camera</dt><dd>From car A across the gap into Kaz&#x27;s open passenger window</dd></div><div class="wide"><dt>Move</dt><dd>Slow push-in</dd></div>
+      <div class="wide"><dt>Performance</dt><dd>Breathing hard, then a slow, cold grin; eyes stay on Eli.</dd></div>
+    </dl>
+  </header>
+  <figure class="keyframe"><img src="img/key11.jpg" alt="Approved keyframe, shot 11" loading="lazy"><figcaption>Approved keyframe · GPT Image 2.5 · 1920×1088 · passed QA</figcaption></figure>
+  <div class="boards">
+    <figure class="sb"><img src="img/clay_kaz_across.jpg" alt="Storyboard: start (clay kaz_across)" loading="lazy"><figcaption>Storyboard: start (clay kaz_across)</figcaption></figure>
+    <figure class="sb"><img src="img/clay_0144.jpg" alt="Storyboard: end (clay 0144)" loading="lazy"><figcaption>Storyboard: end (clay 0144)</figcaption></figure>
+    <figure class="bgp"><img src="img/kaz_interior.jpg" alt="Background: Car B interior" loading="lazy"><figcaption>Background: Car B interior</figcaption></figure>
+  </div>
+  <div class="refrow"><span class="lbl">Reference images</span><div class="refs"><figure class="ref"><img src="img/kaz_faces.jpg" alt="Kaz faces" loading="lazy"><figcaption>Kaz faces</figcaption></figure><figure class="ref"><img src="img/kaz_rage90.jpg" alt="Kaz rage sheet" loading="lazy"><figcaption>Kaz rage sheet</figcaption></figure><figure class="ref"><img src="img/kaz_seated.jpg" alt="Kaz seated" loading="lazy"><figcaption>Kaz seated</figcaption></figure><figure class="ref"><img src="img/kaz_interior.jpg" alt="Car B interior" loading="lazy"><figcaption>Car B interior</figcaption></figure><figure class="ref"><img src="img/car_b_dmg.jpg" alt="Car B damaged" loading="lazy"><figcaption>Car B damaged</figcaption></figure></div></div>
+  <details class="prompt" open><summary>Keyframe prompt · GPT Image 2.5</summary><p>Tight close-up of Kaz at the wheel of his candy-red coupe, seen from car A beside him through his open passenger window: black cap, black bomber, both hands regripping the wheel, breathing hard, a cold thin grin, eyes locked on camera; at the frame edge the coupe&#x27;s crumpled front-right fender and paint scraped to primer; warm golden-hour light, haze; 35mm film look.</p></details>
+  <details class="prompt"><summary>Video prompt · image-to-video</summary><p>Slow push-in. Kaz breathes hard, then regrips the wheel; a slow, cold grin spreads; his eyes stay locked on Eli to his right. The loose bumper corner rattles in the wind. 24 fps real time.</p></details>
+</section>
+<section class="shot" id="shot12">
+  <header class="shot-head">
+    <div class="slate"><span class="slate-k">SHOT</span><span class="slate-v">12</span></div>
+    <div class="shot-title"><h3>Eli&#x27;s answer, in his eyes</h3><p class="beat">He caught it. He does not blink. His eyes narrow in fury. Decision made.</p></div>
+    <dl class="specs">
+      <div><dt>TC</dt><dd>00:00:09:00</dd></div><div><dt>Frames</dt><dd>217–228</dd></div>
+      <div><dt>Length</dt><dd>0.5 s</dd></div><div><dt>Lens</dt><dd>100 mm</dd></div>
+      <div class="wide"><dt>Camera</dt><dd>Extreme close-up through car A&#x27;s windshield</dd></div><div class="wide"><dt>Move</dt><dd>Snap zoom into the eyes</dd></div>
+      <div class="wide"><dt>Performance</dt><dd>Eyes narrow, sweat at the temple, jaw clenches.</dd></div>
+    </dl>
+  </header>
+  <figure class="keyframe"><img src="img/key12.jpg" alt="Approved keyframe, shot 12" loading="lazy"><figcaption>Approved keyframe · GPT Image 2.5 · 1920×1088 · passed QA</figcaption></figure>
+  <div class="boards">
+    <figure class="sb"><img src="img/clay_eli_front.jpg" alt="Storyboard: start (clay eli_front)" loading="lazy"><figcaption>Storyboard: start (clay eli_front)</figcaption></figure>
+    <figure class="sb"><img src="img/clay_0031.jpg" alt="Storyboard: end (clay 0031)" loading="lazy"><figcaption>Storyboard: end (clay 0031)</figcaption></figure>
+    <figure class="bgp"><img src="img/interior_a90.jpg" alt="Background: Car A interior + device" loading="lazy"><figcaption>Background: Car A interior + device</figcaption></figure>
+  </div>
+  <div class="refrow"><span class="lbl">Reference images</span><div class="refs"><figure class="ref"><img src="img/eli_reaction90.jpg" alt="Eli reaction sheet" loading="lazy"><figcaption>Eli reaction sheet</figcaption></figure><figure class="ref"><img src="img/eli_seated90.jpg" alt="Eli seated" loading="lazy"><figcaption>Eli seated</figcaption></figure></div></div>
+  <details class="prompt" open><summary>Keyframe prompt · GPT Image 2.5</summary><p>Extreme close-up of Eli&#x27;s eyes and brow through car A&#x27;s windshield: eyes narrowed, a bead of sweat at the temple, stubble, warm rim light, exactly as the reaction sheet; 35mm film grain.</p></details>
+  <details class="prompt"><summary>Video prompt · image-to-video</summary><p>Quick snap zoom into Eli&#x27;s eyes. His eyes narrow; his jaw clenches; a muscle twitches. 24 fps real time.</p></details>
+</section>
+<section class="shot" id="shot13">
+  <header class="shot-head">
+    <div class="slate"><span class="slate-k">SHOT</span><span class="slate-v">13</span></div>
+    <div class="shot-title"><h3>The clock</h3><p class="beat">The impact set it off. The device shrieks and the countdown jumps from 00:40:59 to 00:09:59. Ten minutes left.</p></div>
+    <dl class="specs">
+      <div><dt>TC</dt><dd>00:00:09:12</dd></div><div><dt>Frames</dt><dd>229–240</dd></div>
+      <div><dt>Length</dt><dd>0.5 s</dd></div><div><dt>Lens</dt><dd>100 mm macro</dd></div>
+      <div class="wide"><dt>Camera</dt><dd>Over the device&#x27;s control panel</dd></div><div class="wide"><dt>Move</dt><dd>Static, rack focus to the digits</dd></div>
+      <div class="wide"><dt>Performance</dt><dd>—</dd></div>
+    </dl>
+  </header>
+  <figure class="keyframe"><img src="img/key13.jpg" alt="Approved keyframe, shot 13" loading="lazy"><figcaption>Approved keyframe · GPT Image 2.5 · 1920×1088 · passed QA</figcaption></figure>
+  <div class="boards">
+    <figure class="sb"><img src="img/clay_0030.jpg" alt="Storyboard: start (clay 0030)" loading="lazy"><figcaption>Storyboard: start (clay 0030)</figcaption></figure>
+    <figure class="sb"><img src="img/device90.jpg" alt="Storyboard: end (device90)" loading="lazy"><figcaption>Storyboard: end (device90)</figcaption></figure>
+    <figure class="bgp"><img src="img/interior_a90.jpg" alt="Background: Car A interior + device" loading="lazy"><figcaption>Background: Car A interior + device</figcaption></figure>
+  </div>
+  <div class="refrow"><span class="lbl">Reference images</span><div class="refs"><figure class="ref"><img src="img/device90.jpg" alt="Nuclear device" loading="lazy"><figcaption>Nuclear device</figcaption></figure><figure class="ref"><img src="img/interior_a90.jpg" alt="Car A interior + device" loading="lazy"><figcaption>Car A interior + device</figcaption></figure></div></div>
+  <details class="prompt" open><summary>Keyframe prompt · GPT Image 2.5</summary><p>Macro insert of the rusted device&#x27;s control panel on car A&#x27;s passenger seat: red seven-segment countdown now reading 00:09:59, worn steel keypad, toggle switches under red covers, the green armed lamp replaced by a flashing red warning lamp, a fresh crack across the display glass from the impact; shallow depth of field; the car vibrates; 35mm film look.</p></details>
+  <details class="prompt"><summary>Video prompt · image-to-video</summary><p>Rack focus from the keypad to the red digits; the digits flicker and glitch, then jump from 00:40:59 to 00:09:59 and keep ticking; the red warning lamp starts flashing fast. Slight vibration at speed. 24 fps real time.</p></details>
+</section>
+<section class="shot" id="shot14">
+  <header class="shot-head">
+    <div class="slate"><span class="slate-k">SHOT</span><span class="slate-v">14</span></div>
+    <div class="shot-title"><h3>The shifter</h3><p class="beat">Eli rams the shifter forward. The car lunges.</p></div>
+    <dl class="specs">
+      <div><dt>TC</dt><dd>00:00:10:00</dd></div><div><dt>Frames</dt><dd>241–252</dd></div>
+      <div><dt>Length</dt><dd>0.5 s</dd></div><div><dt>Lens</dt><dd>32 mm</dd></div>
+      <div class="wide"><dt>Camera</dt><dd>Over car A&#x27;s centre console</dd></div><div class="wide"><dt>Move</dt><dd>Static, jolts on the lunge</dd></div>
+      <div class="wide"><dt>Performance</dt><dd>Decisive.</dd></div>
+    </dl>
+  </header>
+  <figure class="keyframe"><img src="img/key14.jpg" alt="Approved keyframe, shot 14" loading="lazy"><figcaption>Approved keyframe · GPT Image 2.5 · 1920×1088 · passed QA</figcaption></figure>
+  <div class="boards">
+    <figure class="sb"><img src="img/clay_0145.jpg" alt="Storyboard: start (clay 0145)" loading="lazy"><figcaption>Storyboard: start (clay 0145)</figcaption></figure>
+    <figure class="sb"><img src="img/clay_0162.jpg" alt="Storyboard: end (clay 0162)" loading="lazy"><figcaption>Storyboard: end (clay 0162)</figcaption></figure>
+    <figure class="bgp"><img src="img/interior_a90.jpg" alt="Background: Car A interior + device" loading="lazy"><figcaption>Background: Car A interior + device</figcaption></figure>
+  </div>
+  <div class="refrow"><span class="lbl">Reference images</span><div class="refs"><figure class="ref"><img src="img/eli_hands90.jpg" alt="Eli&#x27;s hands" loading="lazy"><figcaption>Eli&#x27;s hands</figcaption></figure><figure class="ref"><img src="img/interior_a90.jpg" alt="Car A interior + device" loading="lazy"><figcaption>Car A interior + device</figcaption></figure></div></div>
+  <details class="prompt" open><summary>Keyframe prompt · GPT Image 2.5</summary><p>Insert over car A&#x27;s centre console: wood-rim wheel on the left, chrome T-handle shifter in the centre, Eli&#x27;s hand in a worn brown leather sleeve gripping it; the device&#x27;s red digits glow out of focus on the passenger seat; through the windshield the white box truck directly ahead.</p></details>
+  <details class="prompt"><summary>Video prompt · image-to-video</summary><p>Eli rams the chrome T-handle forward; the car lunges; the camera jolts; the view through the windshield surges. 24 fps real time.</p></details>
+</section>
+<section class="shot" id="shot15">
+  <header class="shot-head">
+    <div class="slate"><span class="slate-k">SHOT</span><span class="slate-v">15</span></div>
+    <div class="shot-title"><h3>The squeeze</h3><p class="beat">Eli darts into the right lane and passes the truck along its right side. Kaz holds the fast lane.</p></div>
+    <dl class="specs">
+      <div><dt>TC</dt><dd>00:00:10:12</dd></div><div><dt>Frames</dt><dd>253–288</dd></div>
+      <div><dt>Length</dt><dd>1.5 s</dd></div><div><dt>Lens</dt><dd>24 mm</dd></div>
+      <div class="wide"><dt>Camera</dt><dd>Bumper camera 7–10 m behind car A, 0.9→1.8 m</dd></div><div class="wide"><dt>Move</dt><dd>Chase, swings right and rises</dd></div>
+      <div class="wide"><dt>Performance</dt><dd>—</dd></div>
+    </dl>
+  </header>
+  <figure class="keyframe"><img src="img/key15.jpg" alt="Approved keyframe, shot 15" loading="lazy"><figcaption>Approved keyframe · GPT Image 2.5 · 1920×1088 · passed QA</figcaption></figure>
+  <div class="boards">
+    <figure class="sb"><img src="img/clay_0163.jpg" alt="Storyboard: start (clay 0163)" loading="lazy"><figcaption>Storyboard: start (clay 0163)</figcaption></figure>
+    <figure class="sb"><img src="img/clay_0210.jpg" alt="Storyboard: end (clay 0210)" loading="lazy"><figcaption>Storyboard: end (clay 0210)</figcaption></figure>
+    <figure class="bgp"><img src="img/plate_forward90.jpg" alt="Background: Forward plate" loading="lazy"><figcaption>Background: Forward plate</figcaption></figure>
+  </div>
+  <div class="refrow"><span class="lbl">Reference images</span><div class="refs"><figure class="ref"><img src="img/cars.jpg" alt="Car A + car B" loading="lazy"><figcaption>Car A + car B</figcaption></figure><figure class="ref"><img src="img/props90.jpg" alt="1990s truck + sedan" loading="lazy"><figcaption>1990s truck + sedan</figcaption></figure><figure class="ref"><img src="img/grade_key90.jpg" alt="Grade key" loading="lazy"><figcaption>Grade key</figcaption></figure><figure class="ref"><img src="img/map_detail.jpg" alt="Lane map" loading="lazy"><figcaption>Lane map</figcaption></figure><figure class="ref"><img src="img/car_a_dmg.jpg" alt="Car A damaged" loading="lazy"><figcaption>Car A damaged</figcaption></figure><figure class="ref"><img src="img/car_b_dmg.jpg" alt="Car B damaged" loading="lazy"><figcaption>Car B damaged</figcaption></figure></div></div>
+  <details class="prompt" open><summary>Keyframe prompt · GPT Image 2.5</summary><p>Low chase camera behind car A (its left rear door caved in, red paint streaks); all cars drive away from camera (red taillights). Car A in the middle lane; the mid-1990s white box truck directly ahead in the same lane; car B in the fast lane by the median, a fresh dent on its nose; the right lane open, the silver sedan stopped far back on the shoulder with hazard lights.</p></details>
+  <details class="prompt"><summary>Video prompt · image-to-video</summary><p>Chase camera follows a beat late, rising and swinging right. Car A darts right out from behind the truck and rockets up the truck&#x27;s right side, rear squatting; car B keeps pace beyond. The overpass rushes closer. 24 fps real time.</p></details>
+</section>
+<section class="shot" id="shot16">
+  <header class="shot-head">
+    <div class="slate"><span class="slate-k">SHOT</span><span class="slate-v">16</span></div>
+    <div class="shot-title"><h3>Under the bridge</h3><p class="beat">Neck and neck, they rip under the overpass and past the lens.</p></div>
+    <dl class="specs">
+      <div><dt>TC</dt><dd>00:00:12:00</dd></div><div><dt>Frames</dt><dd>289–312</dd></div>
+      <div><dt>Length</dt><dd>1 s</dd></div><div><dt>Lens</dt><dd>55→26 mm</dd></div>
+      <div class="wide"><dt>Camera</dt><dd>Right shoulder, 0.9 m, looking back</dd></div><div class="wide"><dt>Move</dt><dd>Locked off, zoom-out, whip pan</dd></div>
+      <div class="wide"><dt>Performance</dt><dd>—</dd></div>
+    </dl>
+  </header>
+  <figure class="keyframe"><img src="img/key16.jpg" alt="Approved keyframe, shot 16" loading="lazy"><figcaption>Approved keyframe · GPT Image 2.5 · 1920×1088 · passed QA</figcaption></figure>
+  <div class="boards">
+    <figure class="sb"><img src="img/clay_0211.jpg" alt="Storyboard: start (clay 0211)" loading="lazy"><figcaption>Storyboard: start (clay 0211)</figcaption></figure>
+    <figure class="sb"><img src="img/clay_0240.jpg" alt="Storyboard: end (clay 0240)" loading="lazy"><figcaption>Storyboard: end (clay 0240)</figcaption></figure>
+    <figure class="bgp"><img src="img/plate_back90.jpg" alt="Background: Back plate" loading="lazy"><figcaption>Background: Back plate</figcaption></figure>
+  </div>
+  <div class="refrow"><span class="lbl">Reference images</span><div class="refs"><figure class="ref"><img src="img/cars.jpg" alt="Car A + car B" loading="lazy"><figcaption>Car A + car B</figcaption></figure><figure class="ref"><img src="img/plate_back90.jpg" alt="Back plate" loading="lazy"><figcaption>Back plate</figcaption></figure><figure class="ref"><img src="img/grade_key90.jpg" alt="Grade key" loading="lazy"><figcaption>Grade key</figcaption></figure><figure class="ref"><img src="img/car_a_dmg.jpg" alt="Car A damaged" loading="lazy"><figcaption>Car A damaged</figcaption></figure><figure class="ref"><img src="img/car_b_dmg.jpg" alt="Car B damaged" loading="lazy"><figcaption>Car B damaged</figcaption></figure></div></div>
+  <details class="prompt" open><summary>Keyframe prompt · GPT Image 2.5</summary><p>Long lens from low on the right shoulder looking back: car A (nearer, screen-left) and car B (farther, screen-right) charge toward camera side by side, headlights on; the 1990s truck behind; the concrete overpass edge above; heat haze; 35mm film look.</p></details>
+  <details class="prompt"><summary>Video prompt · image-to-video</summary><p>Locked-off camera; zoom out from 55 to 26 mm as the cars approach; they fill the frame and blast past the lens; a short whip pan follows. Cut to black on the pass.</p></details>
+</section>
+</section>
+
+
+<section class="block" aria-labelledby="h-sound">
+  <header><span class="lbl">Sound and dialogue</span><h2 id="h-sound">One line, one pulse</h2>
+  <p>Sound is made after the picture is locked, so it can hit every cut.</p></header>
+  <div class="cols">
+    <div class="panel">
+      <h4>Dialogue</h4>
+      <p class="verdict" style="font-size:34px;color:var(--red)">“STOP OR DIE!”</p>
+      <ul>
+        <li><b>Who:</b> Kaz, shot 6, shouted across the gap with fury.</li>
+        <li><b>How:</b> an angry voice from a fal text-to-speech model, timed to the mouth in shot 6. Kaz backs the line with the ram (shots 7–10). Eli answers with no words, only the shifter (shot 14).</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h4>Music: spy pursuit</h4>
+      <ul>
+        <li>Low strings ostinato and a synth-bass pulse from 120 to 140 bpm; taiko and snare hits on cuts.</li>
+        <li>Shot 1: a ticking motif matched to the countdown. Shots 5–6: music drops to a drone. Shot 7: the music cuts out on impact; only metal, tyres and a horn until shot 10. Shot 13: a shrill device alarm over the silence. Shot 14: full hit on the shifter. Shot 16: peak, then cut to silence.</li>
+        <li><b>Model:</b> Google <b>Lyria 3.5</b> (DeepMind, Sept 2026), on fal, $0.10 per track. Rated strongest for cinematic, instrumental scores. The prompt carries section timecodes, so the hits land on the cuts. Three takes, best one wins.</li>
+        <li><b>A/B:</b> ElevenLabs Music, about $0.13 for this length. Suno v5.5 has no official API; for a Suno take, paste the same prompt into the Suno app.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<section class="block" aria-labelledby="h-lib">
+  <header><span class="lbl">Asset library v2</span><h2 id="h-lib">Reference images</h2></header>
+  <div class="library"><figure class="lib"><img src="img/device90.jpg" alt="Nuclear device · countdown, keypad, rust" loading="lazy"><figcaption>Nuclear device · countdown, keypad, rust</figcaption></figure><figure class="lib"><img src="img/interior_a90.jpg" alt="Car A interior + device" loading="lazy"><figcaption>Car A interior + device</figcaption></figure><figure class="lib"><img src="img/eli_seated90.jpg" alt="Eli · seated" loading="lazy"><figcaption>Eli · seated</figcaption></figure><figure class="lib"><img src="img/eli_hands90.jpg" alt="Eli · hands" loading="lazy"><figcaption>Eli · hands</figcaption></figure><figure class="lib"><img src="img/eli_reaction90.jpg" alt="Eli · reaction close-ups" loading="lazy"><figcaption>Eli · reaction close-ups</figcaption></figure><figure class="lib"><img src="img/eli_body.jpg" alt="Eli · full body" loading="lazy"><figcaption>Eli · full body</figcaption></figure><figure class="lib"><img src="img/eli_faces.jpg" alt="Eli · faces" loading="lazy"><figcaption>Eli · faces</figcaption></figure><figure class="lib"><img src="img/faces_lightkey.jpg" alt="Both faces · light key" loading="lazy"><figcaption>Both faces · light key</figcaption></figure><figure class="lib"><img src="img/kaz_rage90.jpg" alt="Kaz · rage, “Stop or die!”" loading="lazy"><figcaption>Kaz · rage, “Stop or die!”</figcaption></figure><figure class="lib"><img src="img/kaz_seated.jpg" alt="Kaz · seated" loading="lazy"><figcaption>Kaz · seated</figcaption></figure><figure class="lib"><img src="img/kaz_body.jpg" alt="Kaz · full body" loading="lazy"><figcaption>Kaz · full body</figcaption></figure><figure class="lib"><img src="img/kaz_faces.jpg" alt="Kaz · faces" loading="lazy"><figcaption>Kaz · faces</figcaption></figure><figure class="lib"><img src="img/cars.jpg" alt="Car A + car B" loading="lazy"><figcaption>Car A + car B</figcaption></figure><figure class="lib"><img src="img/car_a_dmg.jpg" alt="Car A · damaged, left rear" loading="lazy"><figcaption>Car A · damaged, left rear</figcaption></figure><figure class="lib"><img src="img/car_b_dmg.jpg" alt="Car B · damaged, front right" loading="lazy"><figcaption>Car B · damaged, front right</figcaption></figure><figure class="lib"><img src="img/kaz_interior.jpg" alt="Car B interior" loading="lazy"><figcaption>Car B interior</figcaption></figure><figure class="lib"><img src="img/props90.jpg" alt="1990s truck + sedan" loading="lazy"><figcaption>1990s truck + sedan</figcaption></figure><figure class="lib"><img src="img/grade_key90.jpg" alt="Grade key · 35mm" loading="lazy"><figcaption>Grade key · 35mm</figcaption></figure><figure class="lib"><img src="img/plate_forward90.jpg" alt="Forward plate · 35mm" loading="lazy"><figcaption>Forward plate · 35mm</figcaption></figure><figure class="lib"><img src="img/plate_back90.jpg" alt="Back plate · 35mm" loading="lazy"><figcaption>Back plate · 35mm</figcaption></figure><figure class="lib"><img src="img/scale_lineup.jpg" alt="Scale lineup" loading="lazy"><figcaption>Scale lineup</figcaption></figure><figure class="lib"><img src="img/map_topdown.jpg" alt="Lane map · full" loading="lazy"><figcaption>Lane map · full</figcaption></figure></div>
+</section>
+
+<section class="block" aria-labelledby="h-tools">
+  <header><span class="lbl">Later</span><h2 id="h-tools">Canvas board tools to evaluate</h2>
+  <p>This page works as a fixed board. A canvas tool would let the team move, comment and swap frames. Not tested yet.</p></header>
+  <div class="tbl"><table class="tools">
+    <thead><tr><th>Tool</th><th>Good for</th><th>Note</th></tr></thead>
+    <tbody>
+      <tr><td>Milanote</td><td>Mood boards + storyboards on one canvas</td><td>Closest to a film "look book"</td></tr>
+      <tr><td>Boords</td><td>Storyboard → animatic → shot list</td><td>Built for this exact flow; timing per frame</td></tr>
+      <tr><td>StudioBinder</td><td>Shot lists, storyboards, call sheets</td><td>Production-office features</td></tr>
+      <tr><td>Miro / FigJam</td><td>Free-form team canvas, comments</td><td>General purpose; needs a template</td></tr>
+      <tr><td>tldraw / Excalidraw</td><td>Open canvas, can be generated by script</td><td>I could build the board automatically from the pipeline</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+</div>

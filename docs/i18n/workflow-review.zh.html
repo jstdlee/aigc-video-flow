@@ -1,0 +1,307 @@
+<title>AIGC 视频流程评审</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=Noto+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --ground:#ECEFF0; --surface:#FFFFFF; --ink:#15202B; --muted:#56636E; --line:#D2D9DD;
+  --accent:#0B6E79; --accent-soft:#D6ECEE;
+  --pass:#2F7A4A; --pass-soft:#DDEFE3; --part:#A66A12; --part-soft:#F5E8D1; --none:#8A95A0; --none-soft:#E3E7EA;
+  --fail:#B4372E; --fail-soft:#F6DEDB;
+  --display:"Barlow Condensed","Arial Narrow",Arial,"Noto Sans SC",sans-serif;
+  --body:"Source Sans 3","Noto Sans SC",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --ground:#0F1519; --surface:#172026; --ink:#E3E9EC; --muted:#98A6B0; --line:#2A363E;
+    --accent:#5CC6D1; --accent-soft:#163238;
+    --pass:#6CC48E; --pass-soft:#173226; --part:#E2A84F; --part-soft:#3A2C14; --none:#7D8A94; --none-soft:#222C33;
+    --fail:#E8867C; --fail-soft:#3A1E1B;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --ground:#0F1519; --surface:#172026; --ink:#E3E9EC; --muted:#98A6B0; --line:#2A363E;
+  --accent:#5CC6D1; --accent-soft:#163238;
+  --pass:#6CC48E; --pass-soft:#173226; --part:#E2A84F; --part-soft:#3A2C14; --none:#7D8A94; --none-soft:#222C33;
+  --fail:#E8867C; --fail-soft:#3A1E1B;
+}
+*{box-sizing:border-box}
+body{background:var(--ground);color:var(--ink);font-family:var(--body);font-size:16.5px;line-height:1.6;padding-inline:20px;padding-block:0 72px}
+.wrap{max-width:980px;margin:0 auto;display:grid;gap:8px}
+h1,h2,h3{font-family:var(--display);line-height:1.08;margin:0;text-wrap:balance}
+h1{font-size:clamp(38px,6.4vw,60px);font-weight:700;letter-spacing:.005em}
+h2{font-size:clamp(26px,3.6vw,34px);font-weight:600}
+h3{font-size:21px;font-weight:600}
+p{margin:0;max-width:68ch}
+.mono,code{font-family:var(--mono);font-size:.86em}
+.label{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+section{padding-block:48px 4px;display:grid;gap:18px}
+header{padding-block:52px 4px;display:grid;gap:16px}
+.lede{font-size:19px;color:var(--muted);max-width:62ch}
+.muted{color:var(--muted)}
+.small{font-size:14px}
+
+/* verdict */
+.verdict{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.vcell{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px 18px;display:grid;gap:6px;align-content:start}
+.vcell .num{font-family:var(--display);font-size:40px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+.vcell .num.pass{color:var(--pass)} .vcell .num.part{color:var(--part)} .vcell .num.none{color:var(--none)}
+
+/* pipeline */
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;counter-reset:st}
+.stage{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 14px 14px;display:grid;gap:6px;align-content:start;position:relative;overflow:hidden}
+.stage::before{content:"";position:absolute;inset:0 0 auto 0;height:5px;background:var(--none)}
+.stage.pass::before{background:var(--pass)} .stage.part::before{background:var(--part)}
+.stage .top{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.stage .n{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.stage h3{font-size:19px}
+.stage p{font-size:14px;color:var(--muted)}
+.pill{font-family:var(--mono);font-size:11px;padding:2px 8px;border-radius:99px;white-space:nowrap}
+.pill.pass{background:var(--pass-soft);color:var(--pass)} .pill.part{background:var(--part-soft);color:var(--part)}
+.pill.none{background:var(--none-soft);color:var(--muted)} .pill.fail{background:var(--fail-soft);color:var(--fail)}
+.key{display:flex;flex-wrap:wrap;gap:14px;font-size:14px;color:var(--muted);align-items:center}
+
+/* tables */
+.tbl{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:8px}
+table{border-collapse:collapse;width:100%;min-width:680px;font-size:15px}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500;background:var(--surface)}
+tr:last-child td{border-bottom:0}
+td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+td b{font-weight:600}
+
+/* threads */
+.threads{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.thread{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px 18px;display:grid;gap:8px;align-content:start}
+.thread ul{margin:0;padding-left:18px;display:grid;gap:4px;font-size:15px}
+.thread .where{font-family:var(--mono);font-size:12px;color:var(--muted);word-break:break-all}
+
+/* plan */
+.plan{display:grid;gap:10px}
+.test{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px 16px;display:grid;grid-template-columns:28px 1fr;gap:12px;align-items:start}
+.test input{width:20px;height:20px;margin:3px 0 0;accent-color:var(--accent);cursor:pointer}
+.test input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.test .head{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:baseline}
+.test .id{font-family:var(--mono);font-size:13px;color:var(--accent);font-weight:500}
+.test h3{font-size:20px}
+.test .body{display:grid;grid-template-columns:1fr 1fr;gap:6px 24px;margin-top:6px;font-size:15px}
+.test .body div{display:grid;gap:2px}
+.test .k{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.test.done{opacity:.6}
+.test.done h3{text-decoration:line-through;text-decoration-thickness:1px}
+.progress{display:flex;align-items:center;gap:12px;font-size:14px;color:var(--muted)}
+.bar{flex:1;max-width:320px;height:8px;border-radius:99px;background:var(--none-soft);overflow:hidden}
+.bar span{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+@media (prefers-reduced-motion:reduce){.bar span{transition:none}}
+.phase{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:10px}
+.callout{background:var(--accent-soft);border-radius:8px;padding:16px 18px;display:grid;gap:6px}
+
+@media (max-width:860px){
+  .flow{grid-template-columns:repeat(2,1fr)}
+  .threads,.verdict{grid-template-columns:1fr}
+  .test .body{grid-template-columns:1fr}
+}
+@media (max-width:460px){.flow{grid-template-columns:1fr}}
+</style>
+
+<div class="wrap" lang="zh-CN">
+<header>
+  <span class="label">aigc-video-flow · 评审 · 2026-10-03</span>
+  <h1>方法站得住脚，但商业环节尚未测试。</h1>
+  <p class="lede">三个会话从三个方向搭建了同一套工作流。叙事追车短片验证了前半段：锁定世界观、制作可读的预演、检查关键帧。后半段仍未测试：品牌精确还原、交付规格、版权与成本。付费客户会逐项检查这些内容。</p>
+  <div class="verdict">
+    <div class="vcell"><div class="num pass">4 / 9</div><b>阶段已验证</b><span class="muted small">需求简报、世界观设定集、Blender 预演、关键帧质检。均在 <code>film2/</code> 中有记录的证据。</span></div>
+    <div class="vcell"><div class="num part">1 / 9</div><b>阶段部分验证</b><span class="muted small">预演转视频（模式 C）：第 1 条中 8 个镜头有 5 个可用。</span></div>
+    <div class="vcell"><div class="num none">4 / 9</div><b>阶段未运行</b><span class="muted small">合成（模式 A）、关键帧转视频（模式 B）、声音、交付。商业风险集中在这些阶段。</span></div>
+  </div>
+</header>
+
+<section id="threads">
+  <span class="label">现有成果</span>
+  <h2>三条线索，一套工作流</h2>
+  <div class="threads">
+    <div class="thread">
+      <h3>Golden Hour（叙事）</h3>
+      <span class="where">~/dev/blender/highway-race/film2</span>
+      <ul>
+        <li>连续性设定集、资产设定图、按颜色区分的白模预演。</li>
+        <li>关键帧质检：单一工具仅通过 1 / 8，把每项任务分派给最擅长的工具后通过 8 / 8。</li>
+        <li>H3 参考转视频，第 1 条：10.1 s，1280×704，耗时 108 min，内存峰值 92 GiB。</li>
+      </ul>
+    </div>
+    <div class="thread">
+      <h3>Blender 到电影级广告（方法）</h3>
+      <span class="where">artifact · 12 篇 Higgsfield 指南</span>
+      <ul>
+        <li>三种交接模式：A 合成、B 关键帧转视频、C 预演转视频。</li>
+        <li>提示词分段、15 s 广告结构、故障对照表。</li>
+        <li>仅为调研，未做任何测试。</li>
+      </ul>
+    </div>
+    <div class="thread">
+      <h3>Neon Pursuit（风格化）</h3>
+      <span class="where">~/dev/blender/anime-chase</span>
+      <ul>
+        <li>走位自检通过：无碰撞，51 辆背景车流。</li>
+        <li>可编辑绑定、卡通着色组、描边、合成器调色。</li>
+        <li><code>scene.py</code> 从未在 Blender 中运行，正在等待空闲内存。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="flow">
+  <span class="label">合并后的工作流</span>
+  <h2>九个阶段及各自的证据</h2>
+  <div class="key"><span class="pill pass">已验证</span><span class="pill part">部分</span><span class="pill none">未运行</span></div>
+  <div class="flow">
+    <div class="stage pass"><div class="top"><span class="n">1</span><span class="pill pass">已验证</span></div><h3>需求简报 + 分镜表</h3><p>BIBLE.md 和 plan.py 中带时间码的镜头表。</p></div>
+    <div class="stage pass"><div class="top"><span class="n">2</span><span class="pill pass">已验证</span></div><h3>锁定世界观 + 资产</h3><p>设定集规则、车辆与演员设定图。修复了 v1 的“世界观未锁定”问题。</p></div>
+    <div class="stage pass"><div class="top"><span class="n">3</span><span class="pill pass">已验证</span></div><h3>Blender 预演</h3><p>可读的白模：颜色、车灯、座位。作为 H3 的 &lt;Video 1&gt; 使用。</p></div>
+    <div class="stage pass"><div class="top"><span class="n">4</span><span class="pill pass">已验证</span></div><h3>关键帧质检</h3><p>原尺寸 10 项检查，记录在 QA.md。v4 中 8 / 8 通过。</p></div>
+    <div class="stage part"><div class="top"><span class="n">5C</span><span class="pill part">部分</span></div><h3>预演 → 视频</h3><p>8 个镜头中 5 个合格。丢失一个镜头，一辆车的设计被替换，一个道具出现在错误的车里。</p></div>
+    <div class="stage"><div class="top"><span class="n">5B</span><span class="pill none">未运行</span></div><h3>关键帧 → 视频</h3><p>已有 H3 图生视频（Pace Car v1），但未测量产品漂移。</p></div>
+    <div class="stage"><div class="top"><span class="n">5A</span><span class="pill none">未运行</span></div><h3>合成精确产品</h3><p>没有遮罩通道，没有合成。这是获得精确 logo 的唯一途径。</p></div>
+    <div class="stage"><div class="top"><span class="n">6</span><span class="pill none">未运行</span></div><h3>剪辑、调色、声音</h3><p><code>film2/sound</code> 为空。调色为全局调色，未逐镜头匹配。</p></div>
+    <div class="stage"><div class="top"><span class="n">7</span><span class="pill none">未运行</span></div><h3>交付 + 多版本</h3><p>没有交付检查：分辨率、画幅比例、响度、版权。</p></div>
+  </div>
+</section>
+
+<section id="review">
+  <span class="label">评审</span>
+  <h2>已完成的优化</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>改动</th><th>解决的问题</th><th>证据</th></tr></thead>
+    <tbody>
+      <tr><td><b>把规则做进白模，而不是写进提示词</b></td><td>图像模型无法仅凭文字处理车流、座位或后视镜逻辑</td><td>v2 WORKFLOW.md；8 / 8 关键帧通过</td></tr>
+      <tr><td><b>把每项任务分派给最擅长的工具</b></td><td>grok 会重新构图白模帧（仅 1 / 8 通过）</td><td>agy 负责白模转写实，grok 负责小修改，Qwen 负责座位逻辑</td></tr>
+      <tr><td><b>原尺寸质检并留书面记录</b></td><td>看缩略图审批会漏掉错误</td><td>QA.md，每个镜头一行</td></tr>
+      <tr><td><b>以白模预演作为参考视频</b></td><td>剪辑点和机位偏离分镜</td><td>第 1 条保持了同一组演员、同一种风格和机位调度</td></tr>
+      <tr><td><b>每次 GPU 运行都监控内存和温度</b></td><td>2026-10-02 发生一次硬重启</td><td>run_scene.sh；峰值 92 GiB (76 %)，71 °C</td></tr>
+      <tr><td><b>渲染前先检查走位</b></td><td>渲染数小时后才发现碰撞</td><td>plan.py 自检、俯视 SVG</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 style="margin-top:18px">阻碍达到商业级的问题</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>缺口</th><th>客户为何在意</th><th>严重程度</th></tr></thead>
+    <tbody>
+      <tr><td><b>没有精确产品的流程</b></td><td>模型把 Kaz 的车换成了另一种设计。放在产品上，就是 logo 或标签出错：广告会被退回。</td><td><span class="pill fail">阻断</span></td></tr>
+      <tr><td><b>模型与素材版权未核查</b></td><td>H3、Qwen-Image、Krea 2、agy 和 grok 输出的商用条款，以及 CC-BY 素材，均未存档。</td><td><span class="pill fail">阻断</span></td></tr>
+      <tr><td><b>原生尺寸为 1280×704</b></td><td>母版需要 1080p 或 4K，以及 16:9、9:16 和 1:1 版本。超分质量尚未测量。</td><td><span class="pill part">高</span></td></tr>
+      <tr><td><b>时长漂移</b></td><td>H3 把剪辑压缩了 0.5–0.75 s，并丢失一个镜头。广告剪辑精确到帧。</td><td><span class="pill part">高</span></td></tr>
+      <tr><td><b>每秒成片成本未知</b></td><td>108 min 产出 5 个可用镜头。没有这个数字就无法报价或承诺交期。</td><td><span class="pill part">高</span></td></tr>
+      <tr><td><b>没有生成记录清单</b></td><td>客户要求“回到第 3 版”时，需要每条生成的确切模型、LoRA、种子和参考素材集。</td><td><span class="pill part">中</span></td></tr>
+      <tr><td><b>没有声音与响度处理</b></td><td>平台和播出方会拒收不符合响度标准的文件。</td><td><span class="pill part">中</span></td></tr>
+      <tr><td><b>没有客户审片节点</b></td><td>在动态分镜、关键帧和粗剪阶段确认，可避免后期高成本修改。</td><td><span class="pill none">中</span></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="next">
+  <span class="label">下一步</span>
+  <h2>验证计划</h2>
+  <p>用一个小型的模拟付费项目测试所有未测阶段：一支 <b>15 s 产品广告</b>，一个瓶子、五个镜头，输出 16:9 和 9:16。产品会立刻暴露品牌漂移，叙事短片则不会。每项测试都有可量化的通过标准。测试通过后勾选；勾选状态仅保存在你的浏览器中。</p>
+  <div class="progress"><div class="bar"><span id="barFill"></span></div><span id="barText">已通过 0 / 9</span></div>
+
+  <div class="plan" id="plan">
+    <div class="phase">阶段 1 · 能否精确还原品牌？</div>
+    <label class="test" for="v1"><input type="checkbox" id="v1"><div>
+      <div class="head"><span class="id">V1</span><h3>版权审核</h3><span class="pill fail">阻断</span></div>
+      <div class="body">
+        <div><span class="k">执行</span>一张表：列出每个模型和素材、其许可证、是否可商用，以及来源链接。</div>
+        <div><span class="k">通过</span>每一行都允许商用。替换任何不合格的工具。无需 GPU。</div>
+      </div></div></label>
+    <label class="test" for="v2"><input type="checkbox" id="v2"><div>
+      <div class="head"><span class="id">V2</span><h3>模式 A：合成精确产品</h3><span class="pill fail">阻断</span></div>
+      <div class="body">
+        <div><span class="k">执行</span>Blender 渲染瓶子并输出物体遮罩。AI 生成背景板（场景、水花）。再把瓶子合成回画面上层。</div>
+        <div><span class="k">通过</span>每一帧的产品区域都与 Blender 渲染一致（SSIM ≥ 0.98）。100 % 缩放下无边缘光晕。</div>
+      </div></div></label>
+    <label class="test" for="v3"><input type="checkbox" id="v3"><div>
+      <div class="head"><span class="id">V3</span><h3>模式 B：关键帧转视频漂移</h3><span class="pill part">高</span></div>
+      <div class="body">
+        <div><span class="k">执行</span>用 Blender 首尾帧做 H3 图生视频，分别生成 4 s 和 8 s 版本。</div>
+        <div><span class="k">通过</span>每隔 3 帧，产品轮廓与 Blender 遮罩重合（IoU ≥ 0.95）。找出漂移开始出现的时长。</div>
+      </div></div></label>
+
+    <div class="phase">阶段 2 · 能否卡准剪辑点并符合规格？</div>
+    <label class="test" for="v4"><input type="checkbox" id="v4"><div>
+      <div class="head"><span class="id">V4</span><h3>模式 C：Golden Hour 分两段生成</h3><span class="pill part">高</span></div>
+      <div class="body">
+        <div><span class="k">执行</span>运行计划中的第 2 条：两段各 5 s，每段减少参考素材，并应用四项提示词修正。</div>
+        <div><span class="k">通过</span>8 个镜头全部出现。每个剪辑点与白模相差不超过 ±2 帧（ffmpeg 场景检测）。无设计替换，无道具错位。</div>
+      </div></div></label>
+    <label class="test" for="v5"><input type="checkbox" id="v5"><div>
+      <div class="head"><span class="id">V5</span><h3>交付规格检查</h3><span class="pill part">高</span></div>
+      <div class="body">
+        <div><span class="k">执行</span>超分到 1080p，重新构图为 9:16，加入混音。用脚本通过 ffprobe 和 ffmpeg 响度表检查每个文件。</div>
+        <div><span class="k">通过</span>尺寸和帧率正确，带 Rec.709 标记，响度符合平台标准（例如 −14 LUFS，真峰值 ≤ −1 dBTP）。产品上无超分瑕疵。</div>
+      </div></div></label>
+    <label class="test" for="v6"><input type="checkbox" id="v6"><div>
+      <div class="head"><span class="id">V6</span><h3>生成记录清单</h3><span class="pill part">中</span></div>
+      <div class="body">
+        <div><span class="k">执行</span>每次生成写入一个 JSON 文件：模型、LoRA、种子、步数、提示词、参考文件哈希、耗时和内存占用。</div>
+        <div><span class="k">通过</span>按清单重新运行可得到相同的帧。在一条生成上测试。</div>
+      </div></div></label>
+
+    <div class="phase">阶段 3 · 能否卖得出去？</div>
+    <label class="test" for="v7"><input type="checkbox" id="v7"><div>
+      <div class="head"><span class="id">V7</span><h3>每秒成片的成本与时间</h3><span class="pill part">高</span></div>
+      <div class="body">
+        <div><span class="k">执行</span>记录这支 15 s 广告的每一次生成。另选一个镜头在云服务（Higgsfield 或 fal.ai）上运行作对比。</div>
+        <div><span class="k">通过</span>得出可用于报价的数字：每秒成片所需的 GPU 小时、点数和人工小时，本地与云端各一份。</div>
+      </div></div></label>
+    <label class="test" for="v8"><input type="checkbox" id="v8"><div>
+      <div class="head"><span class="id">V8</span><h3>客户改稿演练</h3><span class="pill none">中</span></div>
+      <div class="body">
+        <div><span class="k">执行</span>扮演客户。粗剪后提出一项后期修改，例如更换标签颜色。</div>
+        <div><span class="k">通过</span>一个工作日内出新剪辑版本。模式 A 镜头只在 Blender 中修改，无需重新生成。</div>
+      </div></div></label>
+    <label class="test" for="v9"><input type="checkbox" id="v9"><div>
+      <div class="head"><span class="id">V9</span><h3>与参考广告盲测对比</h3><span class="pill none">中</span></div>
+      <div class="body">
+        <div><span class="k">执行</span>把这支广告与同品类的两支真实商业广告放在一起，请三位观众排序。</div>
+        <div><span class="k">通过</span>没有观众因光影、物理或产品错误而指出我们的广告是“AI”或“假的”。</div>
+      </div></div></label>
+  </div>
+</section>
+
+<section id="order">
+  <span class="label">工作顺序</span>
+  <h2>从这里开始</h2>
+  <div class="callout">
+    <p><b>今天，无需 GPU：</b>V1 版权审核。如果某个模型不合格，基于它的所有内容都要改，所以排在最前。</p>
+    <p><b>内存空闲时：</b>在 Blender 中建好瓶子模型，然后在同一镜头上运行 V2 和 V3。两者结合可判断广告中哪些镜头必须用合成。</p>
+    <p><b>然后：</b>V4（第 2 条）、V5 和 V6。在完成的 15 s 广告上运行 V7 至 V9。</p>
+    <p class="small muted">GPU 运行沿用现有规则：先估算内存，保持在 80 %（约 97 GiB）以下，同一时间只跑一个 GPU 任务，不并行 CPU 渲染。</p>
+  </div>
+</section>
+</div>
+
+<script>
+(function(){
+  var boxes=[].slice.call(document.querySelectorAll('#plan input[type=checkbox]'));
+  var fill=document.getElementById('barFill'),text=document.getElementById('barText');
+  function sync(){
+    var n=0;
+    boxes.forEach(function(b){b.closest('.test').classList.toggle('done',b.checked);if(b.checked)n++});
+    fill.style.width=(n/boxes.length*100)+'%';
+    text.textContent='已通过 '+n+' / '+boxes.length;
+  }
+  var saved={};
+  try{saved=JSON.parse(localStorage.getItem('aigc-review-v-zh')||'{}')}catch(e){}
+  boxes.forEach(function(b){
+    b.checked=!!saved[b.id];
+    b.addEventListener('change',function(){
+      saved[b.id]=b.checked;
+      try{localStorage.setItem('aigc-review-v-zh',JSON.stringify(saved))}catch(e){}
+      sync();
+    });
+  });
+  sync();
+})();
+</script>

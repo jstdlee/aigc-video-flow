@@ -1,0 +1,307 @@
+<title>AIGC映像フロー レビュー</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --ground:#ECEFF0; --surface:#FFFFFF; --ink:#15202B; --muted:#56636E; --line:#D2D9DD;
+  --accent:#0B6E79; --accent-soft:#D6ECEE;
+  --pass:#2F7A4A; --pass-soft:#DDEFE3; --part:#A66A12; --part-soft:#F5E8D1; --none:#8A95A0; --none-soft:#E3E7EA;
+  --fail:#B4372E; --fail-soft:#F6DEDB;
+  --display:"Barlow Condensed","Noto Sans JP","Arial Narrow",Arial,sans-serif;
+  --body:"Source Sans 3","Noto Sans JP",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --ground:#0F1519; --surface:#172026; --ink:#E3E9EC; --muted:#98A6B0; --line:#2A363E;
+    --accent:#5CC6D1; --accent-soft:#163238;
+    --pass:#6CC48E; --pass-soft:#173226; --part:#E2A84F; --part-soft:#3A2C14; --none:#7D8A94; --none-soft:#222C33;
+    --fail:#E8867C; --fail-soft:#3A1E1B;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --ground:#0F1519; --surface:#172026; --ink:#E3E9EC; --muted:#98A6B0; --line:#2A363E;
+  --accent:#5CC6D1; --accent-soft:#163238;
+  --pass:#6CC48E; --pass-soft:#173226; --part:#E2A84F; --part-soft:#3A2C14; --none:#7D8A94; --none-soft:#222C33;
+  --fail:#E8867C; --fail-soft:#3A1E1B;
+}
+*{box-sizing:border-box}
+body{background:var(--ground);color:var(--ink);font-family:var(--body);font-size:16.5px;line-height:1.6;padding-inline:20px;padding-block:0 72px}
+.wrap{max-width:980px;margin:0 auto;display:grid;gap:8px}
+h1,h2,h3{font-family:var(--display);line-height:1.08;margin:0;text-wrap:balance}
+h1{font-size:clamp(38px,6.4vw,60px);font-weight:700;letter-spacing:.005em}
+h2{font-size:clamp(26px,3.6vw,34px);font-weight:600}
+h3{font-size:21px;font-weight:600}
+p{margin:0;max-width:68ch}
+.mono,code{font-family:var(--mono);font-size:.86em}
+.label{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+section{padding-block:48px 4px;display:grid;gap:18px}
+header{padding-block:52px 4px;display:grid;gap:16px}
+.lede{font-size:19px;color:var(--muted);max-width:62ch}
+.muted{color:var(--muted)}
+.small{font-size:14px}
+
+/* verdict */
+.verdict{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.vcell{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px 18px;display:grid;gap:6px;align-content:start}
+.vcell .num{font-family:var(--display);font-size:40px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+.vcell .num.pass{color:var(--pass)} .vcell .num.part{color:var(--part)} .vcell .num.none{color:var(--none)}
+
+/* pipeline */
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;counter-reset:st}
+.stage{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 14px 14px;display:grid;gap:6px;align-content:start;position:relative;overflow:hidden}
+.stage::before{content:"";position:absolute;inset:0 0 auto 0;height:5px;background:var(--none)}
+.stage.pass::before{background:var(--pass)} .stage.part::before{background:var(--part)}
+.stage .top{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.stage .n{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.stage h3{font-size:19px}
+.stage p{font-size:14px;color:var(--muted)}
+.pill{font-family:var(--mono);font-size:11px;padding:2px 8px;border-radius:99px;white-space:nowrap}
+.pill.pass{background:var(--pass-soft);color:var(--pass)} .pill.part{background:var(--part-soft);color:var(--part)}
+.pill.none{background:var(--none-soft);color:var(--muted)} .pill.fail{background:var(--fail-soft);color:var(--fail)}
+.key{display:flex;flex-wrap:wrap;gap:14px;font-size:14px;color:var(--muted);align-items:center}
+
+/* tables */
+.tbl{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:8px}
+table{border-collapse:collapse;width:100%;min-width:680px;font-size:15px}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500;background:var(--surface)}
+tr:last-child td{border-bottom:0}
+td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+td b{font-weight:600}
+
+/* threads */
+.threads{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.thread{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px 18px;display:grid;gap:8px;align-content:start}
+.thread ul{margin:0;padding-left:18px;display:grid;gap:4px;font-size:15px}
+.thread .where{font-family:var(--mono);font-size:12px;color:var(--muted);word-break:break-all}
+
+/* plan */
+.plan{display:grid;gap:10px}
+.test{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px 16px;display:grid;grid-template-columns:28px 1fr;gap:12px;align-items:start}
+.test input{width:20px;height:20px;margin:3px 0 0;accent-color:var(--accent);cursor:pointer}
+.test input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.test .head{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:baseline}
+.test .id{font-family:var(--mono);font-size:13px;color:var(--accent);font-weight:500}
+.test h3{font-size:20px}
+.test .body{display:grid;grid-template-columns:1fr 1fr;gap:6px 24px;margin-top:6px;font-size:15px}
+.test .body div{display:grid;gap:2px}
+.test .k{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.test.done{opacity:.6}
+.test.done h3{text-decoration:line-through;text-decoration-thickness:1px}
+.progress{display:flex;align-items:center;gap:12px;font-size:14px;color:var(--muted)}
+.bar{flex:1;max-width:320px;height:8px;border-radius:99px;background:var(--none-soft);overflow:hidden}
+.bar span{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+@media (prefers-reduced-motion:reduce){.bar span{transition:none}}
+.phase{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:10px}
+.callout{background:var(--accent-soft);border-radius:8px;padding:16px 18px;display:grid;gap:6px}
+
+@media (max-width:860px){
+  .flow{grid-template-columns:repeat(2,1fr)}
+  .threads,.verdict{grid-template-columns:1fr}
+  .test .body{grid-template-columns:1fr}
+}
+@media (max-width:460px){.flow{grid-template-columns:1fr}}
+</style>
+
+<div class="wrap" lang="ja">
+<header>
+  <span class="label">aigc-video-flow · レビュー · 2026-10-03</span>
+  <h1>手法は通用する。商用部分はまだ検証されていない。</h1>
+  <p class="lede">3つのセッションが、3方向から1つのワークフローを構築しました。ナラティブのカーチェイス作品で前半は実証済みです。世界観の固定、読み取りやすいプリビズの作成、キーフレームの検品です。後半はまだ検証していません。ブランドの厳密な再現、納品仕様、権利、コストです。費用を払うクライアントは、これらをすべて確認します。</p>
+  <div class="verdict">
+    <div class="vcell"><div class="num pass">9件中4件</div><b>実証済みの工程</b><span class="muted small">ブリーフ、ワールドバイブル、Blenderプリビズ、キーフレームQA。いずれも <code>film2/</code> に記録された根拠があります。</span></div>
+    <div class="vcell"><div class="num part">9件中1件</div><b>一部実証の工程</b><span class="muted small">プリビズから映像へ（モードC）：テイク1で8ショット中5ショットが使用可能。</span></div>
+    <div class="vcell"><div class="num none">9件中4件</div><b>未実施の工程</b><span class="muted small">合成（モードA）、キーフレームから映像へ（モードB）、サウンド、納品。商用上のリスクはここにあります。</span></div>
+  </div>
+</header>
+
+<section id="threads">
+  <span class="label">現状の成果物</span>
+  <h2>3つのスレッド、1つのワークフロー</h2>
+  <div class="threads">
+    <div class="thread">
+      <h3>Golden Hour（ナラティブ）</h3>
+      <span class="where">~/dev/blender/highway-race/film2</span>
+      <ul>
+        <li>コンティニュイティ・バイブル、アセットシート、色分けしたクレイ・プリビズ。</li>
+        <li>キーフレームQA：単一ツールでは8件中1件合格。各作業を最適なツールに振り分けた後は8件中8件合格。</li>
+        <li>H3 リファレンスから映像生成、テイク1：10.1 s、1280×704、所要108分、メモリピーク92 GiB。</li>
+      </ul>
+    </div>
+    <div class="thread">
+      <h3>BlenderからCM映像へ（手法）</h3>
+      <span class="where">アーティファクト · Higgsfieldガイド12本</span>
+      <ul>
+        <li>3つの受け渡しモード：A 合成、B キーフレームから映像、C プリビズから映像。</li>
+        <li>プロンプトの構成、15秒スポットの構成、失敗事例の一覧表。</li>
+        <li>調査のみ。テストは実施していません。</li>
+      </ul>
+    </div>
+    <div class="thread">
+      <h3>Neon Pursuit（スタイライズ）</h3>
+      <span class="where">~/dev/blender/anime-chase</span>
+      <ul>
+        <li>振り付けのセルフチェックは合格：衝突なし、一般車51台。</li>
+        <li>編集可能なリグ、トゥーングループ、インク線、コンポジターでのグレーディング。</li>
+        <li><code>scene.py</code> はまだBlenderで一度も実行していません。メモリの空きを待っています。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="flow">
+  <span class="label">統合ワークフロー</span>
+  <h2>9つの工程と、それぞれの根拠</h2>
+  <div class="key"><span class="pill pass">実証済み</span><span class="pill part">一部実証</span><span class="pill none">未実施</span></div>
+  <div class="flow">
+    <div class="stage pass"><div class="top"><span class="n">1</span><span class="pill pass">実証済み</span></div><h3>ブリーフ＋ショットリスト</h3><p>BIBLE.md と plan.py にタイムコード付きのショット表。</p></div>
+    <div class="stage pass"><div class="top"><span class="n">2</span><span class="pill pass">実証済み</span></div><h3>世界観とアセットの固定</h3><p>バイブルのルール、車両と役者のシート。v1の「世界観が固定されない」問題を解消。</p></div>
+    <div class="stage pass"><div class="top"><span class="n">3</span><span class="pill pass">実証済み</span></div><h3>Blenderプリビズ</h3><p>読み取りやすいクレイ：色、ライト、座席配置。H3の &lt;Video 1&gt; として使用。</p></div>
+    <div class="stage pass"><div class="top"><span class="n">4</span><span class="pill pass">実証済み</span></div><h3>キーフレームQA</h3><p>原寸で10項目をチェックし、QA.md に記録。v4で8件中8件合格。</p></div>
+    <div class="stage part"><div class="top"><span class="n">5C</span><span class="pill part">一部実証</span></div><h3>プリビズ → 映像</h3><p>8ショット中5ショットが良好。1ショット欠落、車両デザイン1件の入れ替わり、小道具1件が別の車に。</p></div>
+    <div class="stage"><div class="top"><span class="n">5B</span><span class="pill none">未実施</span></div><h3>キーフレーム → 映像</h3><p>H3 の画像から映像生成は実績あり（Pace Car v1）。製品のドリフトは未計測。</p></div>
+    <div class="stage"><div class="top"><span class="n">5A</span><span class="pill none">未実施</span></div><h3>製品の厳密な合成</h3><p>マスクパスなし、合成なし。ロゴを厳密に再現できる唯一の手段です。</p></div>
+    <div class="stage"><div class="top"><span class="n">6</span><span class="pill none">未実施</span></div><h3>編集、グレーディング、サウンド</h3><p><code>film2/sound</code> は空です。グレーディングは全体一律で、ショットごとのマッチングはしていません。</p></div>
+    <div class="stage"><div class="top"><span class="n">7</span><span class="pill none">未実施</span></div><h3>納品＋バリエーション</h3><p>納品チェックなし：解像度、アスペクト比、ラウドネス、権利。</p></div>
+  </div>
+</section>
+
+<section id="review">
+  <span class="label">レビュー</span>
+  <h2>最適化済みの項目</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>変更点</th><th>解決した問題</th><th>根拠</th></tr></thead>
+    <tbody>
+      <tr><td><b>ルールはプロンプトに書かず、クレイに描き込む</b></td><td>画像モデルはテキストだけでは交通、座席配置、ミラーの論理を再現できない</td><td>v2 WORKFLOW.md、キーフレーム8件中8件合格</td></tr>
+      <tr><td><b>各作業を最適なツールに振り分ける</b></td><td>grok がクレイのフレームを再構図してしまった（8件中1件合格）</td><td>クレイから実写調は agy、細部の修正は grok、座席の論理は Qwen</td></tr>
+      <tr><td><b>原寸でのQAと記録の作成</b></td><td>サムネイルでの承認ではエラーを見落とした</td><td>QA.md、1ショット1行</td></tr>
+      <tr><td><b>クレイ・プリビズをリファレンス映像に使う</b></td><td>カットとカメラがストーリーボードからずれた</td><td>テイク1でキャスト、ルック、カメラブロッキングが一貫</td></tr>
+      <tr><td><b>すべてのGPU実行でメモリと温度を監視</b></td><td>2026-10-02 にハードリセットが発生</td><td>run_scene.sh、ピーク 92 GiB（76 %）、71 °C</td></tr>
+      <tr><td><b>レンダリング前に振り付けをチェック</b></td><td>何時間もレンダリングした後に衝突が判明していた</td><td>plan.py のセルフチェック、俯瞰SVG</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 style="margin-top:18px">商用品質を阻む要因</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>課題</th><th>クライアントにとっての重要性</th><th>深刻度</th></tr></thead>
+    <tbody>
+      <tr><td><b>製品を厳密に再現する手段がない</b></td><td>モデルがKazの車を別のデザインに差し替えた。製品なら、ロゴやラベルの誤りとなり、広告は却下される。</td><td><span class="pill fail">ブロッカー</span></td></tr>
+      <tr><td><b>モデルとアセットの権利が未確認</b></td><td>H3、Qwen-Image、Krea 2、agy、grok の出力の商用利用条件、およびCC-BYアセットの条件が記録されていない。</td><td><span class="pill fail">ブロッカー</span></td></tr>
+      <tr><td><b>ネイティブ解像度が1280×704</b></td><td>マスターには1080pまたは4K、さらに16:9、9:16、1:1の各版が必要。アップスケール品質は未計測。</td><td><span class="pill part">高</span></td></tr>
+      <tr><td><b>タイミングのずれ</b></td><td>H3 がカットを0.5–0.75 s詰め、1ショットを落とした。広告はフレーム単位で編集される。</td><td><span class="pill part">高</span></td></tr>
+      <tr><td><b>承認済み1秒あたりのコストが不明</b></td><td>108分で使用可能なショットは5つ。この数値がなければ、価格も納期も提示できない。</td><td><span class="pill part">高</span></td></tr>
+      <tr><td><b>テイクのマニフェストがない</b></td><td>クライアントの「バージョン3に戻して」に応えるには、テイクごとのモデル、LoRA、シード、リファレンス一式が正確に必要。</td><td><span class="pill part">中</span></td></tr>
+      <tr><td><b>サウンドとラウドネスの工程がない</b></td><td>配信プラットフォームや放送局は、ラウドネス基準を外れたファイルを受け付けない。</td><td><span class="pill part">中</span></td></tr>
+      <tr><td><b>クライアント確認のゲートがない</b></td><td>アニマティック、キーフレーム、ラフカットの各段階で承認を得れば、後工程での高額な修正を防げる。</td><td><span class="pill none">中</span></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="next">
+  <span class="label">次のステップ</span>
+  <h2>検証計画</h2>
+  <p>有償案件を想定した小規模な仕事を1本使い、未検証の工程をすべてテストします。ボトル1本、5ショット、16:9と9:16の<b>15秒の製品スポット</b>です。製品はブランドのドリフトがすぐに表れますが、ナラティブ作品では表れません。各テストには計測可能な合格基準があります。合格したテストにチェックを入れてください。チェックはお使いのブラウザにのみ保存されます。</p>
+  <div class="progress"><div class="bar"><span id="barFill"></span></div><span id="barText">9件中0件合格</span></div>
+
+  <div class="plan" id="plan">
+    <div class="phase">フェーズ1 · ブランドを厳密に保てるか？</div>
+    <label class="test" for="v1"><input type="checkbox" id="v1"><div>
+      <div class="head"><span class="id">V1</span><h3>権利監査</h3><span class="pill fail">ブロッカー</span></div>
+      <div class="body">
+        <div><span class="k">実施内容</span>1つの表にまとめる：各モデルとアセット、そのライセンス、商用利用の可否、出典リンク。</div>
+        <div><span class="k">合格基準</span>すべての行で商用利用が許可されていること。不可のツールは置き換える。GPUは不要。</div>
+      </div></div></label>
+    <label class="test" for="v2"><input type="checkbox" id="v2"><div>
+      <div class="head"><span class="id">V2</span><h3>モードA：製品を厳密に合成</h3><span class="pill fail">ブロッカー</span></div>
+      <div class="body">
+        <div><span class="k">実施内容</span>Blenderでボトルをオブジェクトマスク付きでレンダリング。AIがプレート（セット、飛沫）を生成。その上にボトルを合成し直す。</div>
+        <div><span class="k">合格基準</span>全フレームで製品領域がBlenderのレンダリングと一致（SSIM ≥ 0.98）。100 %表示でエッジのハロがないこと。</div>
+      </div></div></label>
+    <label class="test" for="v3"><input type="checkbox" id="v3"><div>
+      <div class="head"><span class="id">V3</span><h3>モードB：キーフレームから映像生成時のドリフト</h3><span class="pill part">高</span></div>
+      <div class="body">
+        <div><span class="k">実施内容</span>Blenderの開始・終了フレームから H3 で画像から映像を生成。4 sと8 sのテイク。</div>
+        <div><span class="k">合格基準</span>3フレームごとに製品シルエットがBlenderのマスクと重なること（IoU ≥ 0.95）。ドリフトが始まる尺を特定する。</div>
+      </div></div></label>
+
+    <div class="phase">フェーズ2 · カットと仕様を守れるか？</div>
+    <label class="test" for="v4"><input type="checkbox" id="v4"><div>
+      <div class="head"><span class="id">V4</span><h3>モードC：Golden Hour 前後半分割テイク</h3><span class="pill part">高</span></div>
+      <div class="body">
+        <div><span class="k">実施内容</span>予定しているテイク2を実行：5 sの前後半2本、各半分のリファレンス数を削減、プロンプト修正4点を適用。</div>
+        <div><span class="k">合格基準</span>8ショットすべてが揃うこと。各カットがクレイと±2フレーム以内（ffmpeg のシーン検出）。デザインの入れ替わりなし、小道具が別の車に入らないこと。</div>
+      </div></div></label>
+    <label class="test" for="v5"><input type="checkbox" id="v5"><div>
+      <div class="head"><span class="id">V5</span><h3>納品仕様チェック</h3><span class="pill part">高</span></div>
+      <div class="body">
+        <div><span class="k">実施内容</span>1080pにアップスケールし、9:16にリフレームし、サウンドミックスを加える。スクリプトで各ファイルを ffprobe と ffmpeg のラウドネスメーターで検査する。</div>
+        <div><span class="k">合格基準</span>サイズとフレームレートが正しく、Rec.709 タグ付き、ラウドネスがプラットフォーム基準内（例：−14 LUFS、トゥルーピーク ≤ −1 dBTP）。製品にアップスケールのアーティファクトがないこと。</div>
+      </div></div></label>
+    <label class="test" for="v6"><input type="checkbox" id="v6"><div>
+      <div class="head"><span class="id">V6</span><h3>テイクのマニフェスト</h3><span class="pill part">中</span></div>
+      <div class="body">
+        <div><span class="k">実施内容</span>テイクごとにJSONファイルを出力：モデル、LoRA、シード、ステップ数、プロンプト、リファレンスファイルのハッシュ、所要時間と使用メモリ。</div>
+        <div><span class="k">合格基準</span>マニフェストを再実行すると同じフレームが得られること。1テイクで検証する。</div>
+      </div></div></label>
+
+    <div class="phase">フェーズ3 · 販売できるか？</div>
+    <label class="test" for="v7"><input type="checkbox" id="v7"><div>
+      <div class="head"><span class="id">V7</span><h3>承認済み1秒あたりのコストと時間</h3><span class="pill part">高</span></div>
+      <div class="body">
+        <div><span class="k">実施内容</span>15秒スポットの全テイクを記録する。比較のため、1ショットをクラウドサービス（Higgsfield または fal.ai）でも実行する。</div>
+        <div><span class="k">合格基準</span>見積もりに使える数値：完成1秒あたりのGPU時間、クレジット、作業時間を、ローカルとクラウドの両方で算出。</div>
+      </div></div></label>
+    <label class="test" for="v8"><input type="checkbox" id="v8"><div>
+      <div class="head"><span class="id">V8</span><h3>クライアント修正の訓練</h3><span class="pill none">中</span></div>
+      <div class="body">
+        <div><span class="k">実施内容</span>クライアント役を演じる。ラフカットの後に、後期の修正を1件依頼する（例：ラベルの色を変更）。</div>
+        <div><span class="k">合格基準</span>1営業日以内に修正が新しいカットに反映されること。モードAのショットはBlender上の変更のみで、再生成は不要であること。</div>
+      </div></div></label>
+    <label class="test" for="v9"><input type="checkbox" id="v9"><div>
+      <div class="head"><span class="id">V9</span><h3>リファレンス広告とのブラインド評価</h3><span class="pill none">中</span></div>
+      <div class="body">
+        <div><span class="k">実施内容</span>同じカテゴリの実際のCMスポット2本と並べる。視聴者3人に順位を付けてもらう。</div>
+        <div><span class="k">合格基準</span>ライティング、物理挙動、製品の誤りを理由に、自社スポットを「AI」や「偽物」と指摘する視聴者がいないこと。</div>
+      </div></div></label>
+  </div>
+</section>
+
+<section id="order">
+  <span class="label">作業の順序</span>
+  <h2>ここから始める</h2>
+  <div class="callout">
+    <p><b>今日、GPUなしで：</b>V1、権利監査。いずれかのモデルが不合格なら、そのモデル上に構築したものはすべて変更が必要になるため、最初に行います。</p>
+    <p><b>メモリが空いたら：</b>Blenderでボトルをモデリングし、同じショットでV2とV3を実行します。両者の結果から、広告のどのショットを合成にすべきかが分かります。</p>
+    <p><b>その後：</b>V4（テイク2）、V5、V6。完成した15秒スポットでV7からV9を実行します。</p>
+    <p class="small muted">GPU実行には既存のルールを適用します：事前にメモリを見積もる、80 %（約97 GiB）未満に保つ、GPUジョブは一度に1つ、CPUレンダリングを並行させない。</p>
+  </div>
+</section>
+</div>
+
+<script>
+(function(){
+  var boxes=[].slice.call(document.querySelectorAll('#plan input[type=checkbox]'));
+  var fill=document.getElementById('barFill'),text=document.getElementById('barText');
+  function sync(){
+    var n=0;
+    boxes.forEach(function(b){b.closest('.test').classList.toggle('done',b.checked);if(b.checked)n++});
+    fill.style.width=(n/boxes.length*100)+'%';
+    text.textContent=boxes.length+'件中'+n+'件合格';
+  }
+  var saved={};
+  try{saved=JSON.parse(localStorage.getItem('aigc-review-v-ja')||'{}')}catch(e){}
+  boxes.forEach(function(b){
+    b.checked=!!saved[b.id];
+    b.addEventListener('change',function(){
+      saved[b.id]=b.checked;
+      try{localStorage.setItem('aigc-review-v-ja',JSON.stringify(saved))}catch(e){}
+      sync();
+    });
+  });
+  sync();
+})();
+</script>

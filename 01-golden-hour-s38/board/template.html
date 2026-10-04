@@ -1,0 +1,287 @@
+<title>Golden Hour Scene 38</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --ground:#e9ecee; --paper:#f7f8f8; --ink:#15181b; --ink2:#4a5157; --line:#cfd5d9;
+  --amber:#c9781a; --amber-soft:#f2dfc4; --teal:#2c6366; --red:#b8302a;
+  --display:"Big Shoulders Display","Arial Narrow",Impact,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --ground:#101315; --paper:#181c1f; --ink:#e7e4de; --ink2:#a3a9ae; --line:#2d3337;
+  --amber:#e39a3b; --amber-soft:#3a2a15; --teal:#5fa3a6; --red:#e0574f; color-scheme:dark; } }
+:root[data-theme="dark"]{
+  --ground:#101315; --paper:#181c1f; --ink:#e7e4de; --ink2:#a3a9ae; --line:#2d3337;
+  --amber:#e39a3b; --amber-soft:#3a2a15; --teal:#5fa3a6; --red:#e0574f; color-scheme:dark; }
+*{box-sizing:border-box}
+body{background:var(--ground);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.55;padding-inline:16px;padding-block:24px 64px}
+.wrap{max-width:1180px;margin:0 auto;display:grid;gap:40px}
+h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:.01em;text-wrap:balance;margin:0;line-height:1.02;text-transform:uppercase}
+h2{font-size:clamp(28px,4vw,40px)}
+h3{font-size:26px}
+p{margin:0;max-width:68ch}
+.mono,.lbl,dt,figcaption,summary{font-family:var(--mono)}
+.lbl{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink2)}
+a{color:inherit}
+
+/* slate header */
+.slate-head{background:var(--ink);color:var(--paper);border-radius:6px;overflow:hidden}
+.slate-stripes{height:22px;background:repeating-linear-gradient(-45deg,var(--paper) 0 22px,var(--ink) 22px 44px);opacity:.9}
+.slate-body{padding:22px 24px;display:grid;gap:18px}
+.slate-body h1{font-size:clamp(44px,8vw,92px);color:var(--paper)}
+.slate-body h1 span{color:var(--amber)}
+.slate-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:color-mix(in srgb,var(--paper) 25%,transparent);border:1px solid color-mix(in srgb,var(--paper) 25%,transparent)}
+.slate-grid div{background:var(--ink);padding:10px 12px}
+.slate-grid dt{font-size:10px;letter-spacing:.14em;text-transform:uppercase;opacity:.65}
+.slate-grid dd{margin:2px 0 0;font-family:var(--display);font-size:22px;font-weight:600;text-transform:uppercase}
+.logline{font-size:17px;max-width:78ch;color:color-mix(in srgb,var(--paper) 88%,transparent)}
+
+/* timeline */
+.timeline{display:flex;gap:3px;min-width:640px}
+.tl-scroll{overflow-x:auto;padding-bottom:4px}
+.seg{display:grid;gap:2px;text-decoration:none;background:var(--paper);border-top:4px solid var(--amber);padding:8px;min-width:0}
+.seg.slow{border-top-color:var(--teal)}
+.seg b{font-family:var(--display);font-size:22px}
+.seg span{font-size:12px;color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.seg:hover,.seg:focus-visible{background:var(--amber-soft);outline:none}
+.tl-axis{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;color:var(--ink2);min-width:640px;margin-top:4px}
+
+/* sections */
+.block{display:grid;gap:18px}
+.block>header{display:grid;gap:6px}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:18px;display:grid;gap:10px;align-content:start}
+.panel h4{margin:0;font-size:15px;font-weight:600}
+.panel ul{margin:0;padding-left:18px;display:grid;gap:6px}
+.verdict{font-family:var(--display);font-size:30px;font-weight:800;text-transform:uppercase;color:var(--amber);line-height:1}
+.swatches{display:flex;height:34px;border-radius:4px;overflow:hidden;border:1px solid var(--line)}
+.swatches span{display:flex;align-items:flex-end;padding:3px 6px;font-family:var(--mono);font-size:10px;color:#fff}
+.global{background:var(--paper);border-left:4px solid var(--amber);padding:14px 16px;font-family:var(--mono);font-size:13px;line-height:1.6}
+
+/* diagram */
+.diagram{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:12px;overflow-x:auto}
+.diagram svg{display:block;min-width:820px;width:100%;height:auto}
+.diagram text{font-family:var(--body);fill:var(--ink)}
+.diagram .t-mono{font-family:var(--mono);fill:var(--ink2)}
+
+/* shots */
+.shot{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:18px;display:grid;gap:16px;scroll-margin-top:16px}
+.shot-head{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start}
+.slate{display:grid;place-items:center;width:72px;height:72px;background:var(--ink);color:var(--paper);border-radius:4px}
+.slate-k{font-family:var(--mono);font-size:10px;letter-spacing:.16em;opacity:.7;margin-top:8px}
+.slate-v{font-family:var(--display);font-size:40px;font-weight:800;line-height:1;margin-top:-10px}
+.shot-title{display:grid;gap:6px}
+.beat{color:var(--ink2)}
+.specs{grid-column:1/-1;margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.specs div{background:var(--paper);padding:7px 10px}
+.specs .wide{grid-column:span 2}
+.specs dt{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink2)}
+.specs dd{margin:1px 0 0;font-size:14px;font-variant-numeric:tabular-nums}
+.boards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+figure{margin:0;display:grid;gap:6px}
+figure img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:3px;background:var(--line);display:block}
+figcaption{font-size:11px;color:var(--ink2)}
+.keyframe img{aspect-ratio:1920/1088;outline:3px solid var(--teal);outline-offset:-3px}
+.bgp img{outline:2px solid var(--amber);outline-offset:-2px}
+.refrow{display:grid;gap:8px}
+.refs{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.prompt{border-top:1px solid var(--line);padding-top:10px}
+.prompt summary{cursor:pointer;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--teal)}
+.prompt summary:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+.prompt p{margin-top:8px;font-size:14px}
+.library{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+.tools td,.tools th{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+.tools th{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2)}
+.tools{border-collapse:collapse;width:100%;min-width:620px}
+.tbl{overflow-x:auto;background:var(--paper);border:1px solid var(--line);border-radius:6px}
+@media (max-width:720px){ .boards{grid-template-columns:1fr} .specs .wide{grid-column:span 1} .shot-head{grid-template-columns:1fr} }
+@media (prefers-reduced-motion:reduce){ *{scroll-behavior:auto} }
+html{scroll-behavior:smooth}
+</style>
+
+<div class="wrap">
+
+<header class="slate-head">
+  <div class="slate-stripes" aria-hidden="true"></div>
+  <div class="slate-body">
+    <div class="lbl" style="color:inherit;opacity:.7">Scene design board · production slate</div>
+    <h1>Golden Hour <span>· Sc. 38</span></h1>
+    <p class="logline">1997. A stolen Soviet suitcase nuke is armed, and its anti-tamper clock reads 41 minutes. Ex-rally driver <b>Eli Navarro</b> must run it across the valley to the only team that can disarm it. The buyers send their wheelman, <b>Kaz</b>, to take it back. Scene 38: the hunter catches him on the interstate.</p>
+    <dl class="slate-grid">
+      <div><dt>Scene</dt><dd>38 · The Squeeze</dd></div>
+      <div><dt>Length</dt><dd>13.0 s · 312 fr</dd></div>
+      <div><dt>Shots</dt><dd>16</dd></div>
+      <div><dt>Look</dt><dd>1997 · 35mm · 2.39:1</dd></div>
+      <div><dt>Light</dt><dd>Golden hour · sun ahead</dd></div>
+      <div><dt>Pipeline</dt><dd>Clay → keyframe → I2V</dd></div>
+    </dl>
+  </div>
+</header>
+
+<section class="block" aria-labelledby="h-tl">
+  <header><span class="lbl">Scene sections</span><h2 id="h-tl">Sixteen shots, one clock</h2></header>
+  <div class="tl-scroll"><div class="timeline">{{TIMELINE}}</div>
+  <div class="tl-axis"><span>00:00</span><span>03:06</span><span>06:12</span><span>09:18</span><span>13:00</span></div></div>
+  <p>Rhythm: the stakes (the lid opens) → threat seen → threat arrives → <b style="color:var(--teal)">the stare + “Stop or die!” (slow motion)</b> → <b style="color:var(--red)">the ram, sparks, inches from a crash</b> → he catches it → Kaz grins → fury in his eyes → <b style="color:var(--red)">the clock jumps to 9:59</b> → the clock → explosion → release. Widths are true to each shot's length.</p>
+</section>
+
+<section class="block" aria-labelledby="h-style">
+  <header><span class="lbl">Film styling</span><h2 id="h-style">1997, shot on 35mm</h2></header>
+  <div class="cols">
+    <div class="panel">
+      <span class="verdict">Late-90s spy thriller</span>
+      <p>The story is set in 1997, the end of the Cold War hangover. Eli's 1970s muscle car is old-school grit; Kaz's brand-new 1990s JDM coupe is street-racer swagger. Traffic, trucks and sedans are 1990s models.</p>
+      <ul>
+        <li>35mm Kodak film stock: fine visible grain, gentle halation, softer contrast, creamy highlights.</li>
+        <li>Anamorphic lenses, oval flare, 2.39:1 framing; practical, real-speed camera-car feel.</li>
+        <li>Motion: real-time 24 fps, 180° shutter. Slow motion only in shots 5–6 (the stare and the shout).</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h4>Light: one key for the whole scene</h4>
+      <ul>
+        <li>Low golden-hour sun <b>ahead</b> of the cars, 3200 K warm key.</li>
+        <li>6500 K sky fill; warm rim light on every car and face.</li>
+        <li>Haze in the hills; long shadows fall back toward camera.</li>
+      </ul>
+      <h4>Colour ratio 60 : 30 : 10</h4>
+      <div class="swatches" aria-label="Colour ratio 60 30 10">
+        <span style="flex:60;background:#9a6a35">60 asphalt + ochre</span>
+        <span style="flex:30;background:#3d4f3c">30 olive-teal + pine</span>
+        <span style="flex:10;background:#b8302a">10 red</span>
+      </div>
+    </div>
+    <div class="panel">
+      <h4>Reference cues</h4>
+      <ul>
+        <li><b>Mood:</b> late-90s practical car-chase cinema: real cars at real speed, smoky dusk, grain you can feel.</li>
+        <li><b>Cutting:</b> hard cuts on action; inserts (the lid, the clock, the shifter) carry the stakes; close-ups carry the faces.</li>
+        <li><b>Avoid:</b> VHS damage, fake scratches, modern digital sharpness, shaky-cam chaos.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="global"><span class="lbl">Global style block · opens every prompt</span><br>{{GLOBAL}}</div>
+</section>
+
+<section class="block" aria-labelledby="h-cons">
+  <header><span class="lbl">Consistency system</span><h2 id="h-cons">How people and places stay the same</h2>
+  <p>Blender owns layout and camera; the asset library owns identity and look. Every keyframe takes both, and passes a written check before it becomes video.</p></header>
+  <div class="diagram">
+    <svg viewBox="0 0 980 300" role="img" aria-label="Consistency pipeline diagram">
+      <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink2)"/></marker></defs>
+      <g stroke="var(--line)" stroke-width="1.5">
+        <rect x="10" y="20" width="210" height="110" rx="6" fill="var(--paper)"/>
+        <rect x="10" y="165" width="210" height="115" rx="6" fill="var(--paper)"/>
+        <rect x="290" y="95" width="200" height="110" rx="6" fill="var(--amber-soft)"/>
+        <rect x="560" y="95" width="180" height="110" rx="6" fill="var(--paper)"/>
+        <rect x="800" y="95" width="170" height="110" rx="6" fill="var(--paper)"/>
+      </g>
+      <text x="24" y="46" font-weight="600" font-size="15">Blender clay previs</text>
+      <text class="t-mono" x="24" y="68" font-size="12">layout · camera · lens</text>
+      <text class="t-mono" x="24" y="86" font-size="12">lanes · facing · seating</text>
+      <text class="t-mono" x="24" y="104" font-size="12">timing (frame count)</text>
+      <text x="24" y="191" font-weight="600" font-size="15">Asset library</text>
+      <text class="t-mono" x="24" y="213" font-size="12">people: body · faces · seated</text>
+      <text class="t-mono" x="24" y="231" font-size="12">objects: cars · props · interiors</text>
+      <text class="t-mono" x="24" y="249" font-size="12">world: map · plates · grade key</text>
+      <text class="t-mono" x="24" y="267" font-size="12">one light key on every sheet</text>
+      <text x="304" y="122" font-weight="600" font-size="15">Keyframe</text>
+      <text class="t-mono" x="304" y="144" font-size="12">GPT Image 2.5 edit</text>
+      <text class="t-mono" x="304" y="162" font-size="12">clay frame + 3–5 sheets</text>
+      <text class="t-mono" x="304" y="180" font-size="12">10-point QA gate</text>
+      <text x="574" y="122" font-weight="600" font-size="15">Shot video</text>
+      <text class="t-mono" x="574" y="144" font-size="12">image-to-video</text>
+      <text class="t-mono" x="574" y="162" font-size="12">H3 local · Kling backup</text>
+      <text class="t-mono" x="574" y="180" font-size="12">start + end frame</text>
+      <text x="814" y="122" font-weight="600" font-size="15">Edit</text>
+      <text class="t-mono" x="814" y="144" font-size="12">conform to clay</text>
+      <text class="t-mono" x="814" y="162" font-size="12">timing (±0 fr)</text>
+      <text class="t-mono" x="814" y="180" font-size="12">grade to key still</text>
+      <g stroke="var(--ink2)" stroke-width="1.6" fill="none" marker-end="url(#ar)">
+        <path d="M220,75 C255,75 255,130 288,135"/>
+        <path d="M220,222 C255,222 255,170 288,165"/>
+        <path d="M490,150 L558,150"/>
+        <path d="M740,150 L798,150"/>
+        <path d="M115,20 C115,4 880,4 885,93" stroke-dasharray="4 4"/>
+      </g>
+      <text class="t-mono" x="430" y="14" font-size="11">clay frame count sets every cut</text>
+      <path d="M390,205 C390,255 330,262 300,262" stroke="var(--red)" stroke-width="1.6" fill="none" marker-end="url(#ar)"/>
+      <text class="t-mono" x="400" y="252" font-size="11" style="fill:var(--red)">fail twice → fix the input, not the seed</text>
+    </svg>
+  </div>
+  <div class="cols">
+    <div class="panel">
+      <h4>People stay consistent because…</h4>
+      <ul>
+        <li>Each actor has 5 sheets: full body, faces, <b>seated in his car</b>, faces under the scene light, and a <b>performance close-up sheet</b> (Kaz’s rage, Eli’s reaction).</li>
+        <li>Seated poses come from the clay rig, so pose and scale match the shots.</li>
+        <li>Every keyframe names its actor and cites his sheets; the video model gets the same sheets.</li>
+        <li>Rules: Eli always drives car A (left-hand drive); Kaz sits on the far side of car B; nobody leaves a car.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h4>The environment stays consistent because…</h4>
+      <ul>
+        <li>The Blender lane map is the single truth for lanes, median side and landmark order.</li>
+        <li>Background plates are made from clay frames, so road geometry cannot drift.</li>
+        <li>One grade key still and one light key for all shots; the sun stays ahead.</li>
+        <li>The same 1990s truck and sedan, and one <b>device sheet</b> (countdown, keypad, rust) in every shot that shows them.</li>
+        <li>After the ram (shot 7), every shot of a car uses its <b>damage sheet</b>: car A caved in at the left rear door, car B crushed at the front-right corner.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="block" aria-labelledby="h-shots">
+  <header><span class="lbl">Sections in detail</span><h2 id="h-shots">Shot by shot</h2>
+  <p>Storyboard = the clay start and end frames. Background = the plate the shot sits in (amber frame). Prompts below each shot are the drafts that go to the models.</p></header>
+  {{SHOTS}}
+</section>
+
+
+<section class="block" aria-labelledby="h-sound">
+  <header><span class="lbl">Sound and dialogue</span><h2 id="h-sound">One line, one pulse</h2>
+  <p>Sound is made after the picture is locked, so it can hit every cut.</p></header>
+  <div class="cols">
+    <div class="panel">
+      <h4>Dialogue</h4>
+      <p class="verdict" style="font-size:34px;color:var(--red)">“STOP OR DIE!”</p>
+      <ul>
+        <li><b>Who:</b> Kaz, shot 6, shouted across the gap with fury.</li>
+        <li><b>How:</b> an angry voice from a fal text-to-speech model, timed to the mouth in shot 6. Kaz backs the line with the ram (shots 7–10). Eli answers with no words, only the shifter (shot 14).</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h4>Music: spy pursuit</h4>
+      <ul>
+        <li>Low strings ostinato and a synth-bass pulse from 120 to 140 bpm; taiko and snare hits on cuts.</li>
+        <li>Shot 1: a ticking motif matched to the countdown. Shots 5–6: music drops to a drone. Shot 7: the music cuts out on impact; only metal, tyres and a horn until shot 10. Shot 13: a shrill device alarm over the silence. Shot 14: full hit on the shifter. Shot 16: peak, then cut to silence.</li>
+        <li><b>Model:</b> Google <b>Lyria 3.5</b> (DeepMind, Sept 2026), on fal, $0.10 per track. Rated strongest for cinematic, instrumental scores. The prompt carries section timecodes, so the hits land on the cuts. Three takes, best one wins.</li>
+        <li><b>A/B:</b> ElevenLabs Music, about $0.13 for this length. Suno v5.5 has no official API; for a Suno take, paste the same prompt into the Suno app.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<section class="block" aria-labelledby="h-lib">
+  <header><span class="lbl">Asset library v2</span><h2 id="h-lib">Reference images</h2></header>
+  <div class="library">{{LIBRARY}}</div>
+</section>
+
+<section class="block" aria-labelledby="h-tools">
+  <header><span class="lbl">Later</span><h2 id="h-tools">Canvas board tools to evaluate</h2>
+  <p>This page works as a fixed board. A canvas tool would let the team move, comment and swap frames. Not tested yet.</p></header>
+  <div class="tbl"><table class="tools">
+    <thead><tr><th>Tool</th><th>Good for</th><th>Note</th></tr></thead>
+    <tbody>
+      <tr><td>Milanote</td><td>Mood boards + storyboards on one canvas</td><td>Closest to a film "look book"</td></tr>
+      <tr><td>Boords</td><td>Storyboard → animatic → shot list</td><td>Built for this exact flow; timing per frame</td></tr>
+      <tr><td>StudioBinder</td><td>Shot lists, storyboards, call sheets</td><td>Production-office features</td></tr>
+      <tr><td>Miro / FigJam</td><td>Free-form team canvas, comments</td><td>General purpose; needs a template</td></tr>
+      <tr><td>tldraw / Excalidraw</td><td>Open canvas, can be generated by script</td><td>I could build the board automatically from the pipeline</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+</div>

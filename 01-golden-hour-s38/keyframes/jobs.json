@@ -1,0 +1,310 @@
+[
+ {
+  "n": 1,
+  "input": {
+   "prompt": "Image 1 is the 3D previs frame of this shot. It is the ground truth for camera position, lens, framing and the position of every car and person. Its flat colours are only codes: the dark car is car A, the red car is car B, the white box is the box truck, the grey box is the silver sedan; skin-tone figures are the drivers. Re-render it as one photoreal frame from a 1997 feature film.\nSHOT 1, The lid opens. Camera: Inside car A, over the passenger seat, 35 mm macro lens.\nInsert inside car A (left-hand drive, interior exactly as the interior sheet). The rusted Soviet-era nuclear device case from the device sheet is belted into the passenger seat. Eli's hand in a worn brown leather sleeve lifts the dented lid; the control panel is revealed: red seven-segment countdown reading 00:41:12, steel keypad, key slots, toggle switches under red flip covers, needle gauges, green armed lamp. Sun strobes through the window. 35mm film look.\nScreen layout, follow image 1: the camera is at the passenger door looking across the device toward the driver. Eli sits beyond the device at frame-right with the steering wheel in front of him at frame-right; his right arm reaches in from frame-right and lifts the lid. There is no steering wheel at frame-left. No red car anywhere; only distant traffic far ahead.\nImage 2 is the Nuclear device reference sheet: match it exactly. Image 3 is the Car A interior + device reference sheet: match it exactly. Image 4 is the Eli's hands reference sheet: match it exactly. Image 5 is the grade key: use it only for light, colour, haze and film texture, never for composition.\nLook: 1997. Late-90s action thriller shot on 35mm Kodak film stock, anamorphic 2.39:1 lenses with oval flare, fine visible grain, gentle halation, slightly softer contrast, 24 fps real time, 180\u00b0 shutter. Low golden-hour sun ahead of the cars, 3200 K warm key, warm rim light, smoky haze. Colour ratio 60 % warm asphalt and dry-grass ochre, 30 % olive-teal shadows and pine, 10 % red accent: Kaz's coupe and the countdown LED. Right-hand traffic: concrete median on the drivers' left, guardrail on their right; every vehicle drives forward in its own lane; 1990s traffic.\nOne single image that fills the whole 16:9 frame, no letterbox bars. No text, no captions, no borders, no watermark.",
+   "image_urls": [
+    "https://v3b.fal.media/files/b/0aace27f/dKQfnUPXuJT2mF7f2FBQ6_clay_0001.jpg",
+    "https://v3b.fal.media/files/b/0aace77a/n9bzkCwEo5FezAVJjI-ub_WLBUBwTa.jpg",
+    "https://v3b.fal.media/files/b/0aace781/nXJ2ch4MgbINiFrrl9q15_RNJN7vYa.jpg",
+    "https://v3b.fal.media/files/b/0aace782/_2tTKVl-Fnd-rSc55VP9A_6DXNwknl.jpg",
+    "https://v3b.fal.media/files/b/0aace793/nTXwZzpfWzm35JsBRpVk4_lSVGnqLA.jpg"
+   ],
+   "image_size": {
+    "width": 1920,
+    "height": 1088
+   },
+   "quality": "high",
+   "output_format": "jpeg"
+  }
+ },
+ {
+  "n": 2,
+  "input": {
+   "prompt": "Image 1 is the 3D previs frame of this shot. It is the ground truth for camera position, lens, framing and the position of every car and person. Its flat colours are only codes: the dark car is car A, the red car is car B, the white box is the box truck, the grey box is the silver sedan; skin-tone figures are the drivers. Re-render it as one photoreal frame from a 1997 feature film.\nSHOT 2, Something is coming. Camera: Camera car in front of car A, 1.4 m, looking back, 44\u219252 mm lens.\nMedium close-up through the open windshield of car A, the gloss-black 1970s muscle car, from its hood. Eli at the wood-rim wheel on the left of the car (frame-right), calm. The rusted device on the passenger seat (frame-left), red digits glowing. Behind him the highway recedes; a tiny red car far back in the fast lane.\nScreen layout: the camera is in front of car A looking back. Eli and the steering wheel are at frame-right; the passenger seat with the device is at frame-left. Behind the car the concrete median runs along frame-RIGHT and the guardrail along frame-left. Far behind, the tiny red coupe is in the lane next to the median, on the frame-right half, headlights on toward us. Every car behind faces us with headlights on.\nImage 2 is the Eli seated reference sheet: match it exactly. Image 3 is the Eli reaction sheet reference sheet: match it exactly. Image 4 is the Car A interior + device reference sheet: match it exactly. Image 5 is the grade key: use it only for light, colour, haze and film texture, never for composition.\nLook: 1997. Late-90s action thriller shot on 35mm Kodak film stock, anamorphic 2.39:1 lenses with oval flare, fine visible grain, gentle halation, slightly softer contrast, 24 fps real time, 180\u00b0 shutter. Low golden-hour sun ahead of the cars, 3200 K warm key, warm rim light, smoky haze. Colour ratio 60 % warm asphalt and dry-grass ochre, 30 % olive-teal shadows and pine, 10 % red accent: Kaz's coupe and the countdown LED. Right-hand traffic: concrete median on the drivers' left, guardrail on their right; every vehicle drives forward in its own lane; 1990s traffic.\nOne single image that fills the whole 16:9 frame, no letterbox bars. No text, no captions, no borders, no watermark.",
+   "image_urls": [
+    "https://v3b.fal.media/files/b/0aace27f/IxYHabKjtmqTsdtETqYS4_clay_0031.jpg",
+    "https://v3b.fal.media/files/b/0aace782/i_mGDsZKYcIlTyhloWKEt_5HtezUP2.jpg",
+    "https://v3b.fal.media/files/b/0aace783/OsofXJrdJd-TdwgEPLUDp_QdwngtRT.jpg",
+    "https://v3b.fal.media/files/b/0aace781/nXJ2ch4MgbINiFrrl9q15_RNJN7vYa.jpg",
+    "https://v3b.fal.media/files/b/0aace793/nTXwZzpfWzm35JsBRpVk4_lSVGnqLA.jpg"
+   ],
+   "image_size": {
+    "width": 1920,
+    "height": 1088
+   },
+   "quality": "high",
+   "output_format": "jpeg"
+  }
+ },
+ {
+  "n": 3,
+  "input": {
+   "prompt": "Image 1 is the 3D previs frame of this shot. It is the ground truth for camera position, lens, framing and the position of every car and person. Its flat colours are only codes: the dark car is car A, the red car is car B, the white box is the box truck, the grey box is the silver sedan; skin-tone figures are the drivers. Re-render it as one photoreal frame from a 1997 feature film.\nSHOT 3, The hunter in the mirror. Camera: Eli's eye-line into his left door mirror, 78\u219286 mm lens.\nPoint of view from car A's driver seat into its chrome left door mirror. The mirror shows the road behind: car B, the candy-red 1990s coupe with the tall rear wing, head-on, headlights on, in the lane to our left, closing in. Beyond the window: the concrete median and the fast lane blur past.\nImage 2 is the design sheet of car A (black muscle car) and car B (red coupe): match both designs exactly. Image 3 is the grade key: use it only for light, colour, haze and film texture, never for composition.\nLook: 1997. Late-90s action thriller shot on 35mm Kodak film stock, anamorphic 2.39:1 lenses with oval flare, fine visible grain, gentle halation, slightly softer contrast, 24 fps real time, 180\u00b0 shutter. Low golden-hour sun ahead of the cars, 3200 K warm key, warm rim light, smoky haze. Colour ratio 60 % warm asphalt and dry-grass ochre, 30 % olive-teal shadows and pine, 10 % red accent: Kaz's coupe and the countdown LED. Right-hand traffic: concrete median on the drivers' left, guardrail on their right; every vehicle drives forward in its own lane; 1990s traffic.\nOne single image that fills the whole 16:9 frame, no letterbox bars. No text, no captions, no borders, no watermark.",
+   "image_urls": [
+    "https://v3b.fal.media/files/b/0aace280/PtarsGIDZDv_nFTh8vKR8_clay_0067.jpg",
+    "https://v3b.fal.media/files/b/0aace89a/FrhawF5aHzqhooHtbIxGW_cars.jpg",
+    "https://v3b.fal.media/files/b/0aace793/nTXwZzpfWzm35JsBRpVk4_lSVGnqLA.jpg"
+   ],
+   "image_size": {
+    "width": 1920,
+    "height": 1088
+   },
+   "quality": "high",
+   "output_format": "jpeg"
+  }
+ },
+ {
+  "n": 4,
+  "input": {
+   "prompt": "Image 1 is the 3D previs frame of this shot. It is the ground truth for camera position, lens, framing and the position of every car and person. Its flat colours are only codes: the dark car is car A, the red car is car B, the white box is the box truck, the grey box is the silver sedan; skin-tone figures are the drivers. Re-render it as one photoreal frame from a 1997 feature film.\nSHOT 4, Boxed in. Camera: Drone 3.6\u20134.8 m high, 11\u201317 m behind, 30 mm drone lens.\nHigh drone shot from behind and above; every car drives away from camera with red taillights. Car A in the middle lane boxed in behind the mid-1990s white box truck; the 1990s silver sedan in the right lane; the green sign gantry ahead; car B's red nose enters bottom-left in the empty fast lane.\nImage 2 is the design sheet of car A (black muscle car) and car B (red coupe): match both designs exactly. Image 3 is the 1990s truck + sedan reference sheet: match it exactly. Image 4 is the grade key: use it only for light, colour, haze and film texture, never for composition. Image 5 is the labelled top-down lane map: use it only to place cars in the correct lanes.\nLook: 1997. Late-90s action thriller shot on 35mm Kodak film stock, anamorphic 2.39:1 lenses with oval flare, fine visible grain, gentle halation, slightly softer contrast, 24 fps real time, 180\u00b0 shutter. Low golden-hour sun ahead of the cars, 3200 K warm key, warm rim light, smoky haze. Colour ratio 60 % warm asphalt and dry-grass ochre, 30 % olive-teal shadows and pine, 10 % red accent: Kaz's coupe and the countdown LED. Right-hand traffic: concrete median on the drivers' left, guardrail on their right; every vehicle drives forward in its own lane; 1990s traffic.\nOne single image that fills the whole 16:9 frame, no letterbox bars. No text, no captions, no borders, no watermark.",
+   "image_urls": [
+    "https://v3b.fal.media/files/b/0aace280/C1fyAGYdS40K5CPGSbvQP_clay_0085.jpg",
+    "https://v3b.fal.media/files/b/0aace89a/FrhawF5aHzqhooHtbIxGW_cars.jpg",
+    "https://v3b.fal.media/files/b/0aace782/zWVQyogwePP8FoopfdiSB_UzWBHdHS.jpg",
+    "https://v3b.fal.media/files/b/0aace793/nTXwZzpfWzm35JsBRpVk4_lSVGnqLA.jpg",
+    "https://v3b.fal.media/files/b/0aace89c/sNx_poeNFihT6ujilucJE_map_detail.jpg"
+   ],
+   "image_size": {
+    "width": 1920,
+    "height": 1088
+   },
+   "quality": "high",
+   "output_format": "jpeg"
+  }
+ },
+ {
+  "n": 5,
+  "input": {
+   "prompt": "Image 1 is the 3D previs frame of this shot. It is the ground truth for camera position, lens, framing and the position of every car and person. Its flat colours are only codes: the dark car is car A, the red car is car B, the white box is the box truck, the grey box is the silver sedan; skin-tone figures are the drivers. Re-render it as one photoreal frame from a 1997 feature film.\nSHOT 5, The stare. Camera: Inside car A behind Eli's right shoulder, looking left, 32\u219238 mm lens.\nOver Eli's right shoulder inside car A, looking out of his open window. The back of Eli's head soft in the right foreground. Car B alongside, side-on, nose toward frame-right. Kaz (black cap, black bomber) at car B's wheel on the far side, turning toward Eli.\nScreen layout, follow image 1: car B is side-on with its tall rear wing at frame-LEFT and its nose at frame-RIGHT. Kaz faces frame-right with both hands on his wheel. Both cars travel toward frame-right.\nImage 2 is the Eli seated reference sheet: match it exactly. Image 3 is the Kaz seated reference sheet: match it exactly. Image 4 is the Car B interior reference sheet: match it exactly. Image 5 is the design sheet of car A (black muscle car) and car B (red coupe): match both designs exactly. Image 6 is the grade key: use it only for light, colour, haze and film texture, never for composition.\nLook: 1997. Late-90s action thriller shot on 35mm Kodak film stock, anamorphic 2.39:1 lenses with oval flare, fine visible grain, gentle halation, slightly softer contrast, 24 fps real time, 180\u00b0 shutter. Low golden-hour sun ahead of the cars, 3200 K warm key, warm rim light, smoky haze. Colour ratio 60 % warm asphalt and dry-grass ochre, 30 % olive-teal shadows and pine, 10 % red accent: Kaz's coupe and the countdown LED. Right-hand traffic: concrete median on the drivers' left, guardrail on their right; every vehicle drives forward in its own lane; 1990s traffic.\nOne single image that fills the whole 16:9 frame, no letterbox bars. No text, no captions, no borders, no watermark.",
+   "image_urls": [
+    "https://v3b.fal.media/files/b/0aace280/LCVy6kycbQlKJ9J6_GJeP_clay_0115.jpg",
+    "https://v3b.fal.media/files/b/0aace782/i_mGDsZKYcIlTyhloWKEt_5HtezUP2.jpg",
+    "https://v3b.fal.media/files/b/0aace89a/w4-ycmoly-Uan_p8_OYTe_kaz_seated.jpg",
+    "https://v3b.fal.media/files/b/0aace89b/sz66ByhyaO5GRzLaTUCa4_kaz_interior.jpg",
+    "https://v3b.fal.media/files/b/0aace89a/FrhawF5aHzqhooHtbIxGW_cars.jpg",
+    "https://v3b.fal.media/files/b/0aace793/nTXwZzpfWzm35JsBRpVk4_lSVGnqLA.jpg"
+   ],
+   "image_size": {
+    "width": 1920,
+    "height": 1088
+   },
+   "quality": "high",
+   "output_format": "jpeg"
+  }
+ },
+ {
+  "n": 6,
+  "input": {
+   "prompt": "Image 1 is the 3D previs frame of this shot. It is the ground truth for camera position, lens, framing and the position of every car and person. Its flat colours are only codes: the dark car is car A, the red car is car B, the white box is the box truck, the grey box is the silver sedan; skin-tone figures are the drivers. Re-render it as one photoreal frame from a 1997 feature film.\nSHOT 6, \u201cStop or die!\u201d. Camera: From car A across the gap into Kaz's window, 50\u219275 mm lens.\nClose-up of Kaz at the wheel of the red coupe, seen through his open passenger window from car A beside him. He is furious, mid-shout, mouth wide, pointing hard toward camera; face exactly as the rage sheet; red paint reflections on his face; golden-hour rim light; 35mm film look.\nImage 2 is the Kaz rage sheet reference sheet: match it exactly. Image 3 is the Kaz seated reference sheet: match it exactly. Image 4 is the Car B interior reference sheet: match it exactly. Image 5 is the grade key: use it only for light, colour, haze and film texture, never for composition.\nLook: 1997. Late-90s action thriller shot on 35mm Kodak film stock, anamorphic 2.39:1 lenses with oval flare, fine visible grain, gentle halation, slightly softer contrast, 24 fps real time, 180\u00b0 shutter. Low golden-hour sun ahead of the cars, 3200 K warm key, warm rim light, smoky haze. Colour ratio 60 % warm asphalt and dry-grass ochre, 30 % olive-teal shadows and pine, 10 % red accent: Kaz's coupe and the countdown LED. Right-hand traffic: concrete median on the drivers' left, guardrail on their right; every vehicle drives forward in its own lane; 1990s traffic.\nOne single image that fills the whole 16:9 frame, no letterbox bars. No text, no captions, no borders, no watermark.",
+   "image_urls": [
+    "https://v3b.fal.media/files/b/0aace89d/vB6SLjaZVe6-i25K4i3kt_clay_kaz_across.jpg",
+    "https://v3b.fal.media/files/b/0aace783/i1UwK4NZ914U9bahMVAAS_UpQ4bvjO.jpg",
+    "https://v3b.fal.media/files/b/0aace89a/w4-ycmoly-Uan_p8_OYTe_kaz_seated.jpg",
+    "https://v3b.fal.media/files/b/0aace89b/sz66ByhyaO5GRzLaTUCa4_kaz_interior.jpg",
+    "https://v3b.fal.media/files/b/0aace793/nTXwZzpfWzm35JsBRpVk4_lSVGnqLA.jpg"
+   ],
+   "image_size": {
+    "width": 1920,
+    "height": 1088
+   },
+   "quality": "high",
+   "output_format": "jpeg"
+  }
+ },
+ {
+  "n": 7,
+  "input": {
+   "prompt": "Image 1 is the 3D previs frame of this shot. It is the ground truth for camera position, lens, framing and the position of every car and person. Its flat colours are only codes: the dark car is car A, the red car is car B, the white box is the box truck, the grey box is the silver sedan; skin-tone figures are the drivers. Re-render it as one photoreal frame from a 1997 feature film.\nSHOT 7, The ram. Camera: Drone 7.5 m high, 16 m behind-left, 30 mm drone lens.\nHigh drone shot from behind and to the left; every car drives away from camera with red taillights. Car B, the candy-red 1990s coupe, has swerved right out of the fast lane; its front-right corner slams into the left rear door of car A, the gloss-black 1970s muscle car, in the middle lane. Car A's rear kicks out, its nose turning right. The silver 1990s sedan just behind in the right lane; the white box truck ahead; tyre smoke; 35mm film look.\nScreen layout, follow image 1: the red coupe is on the LEFT of the frame, between the concrete median and the black muscle car; the black muscle car is to the right of the red coupe; the silver sedan is to the right of the black car and a little behind. The red coupe's front-right corner touches the black car's left rear door.\nImage 2 is the design sheet of car A (black muscle car) and car B (red coupe): match both designs exactly. Image 3 is the 1990s truck + sedan reference sheet: match it exactly. Image 4 is the grade key: use it only for light, colour, haze and film texture, never for composition. Image 5 is the labelled top-down lane map: use it only to place cars in the correct lanes.\nLook: 1997. Late-90s action thriller shot on 35mm Kodak film stock, anamorphic 2.39:1 lenses with oval flare, fine visible grain, gentle halation, slightly softer contrast, 24 fps real time, 180\u00b0 shutter. Low golden-hour sun ahead of the cars, 3200 K warm key, warm rim light, smoky haze. Colour ratio 60 % warm asphalt and dry-grass ochre, 30 % olive-teal shadows and pine, 10 % red accent: Kaz's coupe and the countdown LED. Right-hand traffic: concrete median on the drivers' left, guardrail on their right; every vehicle drives forward in its own lane; 1990s traffic.\nOne single image that fills the whole 16:9 frame, no letterbox bars. No text, no captions, no borders, no watermark.",
+   "image_urls": [
+    "https://v3b.fal.media/files/b/0aace89e/az7ki6cg_HVJkgZGBu3Bd_clay_hit_a.jpg",
+    "https://v3b.fal.media/files/b/0aace89a/FrhawF5aHzqhooHtbIxGW_cars.jpg",
+    "https://v3b.fal.media/files/b/0aace782/zWVQyogwePP8FoopfdiSB_UzWBHdHS.jpg",
+    "https://v3b.fal.media/files/b/0aace793/nTXwZzpfWzm35JsBRpVk4_lSVGnqLA.jpg",
+    "https://v3b.fal.media/files/b/0aace89c/sNx_poeNFihT6ujilucJE_map_detail.jpg"
+   ],
+   "image_size": {
+    "width": 1920,
+    "height": 1088
+   },
+   "quality": "high",
+   "output_format": "jpeg"
+  }
+ },
+ {
+  "n": 8,
+  "input": {
+   "prompt": "Image 1 is the 3D previs frame of this shot. It is the ground truth for camera position, lens, framing and the position of every car and person. Its flat colours are only codes: the dark car is car A, the red car is car B, the white box is the box truck, the grey box is the silver sedan; skin-tone figures are the drivers. Re-render it as one photoreal frame from a 1997 feature film.\nSHOT 8, Metal on metal. Camera: Low between the two cars, 0.45 m, at the contact, 24 mm lens.\nLow extreme close shot between two cars at speed: the red coupe's front fender grinds along the black muscle car's dented left door. A bright fan of orange sparks sprays back toward camera, paint chips fly, chrome trim bends, the road is a streaked blur below; golden-hour backlight; 35mm film look.\nScreen layout, follow image 1: the camera is low BEHIND both cars, between them, looking forward in the direction of travel toward the low sun. We see both cars from behind: their rear bumpers and red taillights are nearest to camera. The red coupe is on frame-LEFT (its rear wing visible), the black muscle car on frame-RIGHT. Ahead of us, the red coupe's front-right corner grinds into the black car's left rear door; the sparks fly backward toward the camera. Traffic far ahead drives away from us. The concrete median is at the far left.\nImage 2 is the design sheet of car A (black muscle car) and car B (red coupe): match both designs exactly. Image 3 is the grade key: use it only for light, colour, haze and film texture, never for composition. Image 4 is the Car A damaged reference sheet: match it exactly. Image 5 is the Car B damaged reference sheet: match it exactly.\nLook: 1997. Late-90s action thriller shot on 35mm Kodak film stock, anamorphic 2.39:1 lenses with oval flare, fine visible grain, gentle halation, slightly softer contrast, 24 fps real time, 180\u00b0 shutter. Low golden-hour sun ahead of the cars, 3200 K warm key, warm rim light, smoky haze. Colour ratio 60 % warm asphalt and dry-grass ochre, 30 % olive-teal shadows and pine, 10 % red accent: Kaz's coupe and the countdown LED. Right-hand traffic: concrete median on the drivers' left, guardrail on their right; every vehicle drives forward in its own lane; 1990s traffic.\nOne single image that fills the whole 16:9 frame, no letterbox bars. No text, no captions, no borders, no watermark.",
+   "image_urls": [
+    "https://v3b.fal.media/files/b/0aace89e/VJPtoFXouxpm_tdxIUWyc_clay_hit_b.jpg",
+    "https://v3b.fal.media/files/b/0aace89a/FrhawF5aHzqhooHtbIxGW_cars.jpg",
+    "https://v3b.fal.media/files/b/0aace793/nTXwZzpfWzm35JsBRpVk4_lSVGnqLA.jpg",
+    "https://v3b.fal.media/files/b/0aace835/oGhRww_tLlhCDAuS1IJUT_S4gne1vT.jpg",
+    "https://v3b.fal.media/files/b/0aace843/_cKKx8kU754HJT3S7w1KF_car_b_damaged.jpg"
+   ],
+   "image_size": {
+    "width": 1920,
+    "height": 1088
+   },
+   "quality": "high",
+   "output_format": "jpeg"
+  }
+ },
+ {
+  "n": 9,
+  "input": {
+   "prompt": "Image 1 is the 3D previs frame of this shot. It is the ground truth for camera position, lens, framing and the position of every car and person. Its flat colours are only codes: the dark car is car A, the red car is car B, the white box is the box truck, the grey box is the silver sedan; skin-tone figures are the drivers. Re-render it as one photoreal frame from a 1997 feature film.\nSHOT 9, Inches. Camera: Camera car ahead in the right lane, 1.1 m, looking back, 35 mm lens.\nFrom a camera car ahead looking back down our side of the highway: car A, the black muscle car with a fresh dent and scrape on its left side, slides diagonally into the right lane, nose angled right, headlights toward us. The silver 1990s sedan beside it swerves onto the shoulder; the gap between them is less than a hand. Car B drops back in the fast lane; the white truck behind; smoke from car A's tyres; 35mm film look.\nScreen layout: the camera is ahead looking back, so frame-left is the drivers' right. The silver sedan and the right shoulder are on frame-LEFT. The concrete median and the red coupe are on frame-RIGHT. Car A is in the centre, its nose angled toward frame-left at the sedan. Its dented left side faces frame-right. Its driver sits on the frame-right side of its windshield.\nImage 2 is the design sheet of car A (black muscle car) and car B (red coupe): match both designs exactly. Image 3 is the 1990s truck + sedan reference sheet: match it exactly. Image 4 is the Back plate: use it only for the look of the road, landscape and sky. Image 5 is the grade key: use it only for light, colour, haze and film texture, never for composition. Image 6 is the labelled top-down lane map: use it only to place cars in the correct lanes. Image 7 is the Car A damaged reference sheet: match it exactly.\nLook: 1997. Late-90s action thriller shot on 35mm Kodak film stock, anamorphic 2.39:1 lenses with oval flare, fine visible grain, gentle halation, slightly softer contrast, 24 fps real time, 180\u00b0 shutter. Low golden-hour sun ahead of the cars, 3200 K warm key, warm rim light, smoky haze. Colour ratio 60 % warm asphalt and dry-grass ochre, 30 % olive-teal shadows and pine, 10 % red accent: Kaz's coupe and the countdown LED. Right-hand traffic: concrete median on the drivers' left, guardrail on their right; every vehicle drives forward in its own lane; 1990s traffic.\nOne single image that fills the whole 16:9 frame, no letterbox bars. No text, no captions, no borders, no watermark.",
+   "image_urls": [
+    "https://v3b.fal.media/files/b/0aace89f/lO4asLnX9nLLSHOjUOJ1g_clay_hit_c.jpg",
+    "https://v3b.fal.media/files/b/0aace89a/FrhawF5aHzqhooHtbIxGW_cars.jpg",
+    "https://v3b.fal.media/files/b/0aace782/zWVQyogwePP8FoopfdiSB_UzWBHdHS.jpg",
+    "https://v3b.fal.media/files/b/0aace78b/WrNPAnOK7dxE6txjYhPRp_HsQ3dJec.jpg",
+    "https://v3b.fal.media/files/b/0aace793/nTXwZzpfWzm35JsBRpVk4_lSVGnqLA.jpg",
+    "https://v3b.fal.media/files/b/0aace89c/sNx_poeNFihT6ujilucJE_map_detail.jpg",
+    "https://v3b.fal.media/files/b/0aace835/oGhRww_tLlhCDAuS1IJUT_S4gne1vT.jpg"
+   ],
+   "image_size": {
+    "width": 1920,
+    "height": 1088
+   },
+   "quality": "high",
+   "output_format": "jpeg"
+  }
+ },
+ {
+  "n": 10,
+  "input": {
+   "prompt": "Image 1 is the 3D previs frame of this shot. It is the ground truth for camera position, lens, framing and the position of every car and person. Its flat colours are only codes: the dark car is car A, the red car is car B, the white box is the box truck, the grey box is the silver sedan; skin-tone figures are the drivers. Re-render it as one photoreal frame from a 1997 feature film.\nSHOT 10, Catch it. Camera: Inside car A, passenger side, on the wheel, 50 mm lens.\nClose-up inside car A: Eli's hands in worn brown leather jacket sleeves wrench the thin wood-rim steering wheel hard left, white knuckles, the wheel rim motion-blurred. Dashboard gauges shake. The rusted device on the passenger seat is jolted against its seat belt, red digits glowing. Sunlight strobes; 35mm film look.\nThrough the windshield: only the white box truck directly ahead in our lane and the open road. No red car and no other car ahead. The horizon is tilted by the swerve. The display reads 00:40:59.\nImage 2 is the Eli's hands reference sheet: match it exactly. Image 3 is the Car A interior + device reference sheet: match it exactly. Image 4 is the Nuclear device reference sheet: match it exactly. Image 5 is the Eli reaction sheet reference sheet: match it exactly. Image 6 is the grade key: use it only for light, colour, haze and film texture, never for composition.\nLook: 1997. Late-90s action thriller shot on 35mm Kodak film stock, anamorphic 2.39:1 lenses with oval flare, fine visible grain, gentle halation, slightly softer contrast, 24 fps real time, 180\u00b0 shutter. Low golden-hour sun ahead of the cars, 3200 K warm key, warm rim light, smoky haze. Colour ratio 60 % warm asphalt and dry-grass ochre, 30 % olive-teal shadows and pine, 10 % red accent: Kaz's coupe and the countdown LED. Right-hand traffic: concrete median on the drivers' left, guardrail on their right; every vehicle drives forward in its own lane; 1990s traffic.\nOne single image that fills the whole 16:9 frame, no letterbox bars. No text, no captions, no borders, no watermark.",
+   "image_urls": [
+    "https://v3b.fal.media/files/b/0aace281/GSsw-o8wAeLbfs-Pe4ife_clay_0145.jpg",
+    "https://v3b.fal.media/files/b/0aace782/_2tTKVl-Fnd-rSc55VP9A_6DXNwknl.jpg",
+    "https://v3b.fal.media/files/b/0aace781/nXJ2ch4MgbINiFrrl9q15_RNJN7vYa.jpg",
+    "https://v3b.fal.media/files/b/0aace77a/n9bzkCwEo5FezAVJjI-ub_WLBUBwTa.jpg",
+    "https://v3b.fal.media/files/b/0aace783/OsofXJrdJd-TdwgEPLUDp_QdwngtRT.jpg",
+    "https://v3b.fal.media/files/b/0aace793/nTXwZzpfWzm35JsBRpVk4_lSVGnqLA.jpg"
+   ],
+   "image_size": {
+    "width": 1920,
+    "height": 1088
+   },
+   "quality": "high",
+   "output_format": "jpeg"
+  }
+ },
+ {
+  "n": 11,
+  "input": {
+   "prompt": "Image 1 is the 3D previs frame of this shot. It is the ground truth for camera position, lens, framing and the position of every car and person. Its flat colours are only codes: the dark car is car A, the red car is car B, the white box is the box truck, the grey box is the silver sedan; skin-tone figures are the drivers. Re-render it as one photoreal frame from a 1997 feature film.\nSHOT 11, Kaz grins. Camera: From car A across the gap into Kaz's open passenger window, 85 mm lens.\nTight close-up of Kaz at the wheel of his candy-red coupe, seen from car A beside him through his open passenger window: black cap, black bomber, both hands regripping the wheel, breathing hard, a cold thin grin, eyes locked on camera; at the frame edge the coupe's crumpled front-right fender and paint scraped to primer; warm golden-hour light, haze; 35mm film look.\nImage 2 is the Kaz faces reference sheet: match it exactly. Image 3 is the Kaz rage sheet reference sheet: match it exactly. Image 4 is the Kaz seated reference sheet: match it exactly. Image 5 is the Car B interior reference sheet: match it exactly. Image 6 is the Car B damaged reference sheet: match it exactly. Image 7 is the grade key: use it only for light, colour, haze and film texture, never for composition.\nLook: 1997. Late-90s action thriller shot on 35mm Kodak film stock, anamorphic 2.39:1 lenses with oval flare, fine visible grain, gentle halation, slightly softer contrast, 24 fps real time, 180\u00b0 shutter. Low golden-hour sun ahead of the cars, 3200 K warm key, warm rim light, smoky haze. Colour ratio 60 % warm asphalt and dry-grass ochre, 30 % olive-teal shadows and pine, 10 % red accent: Kaz's coupe and the countdown LED. Right-hand traffic: concrete median on the drivers' left, guardrail on their right; every vehicle drives forward in its own lane; 1990s traffic.\nOne single image that fills the whole 16:9 frame, no letterbox bars. No text, no captions, no borders, no watermark.",
+   "image_urls": [
+    "https://v3b.fal.media/files/b/0aace89d/vB6SLjaZVe6-i25K4i3kt_clay_kaz_across.jpg",
+    "https://v3b.fal.media/files/b/0aace28e/UUyKTQQHW6gtwcftT4fKw_kaz_faces.jpg",
+    "https://v3b.fal.media/files/b/0aace783/i1UwK4NZ914U9bahMVAAS_UpQ4bvjO.jpg",
+    "https://v3b.fal.media/files/b/0aace89a/w4-ycmoly-Uan_p8_OYTe_kaz_seated.jpg",
+    "https://v3b.fal.media/files/b/0aace89b/sz66ByhyaO5GRzLaTUCa4_kaz_interior.jpg",
+    "https://v3b.fal.media/files/b/0aace843/_cKKx8kU754HJT3S7w1KF_car_b_damaged.jpg",
+    "https://v3b.fal.media/files/b/0aace793/nTXwZzpfWzm35JsBRpVk4_lSVGnqLA.jpg"
+   ],
+   "image_size": {
+    "width": 1920,
+    "height": 1088
+   },
+   "quality": "high",
+   "output_format": "jpeg"
+  }
+ },
+ {
+  "n": 12,
+  "input": {
+   "prompt": "Image 1 is the 3D previs frame of this shot. It is the ground truth for camera position, lens, framing and the position of every car and person. Its flat colours are only codes: the dark car is car A, the red car is car B, the white box is the box truck, the grey box is the silver sedan; skin-tone figures are the drivers. Re-render it as one photoreal frame from a 1997 feature film.\nSHOT 12, Eli's answer, in his eyes. Camera: Extreme close-up through car A's windshield, 100 mm lens.\nExtreme close-up of Eli's eyes and brow through car A's windshield: eyes narrowed, a bead of sweat at the temple, stubble, warm rim light, exactly as the reaction sheet; 35mm film grain.\nBehind Eli, through the rear window: only the blurred sunlit road and trees. No cars behind him.\nImage 2 is the Eli reaction sheet reference sheet: match it exactly. Image 3 is the Eli seated reference sheet: match it exactly. Image 4 is the grade key: use it only for light, colour, haze and film texture, never for composition.\nLook: 1997. Late-90s action thriller shot on 35mm Kodak film stock, anamorphic 2.39:1 lenses with oval flare, fine visible grain, gentle halation, slightly softer contrast, 24 fps real time, 180\u00b0 shutter. Low golden-hour sun ahead of the cars, 3200 K warm key, warm rim light, smoky haze. Colour ratio 60 % warm asphalt and dry-grass ochre, 30 % olive-teal shadows and pine, 10 % red accent: Kaz's coupe and the countdown LED. Right-hand traffic: concrete median on the drivers' left, guardrail on their right; every vehicle drives forward in its own lane; 1990s traffic.\nOne single image that fills the whole 16:9 frame, no letterbox bars. No text, no captions, no borders, no watermark.",
+   "image_urls": [
+    "https://v3b.fal.media/files/b/0aace89e/qL3jPvjXecrVUxWOOPyec_clay_eli_front.jpg",
+    "https://v3b.fal.media/files/b/0aace783/OsofXJrdJd-TdwgEPLUDp_QdwngtRT.jpg",
+    "https://v3b.fal.media/files/b/0aace782/i_mGDsZKYcIlTyhloWKEt_5HtezUP2.jpg",
+    "https://v3b.fal.media/files/b/0aace793/nTXwZzpfWzm35JsBRpVk4_lSVGnqLA.jpg"
+   ],
+   "image_size": {
+    "width": 1920,
+    "height": 1088
+   },
+   "quality": "high",
+   "output_format": "jpeg"
+  }
+ },
+ {
+  "n": 13,
+  "input": {
+   "prompt": "Image 1 is the 3D previs frame of this shot. It is the ground truth for camera position, lens, framing and the position of every car and person. Its flat colours are only codes: the dark car is car A, the red car is car B, the white box is the box truck, the grey box is the silver sedan; skin-tone figures are the drivers. Re-render it as one photoreal frame from a 1997 feature film.\nSHOT 13, The clock. Camera: Over the device's control panel, 100 mm macro lens.\nMacro insert of the rusted device's control panel on car A's passenger seat: red seven-segment countdown now reading 00:09:59, worn steel keypad, toggle switches under red covers, the green armed lamp replaced by a flashing red warning lamp, a fresh crack across the display glass from the impact; shallow depth of field; the car vibrates; 35mm film look.\nImage 2 is the Nuclear device reference sheet: match it exactly. Image 3 is the Car A interior + device reference sheet: match it exactly. Image 4 is the grade key: use it only for light, colour, haze and film texture, never for composition.\nLook: 1997. Late-90s action thriller shot on 35mm Kodak film stock, anamorphic 2.39:1 lenses with oval flare, fine visible grain, gentle halation, slightly softer contrast, 24 fps real time, 180\u00b0 shutter. Low golden-hour sun ahead of the cars, 3200 K warm key, warm rim light, smoky haze. Colour ratio 60 % warm asphalt and dry-grass ochre, 30 % olive-teal shadows and pine, 10 % red accent: Kaz's coupe and the countdown LED. Right-hand traffic: concrete median on the drivers' left, guardrail on their right; every vehicle drives forward in its own lane; 1990s traffic.\nOne single image that fills the whole 16:9 frame, no letterbox bars. No text, no captions, no borders, no watermark.",
+   "image_urls": [
+    "https://v3b.fal.media/files/b/0aace89c/TsHHb8xhTSq2vAqOC6sTG_clay_0030.jpg",
+    "https://v3b.fal.media/files/b/0aace77a/n9bzkCwEo5FezAVJjI-ub_WLBUBwTa.jpg",
+    "https://v3b.fal.media/files/b/0aace781/nXJ2ch4MgbINiFrrl9q15_RNJN7vYa.jpg",
+    "https://v3b.fal.media/files/b/0aace793/nTXwZzpfWzm35JsBRpVk4_lSVGnqLA.jpg"
+   ],
+   "image_size": {
+    "width": 1920,
+    "height": 1088
+   },
+   "quality": "high",
+   "output_format": "jpeg"
+  }
+ },
+ {
+  "n": 14,
+  "input": {
+   "prompt": "Image 1 is the 3D previs frame of this shot. It is the ground truth for camera position, lens, framing and the position of every car and person. Its flat colours are only codes: the dark car is car A, the red car is car B, the white box is the box truck, the grey box is the silver sedan; skin-tone figures are the drivers. Re-render it as one photoreal frame from a 1997 feature film.\nSHOT 14, The shifter. Camera: Over car A's centre console, 32 mm lens.\nInsert over car A's centre console: wood-rim wheel on the left, chrome T-handle shifter in the centre, Eli's hand in a worn brown leather sleeve gripping it; the device's red digits glow out of focus on the passenger seat; through the windshield the white box truck directly ahead.\nThrough the windshield: only the white box truck directly ahead in our lane. No red car and no other car ahead.\nImage 2 is the Eli's hands reference sheet: match it exactly. Image 3 is the Car A interior + device reference sheet: match it exactly. Image 4 is the grade key: use it only for light, colour, haze and film texture, never for composition.\nLook: 1997. Late-90s action thriller shot on 35mm Kodak film stock, anamorphic 2.39:1 lenses with oval flare, fine visible grain, gentle halation, slightly softer contrast, 24 fps real time, 180\u00b0 shutter. Low golden-hour sun ahead of the cars, 3200 K warm key, warm rim light, smoky haze. Colour ratio 60 % warm asphalt and dry-grass ochre, 30 % olive-teal shadows and pine, 10 % red accent: Kaz's coupe and the countdown LED. Right-hand traffic: concrete median on the drivers' left, guardrail on their right; every vehicle drives forward in its own lane; 1990s traffic.\nOne single image that fills the whole 16:9 frame, no letterbox bars. No text, no captions, no borders, no watermark.",
+   "image_urls": [
+    "https://v3b.fal.media/files/b/0aace281/GSsw-o8wAeLbfs-Pe4ife_clay_0145.jpg",
+    "https://v3b.fal.media/files/b/0aace782/_2tTKVl-Fnd-rSc55VP9A_6DXNwknl.jpg",
+    "https://v3b.fal.media/files/b/0aace781/nXJ2ch4MgbINiFrrl9q15_RNJN7vYa.jpg",
+    "https://v3b.fal.media/files/b/0aace793/nTXwZzpfWzm35JsBRpVk4_lSVGnqLA.jpg"
+   ],
+   "image_size": {
+    "width": 1920,
+    "height": 1088
+   },
+   "quality": "high",
+   "output_format": "jpeg"
+  }
+ },
+ {
+  "n": 15,
+  "input": {
+   "prompt": "Image 1 is the 3D previs frame of this shot. It is the ground truth for camera position, lens, framing and the position of every car and person. Its flat colours are only codes: the dark car is car A, the red car is car B, the white box is the box truck, the grey box is the silver sedan; skin-tone figures are the drivers. Re-render it as one photoreal frame from a 1997 feature film.\nSHOT 15, The squeeze. Camera: Bumper camera 7\u201310 m behind car A, 0.9\u21921.8 m, 24 mm lens.\nLow chase camera behind car A (its left rear door caved in, red paint streaks); all cars drive away from camera (red taillights). Car A in the middle lane; the mid-1990s white box truck directly ahead in the same lane; car B in the fast lane by the median, a fresh dent on its nose; the right lane open, the silver sedan stopped far back on the shoulder with hazard lights.\nThe right lane ahead is completely empty. No car in the right lane or on the right shoulder ahead; the silver sedan is not in this frame.\nImage 2 is the design sheet of car A (black muscle car) and car B (red coupe): match both designs exactly. Image 3 is the 1990s truck + sedan reference sheet: match it exactly. Image 4 is the grade key: use it only for light, colour, haze and film texture, never for composition. Image 5 is the labelled top-down lane map: use it only to place cars in the correct lanes. Image 6 is the Car A damaged reference sheet: match it exactly. Image 7 is the Car B damaged reference sheet: match it exactly.\nLook: 1997. Late-90s action thriller shot on 35mm Kodak film stock, anamorphic 2.39:1 lenses with oval flare, fine visible grain, gentle halation, slightly softer contrast, 24 fps real time, 180\u00b0 shutter. Low golden-hour sun ahead of the cars, 3200 K warm key, warm rim light, smoky haze. Colour ratio 60 % warm asphalt and dry-grass ochre, 30 % olive-teal shadows and pine, 10 % red accent: Kaz's coupe and the countdown LED. Right-hand traffic: concrete median on the drivers' left, guardrail on their right; every vehicle drives forward in its own lane; 1990s traffic.\nOne single image that fills the whole 16:9 frame, no letterbox bars. No text, no captions, no borders, no watermark.",
+   "image_urls": [
+    "https://v3b.fal.media/files/b/0aace281/uf6XWy0tpx-YSUiyQYNcz_clay_0163.jpg",
+    "https://v3b.fal.media/files/b/0aace89a/FrhawF5aHzqhooHtbIxGW_cars.jpg",
+    "https://v3b.fal.media/files/b/0aace782/zWVQyogwePP8FoopfdiSB_UzWBHdHS.jpg",
+    "https://v3b.fal.media/files/b/0aace793/nTXwZzpfWzm35JsBRpVk4_lSVGnqLA.jpg",
+    "https://v3b.fal.media/files/b/0aace89c/sNx_poeNFihT6ujilucJE_map_detail.jpg",
+    "https://v3b.fal.media/files/b/0aace835/oGhRww_tLlhCDAuS1IJUT_S4gne1vT.jpg",
+    "https://v3b.fal.media/files/b/0aace843/_cKKx8kU754HJT3S7w1KF_car_b_damaged.jpg"
+   ],
+   "image_size": {
+    "width": 1920,
+    "height": 1088
+   },
+   "quality": "high",
+   "output_format": "jpeg"
+  }
+ },
+ {
+  "n": 16,
+  "input": {
+   "prompt": "Image 1 is the 3D previs frame of this shot. It is the ground truth for camera position, lens, framing and the position of every car and person. Its flat colours are only codes: the dark car is car A, the red car is car B, the white box is the box truck, the grey box is the silver sedan; skin-tone figures are the drivers. Re-render it as one photoreal frame from a 1997 feature film.\nSHOT 16, Under the bridge. Camera: Right shoulder, 0.9 m, looking back, 55\u219226 mm lens.\nLong lens from low on the right shoulder looking back: car A (nearer, screen-left) and car B (farther, screen-right) charge toward camera side by side, headlights on; the 1990s truck behind; the concrete overpass edge above; heat haze; 35mm film look.\nImage 2 is the design sheet of car A (black muscle car) and car B (red coupe): match both designs exactly. Image 3 is the Back plate: use it only for the look of the road, landscape and sky. Image 4 is the grade key: use it only for light, colour, haze and film texture, never for composition. Image 5 is the Car A damaged reference sheet: match it exactly. Image 6 is the Car B damaged reference sheet: match it exactly.\nLook: 1997. Late-90s action thriller shot on 35mm Kodak film stock, anamorphic 2.39:1 lenses with oval flare, fine visible grain, gentle halation, slightly softer contrast, 24 fps real time, 180\u00b0 shutter. Low golden-hour sun ahead of the cars, 3200 K warm key, warm rim light, smoky haze. Colour ratio 60 % warm asphalt and dry-grass ochre, 30 % olive-teal shadows and pine, 10 % red accent: Kaz's coupe and the countdown LED. Right-hand traffic: concrete median on the drivers' left, guardrail on their right; every vehicle drives forward in its own lane; 1990s traffic.\nOne single image that fills the whole 16:9 frame, no letterbox bars. No text, no captions, no borders, no watermark.",
+   "image_urls": [
+    "https://v3b.fal.media/files/b/0aace282/AoaZh9wLneUVo_62rxKyz_clay_0211.jpg",
+    "https://v3b.fal.media/files/b/0aace89a/FrhawF5aHzqhooHtbIxGW_cars.jpg",
+    "https://v3b.fal.media/files/b/0aace78b/WrNPAnOK7dxE6txjYhPRp_HsQ3dJec.jpg",
+    "https://v3b.fal.media/files/b/0aace793/nTXwZzpfWzm35JsBRpVk4_lSVGnqLA.jpg",
+    "https://v3b.fal.media/files/b/0aace835/oGhRww_tLlhCDAuS1IJUT_S4gne1vT.jpg",
+    "https://v3b.fal.media/files/b/0aace843/_cKKx8kU754HJT3S7w1KF_car_b_damaged.jpg"
+   ],
+   "image_size": {
+    "width": 1920,
+    "height": 1088
+   },
+   "quality": "high",
+   "output_format": "jpeg"
+  }
+ }
+]

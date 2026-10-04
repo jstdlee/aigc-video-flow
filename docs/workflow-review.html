@@ -1,0 +1,307 @@
+<title>AIGC Video Flow Review</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --ground:#ECEFF0; --surface:#FFFFFF; --ink:#15202B; --muted:#56636E; --line:#D2D9DD;
+  --accent:#0B6E79; --accent-soft:#D6ECEE;
+  --pass:#2F7A4A; --pass-soft:#DDEFE3; --part:#A66A12; --part-soft:#F5E8D1; --none:#8A95A0; --none-soft:#E3E7EA;
+  --fail:#B4372E; --fail-soft:#F6DEDB;
+  --display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --body:"Source Sans 3",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --ground:#0F1519; --surface:#172026; --ink:#E3E9EC; --muted:#98A6B0; --line:#2A363E;
+    --accent:#5CC6D1; --accent-soft:#163238;
+    --pass:#6CC48E; --pass-soft:#173226; --part:#E2A84F; --part-soft:#3A2C14; --none:#7D8A94; --none-soft:#222C33;
+    --fail:#E8867C; --fail-soft:#3A1E1B;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --ground:#0F1519; --surface:#172026; --ink:#E3E9EC; --muted:#98A6B0; --line:#2A363E;
+  --accent:#5CC6D1; --accent-soft:#163238;
+  --pass:#6CC48E; --pass-soft:#173226; --part:#E2A84F; --part-soft:#3A2C14; --none:#7D8A94; --none-soft:#222C33;
+  --fail:#E8867C; --fail-soft:#3A1E1B;
+}
+*{box-sizing:border-box}
+body{background:var(--ground);color:var(--ink);font-family:var(--body);font-size:16.5px;line-height:1.6;padding-inline:20px;padding-block:0 72px}
+.wrap{max-width:980px;margin:0 auto;display:grid;gap:8px}
+h1,h2,h3{font-family:var(--display);line-height:1.08;margin:0;text-wrap:balance}
+h1{font-size:clamp(38px,6.4vw,60px);font-weight:700;letter-spacing:.005em}
+h2{font-size:clamp(26px,3.6vw,34px);font-weight:600}
+h3{font-size:21px;font-weight:600}
+p{margin:0;max-width:68ch}
+.mono,code{font-family:var(--mono);font-size:.86em}
+.label{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+section{padding-block:48px 4px;display:grid;gap:18px}
+header{padding-block:52px 4px;display:grid;gap:16px}
+.lede{font-size:19px;color:var(--muted);max-width:62ch}
+.muted{color:var(--muted)}
+.small{font-size:14px}
+
+/* verdict */
+.verdict{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.vcell{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px 18px;display:grid;gap:6px;align-content:start}
+.vcell .num{font-family:var(--display);font-size:40px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+.vcell .num.pass{color:var(--pass)} .vcell .num.part{color:var(--part)} .vcell .num.none{color:var(--none)}
+
+/* pipeline */
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;counter-reset:st}
+.stage{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 14px 14px;display:grid;gap:6px;align-content:start;position:relative;overflow:hidden}
+.stage::before{content:"";position:absolute;inset:0 0 auto 0;height:5px;background:var(--none)}
+.stage.pass::before{background:var(--pass)} .stage.part::before{background:var(--part)}
+.stage .top{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.stage .n{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.stage h3{font-size:19px}
+.stage p{font-size:14px;color:var(--muted)}
+.pill{font-family:var(--mono);font-size:11px;padding:2px 8px;border-radius:99px;white-space:nowrap}
+.pill.pass{background:var(--pass-soft);color:var(--pass)} .pill.part{background:var(--part-soft);color:var(--part)}
+.pill.none{background:var(--none-soft);color:var(--muted)} .pill.fail{background:var(--fail-soft);color:var(--fail)}
+.key{display:flex;flex-wrap:wrap;gap:14px;font-size:14px;color:var(--muted);align-items:center}
+
+/* tables */
+.tbl{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:8px}
+table{border-collapse:collapse;width:100%;min-width:680px;font-size:15px}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500;background:var(--surface)}
+tr:last-child td{border-bottom:0}
+td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+td b{font-weight:600}
+
+/* threads */
+.threads{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.thread{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px 18px;display:grid;gap:8px;align-content:start}
+.thread ul{margin:0;padding-left:18px;display:grid;gap:4px;font-size:15px}
+.thread .where{font-family:var(--mono);font-size:12px;color:var(--muted);word-break:break-all}
+
+/* plan */
+.plan{display:grid;gap:10px}
+.test{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px 16px;display:grid;grid-template-columns:28px 1fr;gap:12px;align-items:start}
+.test input{width:20px;height:20px;margin:3px 0 0;accent-color:var(--accent);cursor:pointer}
+.test input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.test .head{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:baseline}
+.test .id{font-family:var(--mono);font-size:13px;color:var(--accent);font-weight:500}
+.test h3{font-size:20px}
+.test .body{display:grid;grid-template-columns:1fr 1fr;gap:6px 24px;margin-top:6px;font-size:15px}
+.test .body div{display:grid;gap:2px}
+.test .k{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.test.done{opacity:.6}
+.test.done h3{text-decoration:line-through;text-decoration-thickness:1px}
+.progress{display:flex;align-items:center;gap:12px;font-size:14px;color:var(--muted)}
+.bar{flex:1;max-width:320px;height:8px;border-radius:99px;background:var(--none-soft);overflow:hidden}
+.bar span{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+@media (prefers-reduced-motion:reduce){.bar span{transition:none}}
+.phase{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:10px}
+.callout{background:var(--accent-soft);border-radius:8px;padding:16px 18px;display:grid;gap:6px}
+
+@media (max-width:860px){
+  .flow{grid-template-columns:repeat(2,1fr)}
+  .threads,.verdict{grid-template-columns:1fr}
+  .test .body{grid-template-columns:1fr}
+}
+@media (max-width:460px){.flow{grid-template-columns:1fr}}
+</style>
+
+<div class="wrap">
+<header>
+  <span class="label">aigc-video-flow · review · 2026-10-03</span>
+  <h1>The method holds up. The commercial parts are not tested yet.</h1>
+  <p class="lede">Three sessions built one workflow from three directions. The narrative chase film proved the front half: lock the world, build readable previs, check keyframes. The back half is still untested: exact brand, delivery specs, rights and cost. A paying client checks all of these.</p>
+  <div class="verdict">
+    <div class="vcell"><div class="num pass">4 of 9</div><b>Stages proven</b><span class="muted small">Brief, world bible, Blender previs, keyframe QA. All have logged evidence in <code>film2/</code>.</span></div>
+    <div class="vcell"><div class="num part">1 of 9</div><b>Stage partly proven</b><span class="muted small">Previs-to-video (mode C): 5 of 8 shots usable in take 1.</span></div>
+    <div class="vcell"><div class="num none">4 of 9</div><b>Stages not run</b><span class="muted small">Composite (mode A), keyframe-to-video (mode B), sound, delivery. These carry the commercial risk.</span></div>
+  </div>
+</header>
+
+<section id="threads">
+  <span class="label">What exists</span>
+  <h2>Three threads, one workflow</h2>
+  <div class="threads">
+    <div class="thread">
+      <h3>Golden Hour (narrative)</h3>
+      <span class="where">~/dev/blender/highway-race/film2</span>
+      <ul>
+        <li>Continuity bible, asset sheets, colour-coded clay previs.</li>
+        <li>Keyframe QA: 1 of 8 passed with one tool, then 8 of 8 after routing each job to the tool that does it best.</li>
+        <li>H3 reference-to-video, take 1: 10.1 s at 1280×704, 108 min, memory peak 92 GiB.</li>
+      </ul>
+    </div>
+    <div class="thread">
+      <h3>Blender to Cinema Ads (method)</h3>
+      <span class="where">artifact · 12 Higgsfield guides</span>
+      <ul>
+        <li>Three handoff modes: A composite, B keyframe-to-video, C previs-to-video.</li>
+        <li>Prompt sections, 15 s spot structure, failure table.</li>
+        <li>Research only. No test was run.</li>
+      </ul>
+    </div>
+    <div class="thread">
+      <h3>Neon Pursuit (stylized)</h3>
+      <span class="where">~/dev/blender/anime-chase</span>
+      <ul>
+        <li>Choreography self-check passes: no collisions, 51 traffic cars.</li>
+        <li>Editable rigs, toon group, ink, compositor grade.</li>
+        <li><code>scene.py</code> has never run in Blender. It waits for free memory.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="flow">
+  <span class="label">The merged workflow</span>
+  <h2>Nine stages and the evidence for each</h2>
+  <div class="key"><span class="pill pass">proven</span><span class="pill part">partial</span><span class="pill none">not run</span></div>
+  <div class="flow">
+    <div class="stage pass"><div class="top"><span class="n">1</span><span class="pill pass">proven</span></div><h3>Brief + shot list</h3><p>Shot tables with timecode in BIBLE.md and plan.py.</p></div>
+    <div class="stage pass"><div class="top"><span class="n">2</span><span class="pill pass">proven</span></div><h3>Lock world + assets</h3><p>Bible rules, car and actor sheets. Fixed the "world not locked" failure of v1.</p></div>
+    <div class="stage pass"><div class="top"><span class="n">3</span><span class="pill pass">proven</span></div><h3>Blender previs</h3><p>Readable clay: colours, lamps, seating. Used as &lt;Video 1&gt; for H3.</p></div>
+    <div class="stage pass"><div class="top"><span class="n">4</span><span class="pill pass">proven</span></div><h3>Keyframe QA</h3><p>10-point check at full size, logged in QA.md. 8 of 8 pass in v4.</p></div>
+    <div class="stage part"><div class="top"><span class="n">5C</span><span class="pill part">partial</span></div><h3>Previs → video</h3><p>5 of 8 shots good. One shot dropped, one car design swapped, one prop in the wrong car.</p></div>
+    <div class="stage"><div class="top"><span class="n">5B</span><span class="pill none">not run</span></div><h3>Keyframe → video</h3><p>H3 image-to-video exists (Pace Car v1). Not measured for product drift.</p></div>
+    <div class="stage"><div class="top"><span class="n">5A</span><span class="pill none">not run</span></div><h3>Composite exact product</h3><p>No mask pass, no composite. This is the only route to an exact logo.</p></div>
+    <div class="stage"><div class="top"><span class="n">6</span><span class="pill none">not run</span></div><h3>Edit, grade, sound</h3><p><code>film2/sound</code> is empty. The grade is global, not matched per shot.</p></div>
+    <div class="stage"><div class="top"><span class="n">7</span><span class="pill none">not run</span></div><h3>Deliver + variants</h3><p>No delivery check: resolution, aspect ratios, loudness, rights.</p></div>
+  </div>
+</section>
+
+<section id="review">
+  <span class="label">Review</span>
+  <h2>What is already optimized</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Change</th><th>Problem it fixed</th><th>Evidence</th></tr></thead>
+    <tbody>
+      <tr><td><b>Rules drawn into the clay, not written in the prompt</b></td><td>Image models cannot do traffic, seating or mirror logic from text</td><td>v2 WORKFLOW.md; 8 of 8 keyframes pass</td></tr>
+      <tr><td><b>Route each job to the tool that does it best</b></td><td>grok re-composed clay frames (1 of 8 pass)</td><td>agy for clay to photo, grok for small edits, Qwen for seat logic</td></tr>
+      <tr><td><b>Full-size QA with a written log</b></td><td>Approvals from thumbnails missed errors</td><td>QA.md, one row per shot</td></tr>
+      <tr><td><b>Clay previs as the reference video</b></td><td>Cuts and camera drifted from the storyboard</td><td>Take 1 keeps one cast, one look and the camera blocking</td></tr>
+      <tr><td><b>Memory and heat monitor on every GPU run</b></td><td>A hard reset on 2026-10-02</td><td>run_scene.sh; peak 92 GiB (76 %), 71 °C</td></tr>
+      <tr><td><b>Choreography checked before any render</b></td><td>Collisions found only after hours of rendering</td><td>plan.py self-check, top-down SVG</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 style="margin-top:18px">What blocks commercial class</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Gap</th><th>Why a client cares</th><th>Severity</th></tr></thead>
+    <tbody>
+      <tr><td><b>No exact-product path</b></td><td>The model swapped Kaz's car for a different design. On a product, that is a wrong logo or label: the ad is rejected.</td><td><span class="pill fail">blocker</span></td></tr>
+      <tr><td><b>Model and asset rights not checked</b></td><td>Commercial use terms for H3, Qwen-Image, Krea 2, agy and grok outputs, and CC-BY assets, are not on file.</td><td><span class="pill fail">blocker</span></td></tr>
+      <tr><td><b>Native size is 1280×704</b></td><td>Masters need 1080p or 4K, and 16:9, 9:16 and 1:1 versions. Upscale quality is not measured.</td><td><span class="pill part">high</span></td></tr>
+      <tr><td><b>Timing drift</b></td><td>H3 compressed the cut by 0.5–0.75 s and dropped a shot. Ads are cut to the frame.</td><td><span class="pill part">high</span></td></tr>
+      <tr><td><b>Cost per approved second is unknown</b></td><td>108 min gave 5 usable shots. You cannot quote a price or a deadline without this number.</td><td><span class="pill part">high</span></td></tr>
+      <tr><td><b>No take manifest</b></td><td>A client's "go back to version 3" needs the exact model, LoRA, seed and reference set for each take.</td><td><span class="pill part">medium</span></td></tr>
+      <tr><td><b>No sound or loudness pass</b></td><td>Platforms and broadcasters reject files outside their loudness target.</td><td><span class="pill part">medium</span></td></tr>
+      <tr><td><b>No client review gates</b></td><td>Sign-off at animatic, keyframes and rough cut prevents expensive late changes.</td><td><span class="pill none">medium</span></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="next">
+  <span class="label">What is next</span>
+  <h2>Verification plan</h2>
+  <p>Use one small paid-style job to test every untested stage: a <b>15 s product spot</b> with one bottle, five shots, in 16:9 and 9:16. A product shows brand drift at once, and a narrative film does not. Each test has a measurable pass line. Tick a test when it passes; ticks are saved in your browser only.</p>
+  <div class="progress"><div class="bar"><span id="barFill"></span></div><span id="barText">0 of 9 passed</span></div>
+
+  <div class="plan" id="plan">
+    <div class="phase">Phase 1 · Can we keep the brand exact?</div>
+    <label class="test" for="v1"><input type="checkbox" id="v1"><div>
+      <div class="head"><span class="id">V1</span><h3>Rights audit</h3><span class="pill fail">blocker</span></div>
+      <div class="body">
+        <div><span class="k">Do</span>One table: each model and asset, its licence, commercial use yes or no, and a source link.</div>
+        <div><span class="k">Pass</span>Every row says commercial use is allowed. Replace any tool that fails. No GPU needed.</div>
+      </div></div></label>
+    <label class="test" for="v2"><input type="checkbox" id="v2"><div>
+      <div class="head"><span class="id">V2</span><h3>Mode A: composite the exact product</h3><span class="pill fail">blocker</span></div>
+      <div class="body">
+        <div><span class="k">Do</span>Blender renders the bottle with an object mask. The AI makes the plate (set, splash). Composite the bottle back on top.</div>
+        <div><span class="k">Pass</span>Product region matches the Blender render (SSIM ≥ 0.98) in every frame. No edge halo at 100 % zoom.</div>
+      </div></div></label>
+    <label class="test" for="v3"><input type="checkbox" id="v3"><div>
+      <div class="head"><span class="id">V3</span><h3>Mode B: keyframe-to-video drift</h3><span class="pill part">high</span></div>
+      <div class="body">
+        <div><span class="k">Do</span>H3 image-to-video from Blender start and end frames, 4 s and 8 s takes.</div>
+        <div><span class="k">Pass</span>Product silhouette overlaps the Blender mask (IoU ≥ 0.95) on every 3rd frame. Find the length where drift starts.</div>
+      </div></div></label>
+
+    <div class="phase">Phase 2 · Can we hit the cut and the spec?</div>
+    <label class="test" for="v4"><input type="checkbox" id="v4"><div>
+      <div class="head"><span class="id">V4</span><h3>Mode C: Golden Hour two-half take</h3><span class="pill part">high</span></div>
+      <div class="body">
+        <div><span class="k">Do</span>Run the planned take 2: two 5 s halves, fewer references per half, the four prompt fixes.</div>
+        <div><span class="k">Pass</span>All 8 shots present. Each cut within ±2 frames of the clay (ffmpeg scene detect). No design swap, no prop in the wrong car.</div>
+      </div></div></label>
+    <label class="test" for="v5"><input type="checkbox" id="v5"><div>
+      <div class="head"><span class="id">V5</span><h3>Delivery spec check</h3><span class="pill part">high</span></div>
+      <div class="body">
+        <div><span class="k">Do</span>Upscale to 1080p, reframe to 9:16, add a sound mix. A script checks each file with ffprobe and the ffmpeg loudness meter.</div>
+        <div><span class="k">Pass</span>Correct size and frame rate, Rec.709 tags, loudness on the platform target (for example −14 LUFS, true peak ≤ −1 dBTP). No upscale artefacts on the product.</div>
+      </div></div></label>
+    <label class="test" for="v6"><input type="checkbox" id="v6"><div>
+      <div class="head"><span class="id">V6</span><h3>Take manifest</h3><span class="pill part">medium</span></div>
+      <div class="body">
+        <div><span class="k">Do</span>Each take writes a JSON file: model, LoRA, seed, steps, prompt, reference file hashes, time and memory used.</div>
+        <div><span class="k">Pass</span>Re-running a manifest gives the same frames. Test it on one take.</div>
+      </div></div></label>
+
+    <div class="phase">Phase 3 · Can we sell it?</div>
+    <label class="test" for="v7"><input type="checkbox" id="v7"><div>
+      <div class="head"><span class="id">V7</span><h3>Cost and time per approved second</h3><span class="pill part">high</span></div>
+      <div class="body">
+        <div><span class="k">Do</span>Log every take of the 15 s spot. Run one shot also in a cloud service (Higgsfield or fal.ai) for comparison.</div>
+        <div><span class="k">Pass</span>A number you can quote: GPU hours, credits and staff hours per finished second, local and cloud.</div>
+      </div></div></label>
+    <label class="test" for="v8"><input type="checkbox" id="v8"><div>
+      <div class="head"><span class="id">V8</span><h3>Client change drill</h3><span class="pill none">medium</span></div>
+      <div class="body">
+        <div><span class="k">Do</span>Act as the client. After the rough cut, ask for one late change, for example a new label colour.</div>
+        <div><span class="k">Pass</span>The change reaches a new cut within one working day. Mode A shots change in Blender only, with no new generation.</div>
+      </div></div></label>
+    <label class="test" for="v9"><input type="checkbox" id="v9"><div>
+      <div class="head"><span class="id">V9</span><h3>Blind review against a reference ad</h3><span class="pill none">medium</span></div>
+      <div class="body">
+        <div><span class="k">Do</span>Put the spot next to two real commercial spots in the same category. Ask three viewers to rank them.</div>
+        <div><span class="k">Pass</span>No viewer names our spot as "AI" or "fake" because of light, physics or product errors.</div>
+      </div></div></label>
+  </div>
+</section>
+
+<section id="order">
+  <span class="label">Order of work</span>
+  <h2>Start here</h2>
+  <div class="callout">
+    <p><b>Today, with no GPU:</b> V1, the rights audit. If a model fails it, everything built on that model has to change, so it goes first.</p>
+    <p><b>When memory is free:</b> model the bottle in Blender, then run V2 and V3 on the same shot. Together they tell you which shots of an ad must be composites.</p>
+    <p><b>Then:</b> V4 (take 2), V5 and V6. Run V7 to V9 on the finished 15 s spot.</p>
+    <p class="small muted">GPU runs keep the existing rule: estimate memory first, stay under 80 % (about 97 GiB), one GPU job at a time, no CPU render in parallel.</p>
+  </div>
+</section>
+</div>
+
+<script>
+(function(){
+  var boxes=[].slice.call(document.querySelectorAll('#plan input[type=checkbox]'));
+  var fill=document.getElementById('barFill'),text=document.getElementById('barText');
+  function sync(){
+    var n=0;
+    boxes.forEach(function(b){b.closest('.test').classList.toggle('done',b.checked);if(b.checked)n++});
+    fill.style.width=(n/boxes.length*100)+'%';
+    text.textContent=n+' of '+boxes.length+' passed';
+  }
+  var saved={};
+  try{saved=JSON.parse(localStorage.getItem('aigc-review-v')||'{}')}catch(e){}
+  boxes.forEach(function(b){
+    b.checked=!!saved[b.id];
+    b.addEventListener('change',function(){
+      saved[b.id]=b.checked;
+      try{localStorage.setItem('aigc-review-v',JSON.stringify(saved))}catch(e){}
+      sync();
+    });
+  });
+  sync();
+})();
+</script>

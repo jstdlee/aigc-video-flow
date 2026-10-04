@@ -1,0 +1,534 @@
+<title>Blender×AI 広告映像ガイド</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500;700;800&display=swap">
+<style>
+:root{
+  --bg:#EEF0F3; --surface:#FFFFFF; --ink:#16191F; --muted:#5A6271; --line:#D3D8E0;
+  --slate:#2F4A6E; --slate-soft:#DCE4EF; --amber:#B8650F; --amber-soft:#F6E6D2;
+  --green:#2E7D4F; --red:#B03A2E; --code:#F5F6F8;
+  --display:"Archivo","Helvetica Neue",Arial,"Noto Sans JP",sans-serif;
+  --body:"IBM Plex Sans","Noto Sans JP",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#111318; --surface:#1A1E25; --ink:#E7EAEF; --muted:#9AA3B2; --line:#2C323D;
+    --slate:#8EAEDB; --slate-soft:#233247; --amber:#E9A35A; --amber-soft:#3A2A18;
+    --green:#6FC495; --red:#E58A7F; --code:#151920;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#111318; --surface:#1A1E25; --ink:#E7EAEF; --muted:#9AA3B2; --line:#2C323D;
+  --slate:#8EAEDB; --slate-soft:#233247; --amber:#E9A35A; --amber-soft:#3A2A18;
+  --green:#6FC495; --red:#E58A7F; --code:#151920;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;padding-inline:20px;padding-block:0 64px}
+.wrap{max-width:1040px;margin:0 auto}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;line-height:1.15;margin:0}
+h1{font-size:clamp(34px,6vw,58px);font-weight:800;letter-spacing:-.02em}
+h2{font-size:clamp(24px,3.4vw,32px);font-weight:700;letter-spacing:-.01em}
+h3{font-size:18px;font-weight:700}
+p{margin:0;max-width:68ch}
+code,.mono{font-family:var(--mono);font-size:.88em}
+a{color:var(--slate)}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--amber)}
+section{padding-block:56px 8px;display:grid;gap:20px}
+.lede{font-size:19px;color:var(--muted);max-width:60ch}
+.note{font-size:14px;color:var(--muted)}
+.src{display:inline-block;font-family:var(--mono);font-size:11px;padding:1px 7px;border-radius:4px;vertical-align:2px;margin-left:6px;white-space:nowrap}
+.src.hf{background:var(--slate-soft);color:var(--slate)}
+.src.gen{background:var(--amber-soft);color:var(--amber)}
+
+/* hero */
+header{padding-block:56px 8px;display:grid;gap:18px}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px}
+.side{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px 20px;display:grid;gap:8px}
+.side h3{display:flex;align-items:center;gap:10px}
+.side ul{margin:0;padding-left:18px;color:var(--muted);font-size:15px}
+.dot{width:10px;height:10px;border-radius:50%;flex:none}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:13px;color:var(--muted)}
+
+/* diagrams */
+.fig{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px;overflow-x:auto}
+.fig svg{display:block;min-width:760px;width:100%;height:auto}
+.fig svg text{font-family:var(--body);fill:var(--ink)}
+.fig svg .sm{font-size:11px;fill:var(--muted)}
+.fig svg .lb{font-size:13px;font-weight:600}
+.fig svg .mono{font-family:var(--mono);font-size:10.5px;fill:var(--muted)}
+
+/* stage explorer */
+.stages{display:flex;flex-wrap:wrap;gap:8px}
+.stages button{font:500 14px var(--body);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:7px 14px;cursor:pointer}
+.stages button[aria-selected="true"]{background:var(--slate);border-color:var(--slate);color:var(--bg)}
+.stages button:focus-visible,.ctl select:focus-visible,.btn:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:22px;display:grid;grid-template-columns:1.2fr 1fr;gap:24px}
+.panel ol,.panel ul{margin:8px 0 0;padding-left:20px;display:grid;gap:6px}
+.panel .k{font-family:var(--mono);font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.out{background:var(--code);border:1px solid var(--line);border-radius:8px;padding:12px 14px;font-size:14px}
+
+/* tables */
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:14.5px}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:500}
+tr:last-child td{border-bottom:0}
+td b{font-weight:600}
+
+/* builder */
+.builder{display:grid;grid-template-columns:320px 1fr;gap:18px}
+.ctls{display:grid;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px}
+.ctl{display:grid;grid-template-columns:110px 1fr;gap:10px;align-items:center;font-size:13.5px}
+.ctl label{color:var(--muted)}
+.ctl select,.ctl input{font:14px var(--body);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:6px 8px;width:100%}
+.prompt{background:var(--code);border:1px solid var(--line);border-radius:12px;padding:16px;display:grid;gap:12px;align-content:start}
+.prompt pre{margin:0;white-space:pre-wrap;font-family:var(--mono);font-size:13px;line-height:1.55;color:var(--ink)}
+.prompt pre .h{color:var(--slate);font-weight:500}
+.why{font-size:13.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:10px}
+.btn{justify-self:start;font:600 13px var(--body);background:var(--slate);color:var(--bg);border:0;border-radius:6px;padding:8px 14px;cursor:pointer}
+
+/* timeline */
+.tl{display:grid;grid-template-columns:2fr 3fr 3fr 4fr 3fr;gap:4px}
+.tl div{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--slate);border-radius:6px;padding:10px;font-size:13.5px;display:grid;gap:4px;align-content:start}
+.tl div:nth-child(1),.tl div:nth-child(5){border-top-color:var(--amber)}
+.tl b{font-family:var(--mono);font-size:12px;color:var(--muted);font-weight:500}
+
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px;display:grid;gap:8px;align-content:start}
+.card p,.card li{font-size:14.5px;color:var(--muted)}
+.card ul{margin:0;padding-left:18px}
+.steps{counter-reset:s;display:grid;gap:10px;margin:0;padding:0;list-style:none}
+.steps li{counter-increment:s;display:grid;grid-template-columns:34px 1fr;gap:10px;align-items:start}
+.steps li::before{content:counter(s);font-family:var(--mono);font-size:13px;width:26px;height:26px;border-radius:50%;background:var(--slate-soft);color:var(--slate);display:grid;place-items:center}
+footer{padding-block:48px 0;font-size:14px;color:var(--muted)}
+footer ul{columns:2;padding-left:18px}
+
+@media (max-width:820px){
+  .split,.panel,.builder,.grid3{grid-template-columns:1fr}
+  .tl{grid-template-columns:1fr}
+  footer ul{columns:1}
+}
+@media (prefers-reduced-motion:no-preference){
+  .flow{stroke-dasharray:5 5;animation:dash 1.4s linear infinite}
+  @keyframes dash{to{stroke-dashoffset:-20}}
+}
+</style>
+
+<div class="wrap" lang="ja">
+<header>
+  <span class="eyebrow">実践ガイド · 商品広告</span>
+  <h1>Blenderで制御し、動画モデルで命を吹き込む。</h1>
+  <p class="lede">プロのチームは、1つのツールにすべてを任せません。まず3Dで商品・カメラ・ライティングを固めます。次にAI動画モデルでリアリティ、動き、空気感を加えます。最後に、実写映画と同じように編集・グレーディング・音付けを行います。</p>
+  <div class="split">
+    <div class="side">
+      <h3><span class="dot" style="background:var(--slate)"></span>Blenderの担当</h3>
+      <ul>
+        <li>商品の正確な形状、スケール、ロゴ、ラベル</li>
+        <li>カメラ位置、レンズ、軌道、タイミング</li>
+        <li>光の方向と、ガラスや金属への映り込み</li>
+        <li>再現可能なカット：全アングルで同一ジオメトリ</li>
+      </ul>
+    </div>
+    <div class="side">
+      <h3><span class="dot" style="background:var(--amber)"></span>動画モデルの担当</h3>
+      <ul>
+        <li>フォトリアルな質感、肌、液体、湯気、煙</li>
+        <li>自然な物理挙動とカメラワークの質感</li>
+        <li>短時間では作れない背景美術や人物</li>
+        <li>素早いバリエーション：フック、サイズ、ロケーション</li>
+      </ul>
+    </div>
+  </div>
+  <div class="legend">
+    <span><span class="src hf">Higgsfield</span> Higgsfieldブログのガイドに基づく情報</span>
+    <span><span class="src gen">現場の慣例</span> 不足部分を補う一般的な3D／映像制作の慣例</span>
+  </div>
+</header>
+
+<!-- ============ PIPELINE ============ -->
+<section id="pipeline">
+  <span class="eyebrow">パイプライン全体像</span>
+  <h2>工程は一方向に流れる</h2>
+  <p>Higgsfieldのどのガイドも、同じ原則を繰り返しています。<b>アセットを先に固め、動画生成は最後に。</b>Blenderを使うと、この固定がさらに強くなります。3Dジオメトリはドリフトしないからです。</p>
+  <div class="fig">
+    <svg viewBox="0 0 980 300" role="img" aria-label="ブリーフからバリエーションまでのパイプライン">
+      <defs>
+        <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker>
+      </defs>
+      <!-- lanes -->
+      <rect x="10" y="20" width="960" height="70" rx="8" fill="var(--slate-soft)" opacity=".5"/>
+      <text x="22" y="40" class="mono">企画</text>
+      <rect x="10" y="110" width="960" height="70" rx="8" fill="var(--slate-soft)"/>
+      <text x="22" y="130" class="mono">BLENDER（制御）</text>
+      <rect x="10" y="200" width="960" height="70" rx="8" fill="var(--amber-soft)"/>
+      <text x="22" y="220" class="mono">AI動画＋ポスプロ（リアリティ）</text>
+
+      <g>
+        <rect x="40" y="48" width="160" height="34" rx="6" fill="var(--surface)" stroke="var(--line)"/>
+        <text x="120" y="70" text-anchor="middle" class="lb">1 · ブリーフ＋カット表</text>
+        <rect x="250" y="48" width="170" height="34" rx="6" fill="var(--surface)" stroke="var(--line)"/>
+        <text x="335" y="70" text-anchor="middle" class="lb">2 · アセット固定（@tag）</text>
+
+        <rect x="250" y="138" width="170" height="34" rx="6" fill="var(--surface)" stroke="var(--slate)"/>
+        <text x="335" y="160" text-anchor="middle" class="lb">3 · モデル＋マテリアル</text>
+        <rect x="460" y="138" width="170" height="34" rx="6" fill="var(--surface)" stroke="var(--slate)"/>
+        <text x="545" y="160" text-anchor="middle" class="lb">4 · ライト＋カメラ</text>
+        <rect x="670" y="138" width="170" height="34" rx="6" fill="var(--surface)" stroke="var(--slate)"/>
+        <text x="755" y="160" text-anchor="middle" class="lb">5 · キー画／プリビズ</text>
+
+        <rect x="670" y="228" width="170" height="34" rx="6" fill="var(--surface)" stroke="var(--amber)"/>
+        <text x="755" y="250" text-anchor="middle" class="lb">6 · 動画生成</text>
+        <rect x="460" y="228" width="170" height="34" rx="6" fill="var(--surface)" stroke="var(--amber)"/>
+        <text x="545" y="250" text-anchor="middle" class="lb">7 · 編集・グレード・音</text>
+        <rect x="250" y="228" width="170" height="34" rx="6" fill="var(--surface)" stroke="var(--amber)"/>
+        <text x="335" y="250" text-anchor="middle" class="lb">8 · バリエーション展開</text>
+      </g>
+      <g stroke="var(--muted)" stroke-width="1.5" fill="none" marker-end="url(#ar)">
+        <path class="flow" d="M200 65 H246"/>
+        <path class="flow" d="M335 82 V134"/>
+        <path class="flow" d="M420 155 H456"/>
+        <path class="flow" d="M630 155 H666"/>
+        <path class="flow" d="M755 172 V224"/>
+        <path class="flow" d="M670 245 H634"/>
+        <path class="flow" d="M460 245 H424"/>
+      </g>
+      <path d="M840 245 C 920 245, 920 155, 844 155" stroke="var(--red)" stroke-width="1.5" fill="none" stroke-dasharray="3 4" marker-end="url(#ar)"/>
+      <text x="900" y="205" class="sm" text-anchor="middle">失敗？</text>
+      <text x="900" y="218" class="sm" text-anchor="middle">直すのは入力。</text>
+      <text x="900" y="231" class="sm" text-anchor="middle">シードではない</text>
+    </svg>
+  </div>
+  <p class="note">赤いループこそ、プロの重要な習慣です。4回生成して同じ失敗が出るなら、入力が間違っています。フレーム、リファレンス、またはプロンプトを変えてください。リロールを続けてはいけません。<span class="src hf">Higgsfield</span></p>
+
+  <div class="stages" role="tablist" aria-label="パイプラインの工程" id="stageTabs"></div>
+  <div class="panel" id="stagePanel" role="tabpanel"></div>
+</section>
+
+<!-- ============ BLENDER ============ -->
+<section id="blender">
+  <span class="eyebrow">工程3〜5の詳細</span>
+  <h2>プロはBlenderで商品カットをどう作るか</h2>
+  <p>HiggsfieldのブログはBlenderプラグインの解説が中心で、Blenderの基本的な技術は扱っていません。この章では、一般的なプロダクトビジュアライゼーションの慣例でその穴を埋めます。目的は1つです。動画モデルが「命を加えるだけ」で済むほど、正確なフレームを作ることです。</p>
+  <div class="grid3">
+    <div class="card">
+      <h3>モデリング <span class="src gen">現場の慣例</span></h3>
+      <ul>
+        <li>CAD（STEP → メッシュ）または採寸した写真から始めます。実寸スケール（メートル）で作業します。</li>
+        <li>すべてのハードエッジにベベルを入れます。実物に鋭すぎるエッジはなく、ベベルがハイライトを拾います。</li>
+        <li>なめらかなプラスチックやガラスには、サポートループ付きのSubdivision Surfaceを使います。</li>
+        <li>ロゴとラベルはUVマッピングしたテクスチャで持ちます。AI生成の文字には絶対に頼りません。</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>マテリアル <span class="src gen">現場の慣例</span></h3>
+      <ul>
+        <li>Principled BSDFに実測値を入れます。ガラスはIOR 1.45〜1.52、金属はMetallic 1。</li>
+        <li>微細なディテールを加えます。薄いラフネスマップ、指紋、ほこり。完璧な表面はCGっぽく見えます。</li>
+        <li>ガラス内の液体には、独立したボリュームとIORが必要です（水 ≈ 1.33）。</li>
+        <li>ニュートラルな光の下で、ブランドの色見本と色を照合します。</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>ライティング <span class="src gen">現場の慣例</span></h3>
+      <ul>
+        <li>ベースの映り込みはHDRIで作り、大きなエリアライトをソフトボックスとして加えます。</li>
+        <li>キー＋リム＋細長いストリップライト。ストリップはガラスやクロームにきれいなラインを描きます。</li>
+        <li>光源は、画面内に理由のあるものだけにします。Cinema Studioの「Practicals」の考え方と同じです。<span class="src hf">Higgsfield</span></li>
+        <li>カラーマネジメント：AgXビュートランスフォームで、フィルムのようなハイライトのロールオフを得ます。</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>カメラ <span class="src gen">現場の慣例</span></h3>
+      <ul>
+        <li>実際のセンサーサイズ（36 mm）と実際の焦点距離を設定します。商品なら50、85、または100 mmマクロ。</li>
+        <li>被写界深度をオンにします。フォーカスオブジェクトを使い、F値は2.8〜5.6に設定します。</li>
+        <li>1カットにつきカメラワークは1つ：ドリー、オービット、またはプッシュイン。Graph Editorでイーズイン・イーズアウトをかけます。</li>
+        <li>後でAIプロンプトにも同じ数値（レンズ、高さ、速度）を使います。</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>レンダリング <span class="src gen">現場の慣例</span></h3>
+      <ul>
+        <li>本番フレームはCyclesで。デノイズはオン。仕上がりサイズの2倍でレンダリングします。</li>
+        <li>パスを書き出します：ビューティー、デプス（Z）、商品用のCryptomatte／オブジェクトマスク。</li>
+        <li>マスクがあれば、コンポジットでAI動画の上に正確な商品を戻せます。</li>
+        <li>各カメラワークの最初と最後のフレームをレンダリングします。これが開始／終了キーになります。</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>時短ツール <span class="src hf">Higgsfield</span></h3>
+      <ul>
+        <li>Higgsfield for Blender（Blender 5.1以降）：Scene Builder、3D Model（Meshy 5）、Image、Video（Seedance 2.5）、カメラトラッキング。</li>
+        <li>3D Jutsu（ブラウザ）：プロンプト → 編集可能な3Dシーン → カメラパス → 動画。GLBでBlenderに書き出せます。</li>
+        <li>MCPブリッジ <code>bridge.higgsfield.ai/mcp</code> を使うと、AIアシスタントがテキストでシーンを組めます。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HANDOFF ============ -->
+<section id="handoff">
+  <span class="eyebrow">工程5 → 6</span>
+  <h2>Blenderの成果を動画モデルに渡す3つの方法</h2>
+  <p>方式は1つの問いで選びます。<b>どこまでピクセル単位で正確に保つ必要があるか？</b> 正確さが必要なほど、Blenderの担当範囲が広がります。</p>
+  <div class="fig">
+    <svg viewBox="0 0 980 260" role="img" aria-label="3つの受け渡し方式の比較">
+      <text x="20" y="24" class="mono">AIの自由度 →</text>
+      <line x1="110" y1="20" x2="960" y2="20" stroke="var(--line)" stroke-width="2"/>
+      <g>
+        <rect x="20" y="40" width="300" height="200" rx="10" fill="var(--slate-soft)"/>
+        <text x="36" y="66" class="lb">A · ハイブリッド合成</text>
+        <text x="36" y="88" class="sm">商品アニメーションはBlenderでレンダリング。</text>
+        <text x="36" y="104" class="sm">AIが世界を作る：セット、液体、煙、手。</text>
+        <text x="36" y="120" class="sm">マスクを使って商品を合成で戻す。</text>
+        <text x="36" y="152" class="mono">ロゴ精度<tspan x="136">██████████</tspan></text>
+        <text x="36" y="170" class="mono">リアリティ<tspan x="136">███████░░░</tspan></text>
+        <text x="36" y="188" class="mono">手間<tspan x="136">█████████░</tspan></text>
+        <text x="36" y="222" class="sm">用途：ヒーロー、パックショット、エンドカード。</text>
+
+        <rect x="340" y="40" width="300" height="200" rx="10" fill="var(--surface)" stroke="var(--line)"/>
+        <text x="356" y="66" class="lb">B · キーフレーム → image-to-video</text>
+        <text x="356" y="88" class="sm">完璧な開始フレーム（と終了フレーム）を出す。</text>
+        <text x="356" y="104" class="sm">その間をモデルがアニメーションする。</text>
+        <text x="356" y="120" class="sm">プロンプトでBlenderのレンズと動きを再記述。</text>
+        <text x="356" y="152" class="mono">ロゴ精度<tspan x="456">███████░░░</tspan></text>
+        <text x="356" y="170" class="mono">リアリティ<tspan x="456">█████████░</tspan></text>
+        <text x="356" y="188" class="mono">手間<tspan x="456">█████░░░░░</tspan></text>
+        <text x="356" y="222" class="sm">用途：マクロ、オービット、リビール、しぶき。</text>
+
+        <rect x="660" y="40" width="300" height="200" rx="10" fill="var(--amber-soft)"/>
+        <text x="676" y="66" class="lb">C · プリビズ → video-to-video</text>
+        <text x="676" y="88" class="sm">グレーボックスでカメラとタイミングを確定。</text>
+        <text x="676" y="104" class="sm">モデルがフォトリアルに「撮り直す」。</text>
+        <text x="676" y="120" class="sm">@video1 ＝ カメラとライトのマスター。</text>
+        <text x="676" y="152" class="mono">ロゴ精度<tspan x="776">████░░░░░░</tspan></text>
+        <text x="676" y="170" class="mono">リアリティ<tspan x="776">██████████</tspan></text>
+        <text x="676" y="188" class="mono">手間<tspan x="776">███░░░░░░░</tspan></text>
+        <text x="676" y="222" class="sm">用途：人物、車、複雑なアクション。</text>
+      </g>
+    </svg>
+  </div>
+  <p class="note">方式Cは、Higgsfield 3D Jutsuの「グレープロキシ・プリビズ」手法、およびSeedance 2.5のvideo-to-video手法と同じです。<span class="src hf">Higgsfield</span> Seedanceには4秒以上の入力が必要です。短いクリップはフリーズフレームで延ばし、出力を4秒に設定してドリフトを防ぎます。<span class="src hf">Higgsfield</span></p>
+</section>
+
+<!-- ============ BUILDER ============ -->
+<section id="builder">
+  <span class="eyebrow">工程6 · カメラの言語</span>
+  <h2>ディレクターズパネル・プロンプトビルダー</h2>
+  <p>Cinema Studioは、1カットを2つの層に分けます。<b>設定</b>が物理的な世界を決め、<b>プロンプト</b>が何が起きるかを記述します。プリセットは「ハードな制約」で、テキストは提案にすぎません。<span class="src hf">Higgsfield</span> 設定を変えて、生成されるプロンプトを確認してください（プロンプト本文は英語のまま動画モデルに貼り付けます）。</p>
+  <div class="builder">
+    <div class="ctls" id="ctls"></div>
+    <div class="prompt">
+      <pre id="promptOut"></pre>
+      <button class="btn" id="copyBtn" type="button">プロンプトをコピー</button>
+      <div class="why" id="whyOut"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROMPT ARCH ============ -->
+<section id="prompt">
+  <span class="eyebrow">プロンプトの構成</span>
+  <h2>プロが毎回使うセクションの順番</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>セクション</th><th>書く内容</th><th>記述例</th></tr></thead>
+    <tbody>
+      <tr><td><b>全体スタイル</b></td><td>全カットで同じ書き出しにする。ドリフトを防ぐ。</td><td><code>8K IMAX. Photorealistic, no 3D render, no game engine. 24fps, 180° shutter.</code></td></tr>
+      <tr><td><b>使用リファレンス</b></td><td>各@アセットの名前と役割を明記する。</td><td><code>@bottle = exact product, 100% match. @start = first frame.</code></td></tr>
+      <tr><td><b>カメラ</b></td><td>動きは1つ。速度。開始と終了の画角。誤解される解釈を除外する。</td><td><code>Slow 180° orbit, constant radius, lens height 0.3 m. NOT a zoom.</code></td></tr>
+      <tr><td><b>ライティング</b></td><td>光源、方向、色温度。</td><td><code>Single soft key from camera left, 5600K, warm rim behind.</code></td></tr>
+      <tr><td><b>ビート</b></td><td>タイムコードに紐づけた番号付きのアクション。</td><td><code>0–2s condensation beads form · 2–4s drop runs down label</code></td></tr>
+      <tr><td><b>物理挙動</b></td><td>液体、布、髪、接地の振る舞い。</td><td><code>Real contact shadow, no floating, gravity and inertia respected.</code></td></tr>
+      <tr><td><b>配色比率</b></td><td>メイン・サブ・アクセントを60 : 30 : 10で配分。</td><td><code>60% charcoal stone, 30% amber glass, 10% gold cap.</code></td></tr>
+      <tr><td><b>固定条件</b></td><td>絶対に変えてはいけないもの。肯定形で書く。</td><td><code>Label stays sharp and readable; cap stays closed.</code></td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">出典：Seedance 2.5 VFXガイド、Santiagoブレイクダウン、カメラコントロールガイド。<span class="src hf">Higgsfield</span> 「NOT crying」ではなく「dry face, calm eyes」と書きます。モデルは肯定形の指示によく従います。<span class="src hf">Higgsfield</span></p>
+</section>
+
+<!-- ============ SHOT LIST ============ -->
+<section id="shots">
+  <span class="eyebrow">15秒スポット</span>
+  <h2>カット構成：フック、シズル、締め</h2>
+  <p>15秒の広告には3〜5カットが必要です。フック1つ、ディテール1〜2つ、締め1つ。<span class="src hf">Higgsfield</span> アクションつなぎで編集します。トランジションではなくカットでつなぎます。</p>
+  <div class="tl">
+    <div><b>0〜2秒 · フック</b>水滴がキャップに当たるマクロ。音から入る。</div>
+    <div><b>2〜5秒 · 質感</b>ラベルを横切る超マクロのプッシュイン。f/2の浅いピント。</div>
+    <div><b>5〜8秒 · 動き</b>注ぐ／しぶき／湯気。「生きている」瞬間。方式B。</div>
+    <div><b>8〜12秒 · ヒーロー</b>ゆっくり180°オービット、逆光のリムライト。方式Aで合成。</div>
+    <div><b>12〜15秒 · 締め</b>フィックスのパックショット、ロゴ、CTA。Blenderレンダリングのみ。</div>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>カットの種類</th><th>役割</th><th>最適なカメラ</th><th>最適な受け渡し</th></tr></thead>
+    <tbody>
+      <tr><td>ヒーロー</td><td>商品の見せ場</td><td>オービットまたはゆっくりプッシュイン、85 mm</td><td>A · 合成</td></tr>
+      <tr><td>マクロ</td><td>質感、品質</td><td>超マクロ、f/1.4〜2.8</td><td>B · キーフレーム</td></tr>
+      <tr><td>スプラッシュ／注ぎ</td><td>フレッシュさ、勢い</td><td>フィックスまたはゆっくりドリー</td><td>B · キーフレーム</td></tr>
+      <tr><td>湯気／熱</td><td>温度感の表現</td><td>フィックス、逆光</td><td>BまたはA</td></tr>
+      <tr><td>使用シーン</td><td>使い方、ライフスタイル</td><td>トラッキング、手持ち</td><td>C · video-to-video</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ FAILURES ============ -->
+<section id="fixes">
+  <span class="eyebrow">品質管理</span>
+  <h2>よくある失敗と対処法</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>失敗</th><th>原因</th><th>対処</th></tr></thead>
+    <tbody>
+      <tr><td>ロゴが溶ける、文字が崩れる</td><td>モデルが文字を創作する</td><td>Blenderでレンダリングした商品をAIプレートに合成する（方式A）。ロゴは小さくシンプルに。</td></tr>
+      <tr><td>毎回結果が違う</td><td>速度、終了位置、フォーカスが指定されていない</td><td>動きの種類、速度、開始と終了の画角、そして「何ではないか」を明記する。</td></tr>
+      <tr><td>ドリーのはずがズームになる</td><td>動きの指定があいまい</td><td>「Pure forward travel on rails… field of view never changes, no zoom.」</td></tr>
+      <tr><td>CGっぽい／「スロップ」に見える</td><td>ライティングが悪い</td><td>「動画生成がスロップになる原因は、悪いライティングだ」。理由のあるキーライトを1つ使う。</td></tr>
+      <tr><td>不自然なスローモーション感</td><td>モデルのデフォルト挙動</td><td>スローが意図でない限り「24fps real-time, NO slow-motion」と書く。</td></tr>
+      <tr><td>カット間でスケールが変わる</td><td>サイズの基準がない</td><td>全カットにサイズ基準フレームを1枚添付する。Blenderならこれが手間なく得られる。</td></tr>
+      <tr><td>4秒を過ぎると商品がドリフトする</td><td>出力が長すぎる</td><td>短いピース（4〜8秒）で生成し、編集でつなぐ。</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">2〜7行目は、Higgsfieldのカメラコントロール、VFX、Cinema Studioの各ガイドに基づきます。<span class="src hf">Higgsfield</span></p>
+</section>
+
+<!-- ============ PRACTICE ============ -->
+<section id="practice">
+  <span class="eyebrow">最初のプロジェクト</span>
+  <h2>練習プラン：ボトル1本で1週間</h2>
+  <ol class="steps">
+    <li><span><b>ブリーフを書く。</b>商品1つ、感情1つ、5カット、15秒、16:9と9:16。</span></li>
+    <li><span><b>Blenderでボトルをモデリングする。</b>実寸スケール、ベベル、ガラスIOR 1.5、ラベルはテクスチャで。</span></li>
+    <li><span><b>ライティングする。</b>HDRI＋ソフトなキー1灯＋ストリップライト2灯。AgXビュー。スチルを1枚レンダリング。</span></li>
+    <li><span><b>カメラをアニメーションする。</b>オービット1つ、プッシュイン1つ。85 mm、f/2.8。開始・終了フレームと商品マスクをレンダリング。</span></li>
+    <li><span><b>生成する。</b>開始フレームからimage-to-video。720p（約$2 / 8秒）でテストし、良いものだけ1080p（約$4 / 8秒）で。<span class="src hf">Higgsfield</span></span></li>
+    <li><span><b>ヒーローカットを合成する。</b>マスクを使い、最良のAIプレートの上にBlenderの商品を戻す。</span></li>
+    <li><span><b>仕上げる。</b>アクションつなぎで編集し、1枚の基準スチルに合わせてグレーディング。音楽より先にSEを入れる。各アスペクト比で書き出す。</span></li>
+  </ol>
+  <p class="note">このアプリには、すでにBlender MCP接続があります。実際のシーンで練習したい場合は、工程2〜4を起動中のBlenderに直接構築できます。</p>
+</section>
+
+<footer>
+  <h3 style="margin-bottom:8px">参照したHiggsfieldガイド</h3>
+  <ul>
+    <li><a href="https://higgsfield.ai/blog/higgsfield-blender-plugin">Higgsfield for Blender</a></li>
+    <li><a href="https://higgsfield.ai/blog/higgsfield-3d-jutsu">3D Jutsu</a></li>
+    <li><a href="https://higgsfield.ai/blog/cinema-studio-3.5-full-tutorial">Cinema Studio 3.5 チュートリアル</a></li>
+    <li><a href="https://higgsfield.ai/blog/ai-video-camera-control">カメラワーク、アングル、レンズ</a></li>
+    <li><a href="https://higgsfield.ai/blog/turn-your-video-into-cinema-using-wan-camera-control">WAN カメラコントロール</a></li>
+    <li><a href="https://higgsfield.ai/blog/ai-vs-vfx">Seedance 2.5 VFXワークフロー</a></li>
+    <li><a href="https://higgsfield.ai/blog/ai-car-commercial-youtube-guide">AIによる自動車CM</a></li>
+    <li><a href="https://higgsfield.ai/blog/Santiago-breakdown">AI短編映画の演出</a></li>
+    <li><a href="https://higgsfield.ai/blog/food-product-video-ad-ai-2026">食品の商品動画広告</a></li>
+    <li><a href="https://higgsfield.ai/blog/sports-product-video-ads-ai-2026">スポーツ用品の動画広告</a></li>
+    <li><a href="https://higgsfield.ai/blog/ai-product-videos-no-studio">スタジオなしで作る商品動画</a></li>
+    <li><a href="https://higgsfield.ai/blog/claude-ad-production-end-to-end">Claudeによる広告制作</a></li>
+  </ul>
+  <p style="margin-top:12px">価格とモデル名は、2026年時点のブログ記載に基づきます。頻繁に変わります。</p>
+</footer>
+</div>
+
+<script>
+(function(){
+  /* ---------- stage explorer ---------- */
+  var stages=[
+    {n:"1 · ブリーフ",t:"ブリーフとカット表",
+     d:["フック（最初の2秒）、商品のベネフィット、CTA、配信プラットフォームを決める。","1カット1行で書く：種類、レンズ、動き、尺。各カットは最大15秒（1回の生成分）。","アスペクト比をこの時点で決める：9:16はReels/TikTok、1:1はフィード、16:9はYouTube、21:9はシネマティック。"],
+     o:"カット表：# · 種類 · レンズ · 動き · 秒数 · 受け渡し方式（A/B/C）。",s:"hf"},
+    {n:"2 · アセット",t:"動画の前にアセットを固定する",
+     d:["ニュートラルグレーの背景でリファレンスシートを作る：正面、背面、アップ。","顔固定のコツ：全身フレームから頭部を切り出し、1枚のアップだけを顔のソースにする。","各アセットを@名前で登録する（例：@bottle、@studio）。プロンプトに正しい画像が自動で添付される。","ロケーションのスチルを1枚選び、以降すべてのカットの色基準にする。"],
+     o:"@tag一覧：商品、人物、ロケーション、小道具、サイズ基準フレーム。",s:"hf"},
+    {n:"3 · モデル",t:"Blenderでのモデリングとマテリアル",
+     d:["CADを読み込むか、採寸した写真から実寸でモデリングする。","全エッジにベベル。微細なラフネス、ほこり、指紋を加える。","ロゴとラベルはUVテクスチャに載せ、常に正確に保つ。"],
+     o:"形状とブランディングの唯一の正となる商品の.blendファイル。",s:"gen"},
+    {n:"4 · ライト＋カメラ",t:"Blenderでのライティングとカメラ",
+     d:["HDRI＋エリアライトのソフトボックス＋映り込みライン用のストリップライト。","実際のセンサーと焦点距離。フォーカスオブジェクトで被写界深度。","1カットにカメラワーク1つ。速度カーブにはイージングをかける。"],
+     o:"固定したカメラパスと、全カットで使い回すライトリグ。",s:"gen"},
+    {n:"5 · レンダリング",t:"キー画とプリビズのレンダリング",
+     d:["開始・終了フレーム用にCyclesでスチルを出す（方式B）。","合成用に商品アニメーション＋Cryptomatteマスク（方式A）。","カメラとタイミング確認用のグレーボックス・プレイブラスト（方式C）。"],
+     o:"カットごと：start.png、end.png、product_mask.exr、previz.mp4。",s:"gen"},
+    {n:"6 · 生成",t:"動画生成",
+     d:["まずディレクターズパネルを設定する：ジャンル、色、ライティング、カメラフォーマット、レンズ、焦点距離、絞り、ムーブスタイル。","プロンプトは決まったセクション順で書く（下記参照）。Blenderのレンズと動きを言葉で繰り返す。","720pでテストし、良いものを1080pまたは4Kに上げる。Recreateで同じ設定を再実行する。","1本のスポット内では、ムーブスタイル、レンズ、ライティングを全カットで固定する。"],
+     o:"カットごとに4〜8秒のクリップを複数テイク生成し、ベストを選ぶ。",s:"hf"},
+    {n:"7 · 仕上げ",t:"編集、グレーディング、音",
+     d:["アクションまたはリアクションでつなぐ。ビート間はカットでつなぐ。","ロゴを完璧にすべき箇所では、正確な商品を合成で戻す。","全クリップを1枚の基準スチルに合わせてグレーディングし、フィルムグレインは最後に足す。","音はSEから組む（注ぐ音、グラスの音、ルームトーン）。無音も効果を持つ。"],
+     o:"本編マスター＋グレーディング済みクリップ＋ミックス済みの音。",s:"hf"},
+    {n:"8 · バリエーション",t:"バリエーションとサイズ展開",
+     d:["承認済みの1本からフック違いを作る。撮り直しはしない。","タイミングとカメラを保ったまま、商品や出演者を差し替える。","アスペクト比ごとにリフレームする。テキストは動きのある領域から離す。","公開前に全出力を確認する。予算の変更は手動で行う。"],
+     o:"プラットフォームごとにテスト済みのバージョン一式。",s:"hf"}
+  ];
+  var tabs=document.getElementById("stageTabs"),panel=document.getElementById("stagePanel");
+  function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;")}
+  function show(i){
+    var s=stages[i];
+    Array.prototype.forEach.call(tabs.children,function(b,j){b.setAttribute("aria-selected",j===i?"true":"false")});
+    panel.innerHTML='<div><h3>'+esc(s.t)+'<span class="src '+s.s+'">'+(s.s==="hf"?"Higgsfield":"現場の慣例")+'</span></h3><ol>'+s.d.map(function(x){return"<li>"+esc(x)+"</li>"}).join("")+'</ol></div><div><div class="k">この工程の成果物</div><div class="out" style="margin-top:8px">'+esc(s.o)+'</div></div>';
+    try{localStorage.setItem("b2c-stage-ja",i)}catch(e){}
+  }
+  stages.forEach(function(s,i){var b=document.createElement("button");b.type="button";b.setAttribute("role","tab");b.textContent=s.n;b.onclick=function(){show(i)};tabs.appendChild(b)});
+  var start=0;try{var v=parseInt(localStorage.getItem("b2c-stage-ja"),10);if(v>=0&&v<stages.length)start=v}catch(e){}
+  show(start);
+
+  /* ---------- prompt builder ---------- */
+  var opts={
+    product:{l:"商品",type:"text",v:"amber glass perfume bottle with a gold cap"},
+    genre:{l:"ジャンル",o:{"Drama":"抑えた映像のロジック、意図のあるライティング","Epic":"スケール感、環境そのものが主役","Action":"躍動するフレーミング、凝縮された緊張感","General":"ニュートラル、ジャンルの演出なし","Noir":"影のロジック、抑制"}},
+    color:{l:"カラー",o:{"Bleached Warm":"琥珀色があふれる、マジックアワーの郷愁","Naturalistic Clean":"忠実な色再現。食品やブランドカラーに最適","Teal & Orange Epic":"ブロックバスター的なコントラスト","Cold Steel":"スチールブルー。テック系やスポーツ向け","Hyper Neon":"最大彩度、夜の都市","Classic B&W":"モノクロの高級感"}},
+    light:{l:"ライティング",o:{"Contre-jour":"逆光のハロー。リムライトでガラスを背景から分離","Soft Cross":"カメラに対して90°のサイドライト、立体感を彫り出す","Practicals":"画面内の光源だけで照らす。隠しフィルなし","Window":"やわらかな自然光の流れ","Silhouette":"明るい背景に被写体を置く"}},
+    format:{l:"カメラ",o:{"Fine Film":"1フレーム目から35mmフィルムの温かみと自然なグレイン","Clean Digital":"精密さ。パックショット向けの最大解像度","Raw 16mm":"強いグレイン、狭い階調"}},
+    lens:{l:"レンズ",o:{"Extreme Macro":"近接感、浅い被写界深度、拡大された質感","Clinical Sharp":"光学的なクセがゼロ。広告の明瞭さに最適","Anamorphic":"楕円ボケ、横に伸びるフレア、劇場的","Warm Halation":"にじむハイライト、やわらかなグロー"}},
+    focal:{l:"焦点距離",o:{"75mm":"圧縮効果。背景を引き寄せ、被写体を際立たせる","50mm":"自然な空間、定番","35mm":"人の目に近い自然な視野、周囲の情報が増える","14mm":"ダイナミック、環境が主役"}},
+    aperture:{l:"絞り",o:{"f/1.4 Wide Open":"最大の分離、とろけるような背景","f/4 Moderate":"情報量と分離のバランス","f/11 Deep Focus":"全面にピント。世界の中の商品を見せる"}},
+    moveset:{l:"ムーブスタイル",o:{"Silent Machine":"見えない、精密なモーションコントロール感","Classic Static":"固定フレーム","Dreamy Flow":"穏やかな揺らぎ、親密","Epic Scale":"IMAX級のカメラワーク","Intimate Observer":"近距離の手持ち"}},
+    move:{l:"カメラワーク",o:{
+      "Orbit":"Slow 180° orbit around the product, subject centred, constant radius, constant lens height 0.3 m, decelerating into a static hold. NOT a zoom.",
+      "Dolly in":"One continuous decisive dolly in on straight rails, pure forward travel at constant speed toward the product, locked lens height 0.3 m, easing into a static hold. Field of view never changes, no zoom.",
+      "Optical zoom":"Purely OPTICAL slow zoom in, camera locked on tripod, ZERO parallax, no travel.",
+      "Lateral track":"Lateral tracking shot, strict side view, constant distance, foreground, product and background layers show parallax.",
+      "Static":"Locked-off tripod frame, no camera motion; only the product world moves."}}
+  };
+  var ctls=document.getElementById("ctls"),state={};
+  Object.keys(opts).forEach(function(k){
+    var o=opts[k],row=document.createElement("div");row.className="ctl";
+    var lab=document.createElement("label");lab.htmlFor="b-"+k;lab.textContent=o.l;row.appendChild(lab);
+    var el;
+    if(o.type==="text"){el=document.createElement("input");el.type="text";el.value=o.v}
+    else{el=document.createElement("select");Object.keys(o.o).forEach(function(x){var op=document.createElement("option");op.value=x;op.textContent=x;el.appendChild(op)})}
+    el.id="b-"+k;el.addEventListener("input",render);el.addEventListener("change",render);
+    row.appendChild(el);ctls.appendChild(row);state[k]=el;
+  });
+  function val(k){return state[k].value}
+  function render(){
+    var p=val("product")||"the product";
+    var lines=[
+      ["SETTINGS",val("genre")+" · "+val("color")+" · "+val("light")+" · "+val("format")+" · "+val("lens")+" · "+val("focal")+" · "+val("aperture")+" · "+val("moveset")],
+      ["GLOBAL STYLE","8K photoreal commercial, no 3D render, no game engine. 24fps real-time, 180° shutter motion blur, fine film grain."],
+      ["REFERENCES","@product = exact "+p+", shape, label and logo 100% match the reference. @start = first frame; hold its composition."],
+      ["CAMERA",opts.move.o[val("move")]],
+      ["LIGHT",lightLine(val("light"))],
+      ["BEATS","0–2s: still, light settles on the glass. 2–5s: condensation beads catch the rim light. 5–8s: camera completes its move and holds on the label."],
+      ["PHYSICS","Real contact shadow on the surface, no floating, reflections follow the camera path."],
+      ["COLOUR","60% dark stone, 30% "+(val("color")==="Cold Steel"?"steel blue":"warm amber")+" glass, 10% gold accent."],
+      ["LOCKS","Label stays sharp and readable in every frame. Cap stays closed. One product only."]
+    ];
+    document.getElementById("promptOut").innerHTML=lines.map(function(l){return'<span class="h">'+l[0]+":</span> "+esc(l[1])}).join("\n");
+    var why=["genre","color","light","lens","focal","aperture"].map(function(k){return"<b>"+esc(val(k))+"</b> — "+esc(opts[k].o[val(k)])}).join("<br>");
+    document.getElementById("whyOut").innerHTML=why;
+  }
+  function lightLine(l){
+    return {"Contre-jour":"Key light behind the product, warm rim outlines the glass, soft bounce fill from the table, 4800K.",
+      "Soft Cross":"Single soft key 90° camera left, deep falloff to the right, 5600K.",
+      "Practicals":"Only visible sources light the frame: a desk lamp behind and window glow; no hidden fill.",
+      "Window":"Soft daylight from a large window camera right, gentle falloff, 5600K.",
+      "Silhouette":"Bright backdrop behind, product reads as a dark shape with a thin edge highlight."}[l];
+  }
+  render();
+  var btn=document.getElementById("copyBtn");
+  btn.addEventListener("click",function(){
+    var txt=document.getElementById("promptOut").innerText;
+    function done(m){btn.textContent=m;setTimeout(function(){btn.textContent="プロンプトをコピー"},1600)}
+    function fallback(){var r=document.createRange();r.selectNodeContents(document.getElementById("promptOut"));var s=getSelection();s.removeAllRanges();s.addRange(r);done("選択しました — Ctrl+Cでコピー")}
+    try{navigator.clipboard.writeText(txt).then(function(){done("コピーしました")},fallback)}catch(e){fallback()}
+  });
+})();
+</script>
